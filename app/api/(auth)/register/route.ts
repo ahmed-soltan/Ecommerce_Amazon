@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import prisma from "../../../../lib/prismadb";
 import { NextResponse } from "next/server";
+
 export const POST = async (req: Request) => {
   try {
     const body = await req.json();
@@ -45,6 +46,7 @@ export const POST = async (req: Request) => {
 
   } catch (error) {
     console.log("REGISTER : ", error);
-    return error;
-  }
+    return new NextResponse("INTERAL ERROR", {
+      status: 500,
+  });  }
 };
