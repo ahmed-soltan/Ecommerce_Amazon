@@ -10,7 +10,7 @@ const VendorRegisterPage = async() => {
     return redirect('/')
   }
   return (
-    <div className="p-6">
+    <div className="py-6">
         <Container>
                 <VendorRegisterForm user={user!}/>
         </Container>

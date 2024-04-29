@@ -1,17 +1,17 @@
 import Container from "../../../../components/Container"
 import FormWrap from "../../../../components/FormWrap"
-import RegisterForm from "./RegisterForm"
+import ConfirmUserForm from "./ConfirmUserForm"
 
-const RegisterPage = () => {
+const LoginPage = () => {
   return (
     <div>
         <Container>
             <FormWrap>
-                <RegisterForm/>
+                <ConfirmUserForm/>
             </FormWrap>
         </Container>
     </div>
   )
 }
 
-export default RegisterPage
+export default LoginPage

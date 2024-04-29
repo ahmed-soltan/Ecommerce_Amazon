@@ -13,14 +13,13 @@ const Section1 = () => {
           The fastest-growing and preferred acquisition channel for over half
           our multichannel sellers.1
         </p>
-        <Link href={'/vendor-register'}>
-        
-        <Button
-          variant={"amazonBtn"}
-          className="w-[150px] h-[60px] rounded-full text-xl text-slate-800"
-        >
-          Sign Up
-        </Button>
+        <Link href={"/confirm-user"}>
+          <Button
+            variant={"amazonBtn"}
+            className="w-[150px] h-[60px] rounded-full text-xl text-slate-800"
+          >
+            Sign Up
+          </Button>
         </Link>
       </div>
       <div className="relative">

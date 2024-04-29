@@ -4,7 +4,7 @@ import LoginForm from "./LoginForm"
 
 const LoginPage = () => {
   return (
-    <div className="p-6">
+    <div>
         <Container>
             <FormWrap>
                 <LoginForm/>
