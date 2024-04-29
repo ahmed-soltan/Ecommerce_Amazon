@@ -90,6 +90,7 @@ const Step1 = ({ form }: any) => {
               name="country"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Country</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
@@ -124,6 +125,7 @@ const Step1 = ({ form }: any) => {
             name="state"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>State</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   value={field.value}
@@ -149,7 +151,7 @@ const Step1 = ({ form }: any) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+            />
         </div>
         <div className="flex flex-col gap-2 w-full">
           <div>
@@ -158,6 +160,7 @@ const Step1 = ({ form }: any) => {
               name="city"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>City</FormLabel>
                   <FormControl>
                     <Select
                       onValueChange={field.onChange}

@@ -99,7 +99,7 @@ model Interests {
 
 model Products {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  vendorId String @unique @db.ObjectId
+  vendorId String  @db.ObjectId
 
   name        String
   price       Float

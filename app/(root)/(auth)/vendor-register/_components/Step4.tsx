@@ -15,10 +15,12 @@ import Image from "next/image";
 
 const Step4 = ({
   form,
-  handleSetImage
+  handleSetImage,
+  vendorImage
 }: {
   handleSetImage:(image:string)=>void,
   form:any,
+  vendorImage?:string
 }) => {
   const [image , setImage] = useState('')
   return (
@@ -27,7 +29,10 @@ const Step4 = ({
         <div className="flex flex-col items-start gap-2">
           <Label>Store Logo</Label>
           {image && (
-            <Image src={image} alt="Store Logo" width={70} height={70}/>
+            <Image src={image} alt="Store Logo" width={130} height={130}/>
+          )}
+          {vendorImage && (
+            <Image src={vendorImage} alt="Store Logo" width={130} height={130}/>
           )}
           <div>
           <FileUpload
