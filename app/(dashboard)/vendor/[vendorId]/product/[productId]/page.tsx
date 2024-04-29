@@ -11,6 +11,7 @@ import ProductPriceEdit from "./_components/ProductPriceEdit";
 import ProductImagesEdit from "./_components/ProductImagesEdit";
 import ProductAvailabiltyEdit from "./_components/ProductAvailabiltyEdit";
 import ProductSizesEdit from "./_components/ProductSizesEdit";
+import Banner from "@/components/banner";
 
 const page = async ({
   params,
@@ -23,6 +24,13 @@ const page = async ({
   }
   
   return (
+    <>
+        {!product.inStock && (
+        <Banner
+          variant={"warning"}
+          label="This Product is not in Stock. It will not be Visible to your Customer"
+        />
+      )}
     <div className="p-6 flex flex-wrap flex-col items-start gap-4">
       <h1 className="text-slate-800 font-medium text-3xl">Product Details</h1>
       <Separator />
@@ -42,34 +50,34 @@ const page = async ({
         product={product}
         productId={params.productId}
         vendorId={params.vendorId}
-      />
+        />
       <div className="flex flex-wrap items-center gap-4 w-full">
         <ProductAvailabiltyEdit
           product={product}
           productId={params.productId}
           vendorId={params.vendorId}
-        />
+          />
         <ProductBrandEdit
           product={product}
           productId={params.productId}
           vendorId={params.vendorId}
-        />
+          />
       <ProductDiscountEdit
         product={product}
         productId={params.productId}
         vendorId={params.vendorId}
-      />
+        />
       </div>
       <ProductCategoryEdit
         product={product}
         productId={params.productId}
         vendorId={params.vendorId}
-      />
+        />
       {product.category !== "Clothes" && product.category !== "Shoes" ? null : (
         <ProductSizesEdit
-          product={product}
-          productId={params.productId}
-          vendorId={params.vendorId}
+        product={product}
+        productId={params.productId}
+        vendorId={params.vendorId}
         />
       )}
 
@@ -77,8 +85,9 @@ const page = async ({
         product={product}
         productId={params.productId}
         vendorId={params.vendorId}
-      />
+        />
     </div>
+        </>
   );
 };
 
