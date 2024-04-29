@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ProductTitle from "../../../create-product/_components/ProductTitle";
 import ProductDescription from "../../../create-product/_components/ProductDescription";
+import { Preview } from "@/components/preview";
 
 type ProductDescriptionEditProps = {
   product: Products & {
@@ -94,7 +95,7 @@ const ProductDescriptionEdit = ({
         <div className="flex flex-col items-start gap-4 my-2">
           <div>
             Product Description :
-            <span className="text-slate-500"> {product.description}</span>
+            <Preview value={product.description}/>
           </div>
          
         </div>

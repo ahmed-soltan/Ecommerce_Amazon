@@ -20,6 +20,15 @@ export const POST = async (req: Request) => {
       },
     });
 
+    await prisma.user.update({
+      where: {
+        id: currentUser.id,
+      },
+      data: {
+        role:"VENDOR",
+      },
+    })
+
     return NextResponse.json(vendor);
   } catch (error) {
     console.log("REGISTER : ", error);

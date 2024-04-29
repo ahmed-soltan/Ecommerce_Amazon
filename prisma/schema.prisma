@@ -22,8 +22,8 @@ model User {
 
   role Role @default(CUSTOMER)
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   profile Profile[]
   Session Session[]
@@ -41,8 +41,8 @@ model Profile {
   userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   clothingShoesPreferences ClothingShoesPreferences?
   Review                   Review[]
@@ -71,8 +71,8 @@ model Vendor {
   storeName        String
   storeDescription String
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   Products Products[]
@@ -114,8 +114,8 @@ model Products {
   images  Image[]
   reviews Review[]
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Review {
@@ -129,8 +129,8 @@ model Review {
   profile Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
   product Products @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Whislist {
@@ -148,7 +148,7 @@ model Order {
   status          String
   deliveryStatus  String
   paymentIntentId String      @unique
-  createdAt       DateTime?   @default(now())
+  createdAt       DateTime   @default(now())
   products        OrderType[]
 
   profileId String  @db.ObjectId

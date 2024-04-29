@@ -1,15 +1,13 @@
 import prisma from "../lib/prismadb";
 
 
-export const getProductById = async (productId:string , vendorId?:string) => {
-  if(!productId ){
-    return null;
-  }
+export const getProductByCategoryId = async (category:string) => {
+
   try {
-    const product = await prisma.products.findUnique({
+    const product = await prisma.products.findMany({
       where: {
-        id: productId,
-        vendorId: vendorId,
+        category:category,
+        inStock: true
       },
       include: {
         reviews: {
@@ -17,7 +15,9 @@ export const getProductById = async (productId:string , vendorId?:string) => {
             createdAt: "desc",
           }
         },
-
+      },
+      orderBy: {
+        name: "desc",
       },
     });
     return product;
