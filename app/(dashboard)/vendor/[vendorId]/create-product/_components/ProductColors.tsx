@@ -61,7 +61,7 @@ const ProductColors = ({
         </>
       )}
       <h2 className="font-medium text-slate-700 text-lg">
-        Choose Image's Color
+        Choose Image&apos;s Color
       </h2>
       <div className="flex items-center justify-start flex-wrap gap-4">
         {colors.map((color, index) => {

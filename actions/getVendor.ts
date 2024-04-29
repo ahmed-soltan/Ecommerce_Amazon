@@ -8,7 +8,7 @@ export const getVendor = async (userId:string) => {
         userId: userId,
       },
       include:{
-        Products:true
+        Products:true,
       }
     });
     return vendor;

@@ -16,6 +16,7 @@ export const getCurrentUser = async () => {
     },
     include: {
       profile: true,
+      vendor:true
     },
   });
 
