@@ -16,7 +16,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         <Navbar />
         <Nav />
       </div>
-      <div className="block md:hidden h-[40px] w-full inset-x-0 fixed z-50">
+      <div className="block md:hidden">
         <MobileNavbar />
       </div>
       <main className="pt-[60px] md:pt-[100px] ">

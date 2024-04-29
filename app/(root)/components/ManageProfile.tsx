@@ -13,7 +13,7 @@ import unknown from "../../../public/unknown.jpeg";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { ArrowRight, PlusCircle } from "lucide-react";
+import { ArrowRight, Loader2, PlusCircle } from "lucide-react";
 import { AccountListsProps } from "./AccountLists";
 import { Separator } from "@/components/ui/separator";
 import { AddProfile } from "./AddProfile";
@@ -108,10 +108,14 @@ export const ManageProfiles = ({ user }: AccountListsProps) => {
           <DialogTitle>Who is Shopping</DialogTitle>
         </DialogHeader>
         <Separator />
+        {isLoading && (
+        <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center bg-slate-200 opacity-50 rounded-md cursor-not-allowed pointer-events-none">
+          <Loader2 className="animate-spin w-6 h-6" />
+        </div>
+      )}
 
         <div className={cn(
           "flex items-start flex-col gap-4 w-full",
-          isLoading && "cursor-not-allowed pointer-events-none bg-slate-100 opacity-75"
         )}>
           {user.profile.map((profile: any) => {
             return (

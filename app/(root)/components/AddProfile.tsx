@@ -63,17 +63,18 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
             await axios.post('/api/profiles' , profileData);
             toast.success("profile Created successfully");
             router.refresh();
-            router.push('/')
-        }else{
+          }else{
             await axios.patch(`/api/profiles/${profile.id}` , profileData);
             toast.success("profile Updated successfully");
             router.refresh();
-        }
+          }
     } catch (error) {
         console.error(error);
         toast.error("Something went wrong");
+    }finally{
+          router.push('/')
     }
-  };
+  }; 
 
   return (
     <Dialog>

@@ -1,0 +1,54 @@
+.google-translate-container {
+    position: relative;
+    height: 40px;
+    border:1px solid black !important;
+    border-radius: 3px;
+  }
+  
+  /* Style for the Google Translate element */
+  .google-translate-element {
+    display: inline-block;
+    background-color: transparent !important;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    position: relative;
+  }
+  
+  /* .google-translate-element select[aria-label] {
+    color: #fff !important;
+  } */
+  /* Style for the language selector dropdown */
+  .google-translate-element select {
+    appearance: none !important;
+    max-width: 250px;
+    padding: 3px 10px;
+    background-color: white !important;
+    border-radius: 8px;
+    color: #000 !important;
+    font-size: 16px;
+    width: 100%;
+  }
+  .google-translate-element select:focus{
+    outline: none !important;
+    border: none !important;
+  }
+  
+  .google-translate-element span,
+  .google-translate-element #text {
+    display: none !important;
+  }
+  /* Style for the globe icon */
+  .google-translate-container .fa-globe {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #000;
+    
+  }
+  .skiptranslate.goog-te-gadget:nth-child(2) {
+    display: none !important;
+  }
+  

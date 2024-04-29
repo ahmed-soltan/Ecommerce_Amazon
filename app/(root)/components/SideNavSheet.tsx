@@ -1,3 +1,4 @@
+import { sideNavLinks } from "@/Utils/NavLinks";
 import { getCurrentProfile } from "@/actions/getCurrentProfile";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { Button } from "@/components/ui/button";
@@ -10,26 +11,24 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-
-const navLinks = [
-  { label: "Toady's Deals", url: "/products" },
-  {
-    label: "Sell",
-    url: "/sell",
-  },
-  { label: "Buy Again", url: "/buy-again" },
-  { label: `Amazon.com`, url: "#" },
-  { label: "Browsing History", url: "#" },
-  { label: "Your WishList", url: "/wishlist" },
-];
+import GoogleTranslate from "./GoogleTranslation";
 
 export const SideNavSheet = async () => {
   const user = await getCurrentUser();
+  const navLinks = [
+    { label: "Toady's Deals", url: "/products" },
+    {
+      label: user?.vendor ? "Dashboard" : "Sell",
+      url: user?.vendor ? `/vendor/${user.vendor.id}` : "/sell",
+    },
+    { label: "Buy Again", url: "/buy-again" },
+    { label: `Amazon.com`, url: "#" },
+    { label: "Browsing History", url: "#" },
+    { label: "Your WishList", url: "/wishlist" },
+  ];
 
-  const profile = user?.id && await getCurrentProfile(user?.id);
+  const profile = user?.id && (await getCurrentProfile(user?.id));
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -37,12 +36,15 @@ export const SideNavSheet = async () => {
           variant="ghost"
           className="flex items-center gap-2 font-bold hover:bg-transparent hover:text-white p-0"
         >
-          <MenuIcon className="w-5 h-5" />
+          <MenuIcon className="w-7 h-7" />
           <p className="hidden md:block">All</p>
         </Button>
       </SheetTrigger>
       <SheetContent side={"left"}>
         <SheetHeader className=" w-full">
+          <h1 className="font-medium text-xl text-start">
+            {profile ? `Hello, ${profile.name}!` : `Hello, Guest!`}
+          </h1>
           <Separator />
         </SheetHeader>
         <div className="flex items-start flex-col gap-4 my-2">
@@ -58,9 +60,42 @@ export const SideNavSheet = async () => {
                 </Link>
               );
             })}
-          </div>
-          <h1 className="font-bold text-xl text-slate-800">Shop By Category</h1>
           <Separator />
+          </div>
+          <h1 className="font-medium text-xl text-slate-800">
+            Shop By Category
+          </h1>
+          <Separator />
+          {sideNavLinks.map((link) => {
+            return (
+              <div
+                className="flex items-center flex-col gap-4"
+                key={link.title}
+              >
+                <h1 className="font-medium text-xl text-slate-800">
+                  {link.title}
+                </h1>
+                {link.links.map((link) => (
+                  <Link
+                    href={link.url}
+                    key={link.label}
+                    className="w-full flex flex-row items-center justify-between cursor-pointer gap-2"
+                  >
+                    <h1  className="font-medium text-slate-600">
+
+                    {link.label}
+                    </h1>
+                  </Link>
+                ))}
+              </div>
+            );
+          })}
+          {!user && (
+            <Link href={'/login'}>
+              Login
+            </Link>
+          )}
+          <GoogleTranslate/>
         </div>
       </SheetContent>
     </Sheet>
