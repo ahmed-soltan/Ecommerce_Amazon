@@ -23,10 +23,10 @@ const page = async ({
   }
   
   return (
-    <div className="p-6 flex flex-col items-start gap-4">
+    <div className="p-6 flex flex-wrap flex-col items-start gap-4">
       <h1 className="text-slate-800 font-medium text-3xl">Product Details</h1>
       <Separator />
-      <div className="flex items-center gap-4 w-full">
+      <div className="flex flex-wrap items-center gap-4 w-full">
         <ProductTitleEdit
           product={product}
           productId={params.productId}
@@ -43,7 +43,7 @@ const page = async ({
         productId={params.productId}
         vendorId={params.vendorId}
       />
-      <div className="flex items-center gap-4 w-full">
+      <div className="flex flex-wrap items-center gap-4 w-full">
         <ProductAvailabiltyEdit
           product={product}
           productId={params.productId}
