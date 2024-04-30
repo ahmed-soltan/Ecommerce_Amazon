@@ -1,6 +1,6 @@
 "use client";
 import { Products, Profile, Review, User } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductImage from "./ProductImage";
 import { Button } from "@/components/ui/button";
 import SetColor from "./SetColor";
@@ -10,6 +10,8 @@ import { formatPrice } from "@/lib/formatPrice";
 import { Rating } from "@mui/material";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/preview";
+import { useCart } from "@/hooks/useCart";
+import toast from "react-hot-toast";
 
 type ProductContainerDetailsProps = {
   product: Products & {
@@ -45,6 +47,7 @@ const ProductContainerDetails = ({
   user,
 }: ProductContainerDetailsProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const {handleAddToCartProduct , cartProducts} = useCart()
   const [cartProduct, setcartProduct] = useState<cartProductType>({
     productId: product.id,
     name: product.name,
@@ -56,6 +59,11 @@ const ProductContainerDetails = ({
       product.price - (product.price * (product?.discount || 0 * 100)) / 100,
     sizes: [],
   });
+
+  useEffect(() => {
+   console.log(cartProducts)
+  }, [cartProducts]);
+
 
   const productRating =
     product.reviews &&
@@ -71,6 +79,8 @@ const ProductContainerDetails = ({
       return { ...prev, selectedImage: image };
     });
   };
+
+  
   const handleSelectSizes = (size: string) => {
     setcartProduct((prev: cartProductType) => {
       const index = prev?.sizes?.indexOf(size);
@@ -85,8 +95,13 @@ const ProductContainerDetails = ({
     });
   };
 
+  const AddToCart = (product:cartProductType)=>{
+    handleAddToCartProduct(product);
+    toast.success(`${product.name} Added To Cart`)
+  }
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 bg-white p-2 rounded-md">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <ProductImage
           cartProduct={cartProduct}
@@ -197,7 +212,7 @@ const ProductContainerDetails = ({
                       cartProduct?.sizes?.length === 0)
                   }
                   variant={"amazonBtn"}
-                  onClick={() => console.log(cartProduct)}
+                  onClick={() => AddToCart(cartProduct)}
                 >
                   Add To Cart
                 </Button>
@@ -212,9 +227,16 @@ const ProductContainerDetails = ({
 
       <div>
         <h2 className="text-slate-800 text-3xl font-medium border-b p-2">
-          Product Description
+          Product Details
         </h2>
-        <Preview value={product.description} />
+        <Preview value={product.details} />
+      </div>
+      <Separator />
+      <div>
+        <h2 className="text-slate-800 text-3xl font-medium border-b p-2 my-2">
+          Products Description
+        </h2>
+        <p className="text-slate-600 text-sm">{product.description}</p>
       </div>
       <Separator />
     </div>

@@ -20,7 +20,7 @@ const ProfileIdPage = async ({ params }: { params: { profileId: string } }) => {
     <div className="p-6">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-8 gap-5">
-          <div className="lg:col-span-2 border flex items-center justify-start flex-col gap-3 p-5">
+          <div className="lg:col-span-2 border flex items-center justify-start flex-col gap-3 p-5 bg-white rounded-md max-h-[250px]">
             <div className="relative aspect-auto">
               <Image
                 src={profile.profileImage || unknown}
@@ -42,7 +42,7 @@ const ProfileIdPage = async ({ params }: { params: { profileId: string } }) => {
               />
             </div>
           </div>
-          <div className="border lg:col-span-5 p-5">
+          <div className="border lg:col-span-5 p-5 bg-white rounded-md ">
             <div className="flex flex-col items-start w-full gap-5">
               <h1 className="text-3xl font-medium">Your Profile </h1>
               <p className="text-slate-700 text-sm">

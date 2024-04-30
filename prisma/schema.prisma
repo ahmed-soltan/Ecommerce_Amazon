@@ -104,6 +104,7 @@ model Products {
   name        String
   price       Float
   description String
+  details String
   brand       String
   category    String
   inStock     Boolean
@@ -143,17 +144,31 @@ model Whislist {
 
 model Order {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId
+
   amount          Float
-  currency        String
-  status          String
   deliveryStatus  String
-  paymentIntentId String      @unique
-  createdAt       DateTime   @default(now())
   products        OrderType[]
+
+  
+  createdAt       DateTime   @default(now())
+    updatedAt DateTime @updatedAt
+
 
   profileId String  @db.ObjectId
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
+
+model StripeCustomer {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  profileId String @unique
+  
+  stripeCustomerId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
 
 type OrderType {
   id                 String

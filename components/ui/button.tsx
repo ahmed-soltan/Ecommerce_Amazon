@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-slate-100 text-slate-900 hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
         ghost:
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
-        link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
+        link: "text-cyan-600 underline hover:underline dark:text-slate-50",
         amazonBtn:
           "bg-yellow-500 text-white hover:bg-yellow-600/90 dark:bg-yellow-600 dark:hover:bg-yellow-700/90 rounded-md ",
       },

@@ -13,8 +13,9 @@ import toast from "react-hot-toast";
 import ProductTitle from "../../../create-product/_components/ProductTitle";
 import ProductDescription from "../../../create-product/_components/ProductDescription";
 import { Preview } from "@/components/preview";
+import ProductDetails from "../../../create-product/_components/ProductDetails";
 
-type ProductDescriptionEditProps = {
+type ProductDetailsEditProps = {
   product: Products & {
     reviews: Review[] | null;
     images: {
@@ -27,16 +28,16 @@ type ProductDescriptionEditProps = {
   vendorId: string;
 };
 
-const ProductDescriptionEdit = ({
+const ProductDetailsEdit = ({
   product,
   vendorId,
   productId,
-}: ProductDescriptionEditProps) => {
+}: ProductDetailsEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const form = useForm({
     defaultValues:{
-        description: product.description || "",
+        details: product.details || "",
     }
 })
 
@@ -59,7 +60,7 @@ const ProductDescriptionEdit = ({
     <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-medium text-slate-700">
-          Product Description
+          Product Details
         </h2>
         <Button
           variant={"ghost"}
@@ -81,7 +82,7 @@ const ProductDescriptionEdit = ({
       {isEditing ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ProductDescription form={form} />
+            <ProductDetails form={form} />
             <Button
               type="submit"
               className="my-2"
@@ -94,8 +95,8 @@ const ProductDescriptionEdit = ({
       ) : (
         <div className="flex flex-col items-start gap-4 my-2">
           <div>
-            Product Description :
-            <span className="text-slate-500"> {product.description}</span>
+            Product Details :
+            <Preview value={product.details}/>
           </div>
          
         </div>
@@ -104,4 +105,4 @@ const ProductDescriptionEdit = ({
   );
 };
 
-export default ProductDescriptionEdit;
+export default ProductDetailsEdit;

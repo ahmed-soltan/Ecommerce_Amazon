@@ -5,14 +5,16 @@ import { AccountLists } from "./AccountLists";
 
 import logo from '../../../public/amazonLogo.png'
 import { getCurrentUser } from "@/actions/getCurrentUser";
+import { Package2Icon, PackageIcon, ShoppingCart } from "lucide-react";
+import CartTotal from "./CartTotal";
 
 const Navbar = async() => {
 
   const user = await getCurrentUser();
-
+  
   return (
     <div className="w-full">
-      <div className="flex flex-row justify-between items-center bg-slate-900 text-white gap-3 px-4 py-[1px]">
+      <div className="flex flex-row justify-start items-center bg-slate-900 text-white gap-3 px-4 py-[1px]">
         <div className="relative">
           <Link href="/">
             <Image
@@ -28,11 +30,12 @@ const Navbar = async() => {
         <div>
             <AccountLists user={user!}/>
         </div>
-        <div>
-            Cart
+        <div className="relative">
+        <CartTotal/>
         </div>
         <div>
-            Orders
+           <PackageIcon className="w-7 h-7"/>
+           <p>Orders</p>
         </div>
       </div>
     </div>

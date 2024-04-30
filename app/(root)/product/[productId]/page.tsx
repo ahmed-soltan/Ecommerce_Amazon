@@ -12,7 +12,7 @@ const page = async ({ params }: { params: { productId: string } }) => {
     return null;
   }
   const products = await getProductByCategoryId(product?.category)
-  const relatedProducts = products?.filter(product => product.id !== product.id)
+  const relatedProducts = products?.filter(product => product.id === product.id).slice(0,12)
   const relatedProductsLength = relatedProducts?.length || 0
   const user = await getCurrentUser();
   if (!user) {
@@ -21,10 +21,12 @@ const page = async ({ params }: { params: { productId: string } }) => {
   return (
     <div className="py-6">
       <Container>
+        <div className="flex flex-col items-start gap-y-10">
+
         <ProductContainerDetails product={product} user={user}/>
         {
           relatedProductsLength>0 && (
-            <div>
+            <div className="bg-white p-2 rounded-md">
               <h2 className="text-3xl text-slate-800 my-3">Related Products</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {relatedProducts?.map((product) => (
@@ -36,6 +38,7 @@ const page = async ({ params }: { params: { productId: string } }) => {
             </div>
           )
         }
+        </div>
       </Container>
     </div>
   );

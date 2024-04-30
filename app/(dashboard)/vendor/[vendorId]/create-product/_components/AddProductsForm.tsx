@@ -38,6 +38,7 @@ import ProductSizes from "./ProductSizes";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import ProductDetails from "./ProductDetails";
 
 type AddProductsFormProps = {
   vendorId: string;
@@ -237,6 +238,7 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
           >
             <ProductTitle form={form} />
             <ProductDescription form={form} />
+            <ProductDetails form={form} />
             <ProductPrice form={form} />
             <ProductBrand form={form} />
             <ProductDiscount form={form} />

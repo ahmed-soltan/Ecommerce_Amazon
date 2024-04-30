@@ -12,6 +12,7 @@ import ProductImagesEdit from "./_components/ProductImagesEdit";
 import ProductAvailabiltyEdit from "./_components/ProductAvailabiltyEdit";
 import ProductSizesEdit from "./_components/ProductSizesEdit";
 import Banner from "@/components/banner";
+import ProductDetailsEdit from "./_components/ProductDetailsEdit";
 
 const page = async ({
   params,
@@ -47,6 +48,11 @@ const page = async ({
         />
       </div>
       <ProductDescriptionEdit
+        product={product}
+        productId={params.productId}
+        vendorId={params.vendorId}
+        />
+      <ProductDetailsEdit
         product={product}
         productId={params.productId}
         vendorId={params.vendorId}

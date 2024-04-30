@@ -1,21 +1,20 @@
 import { Editor } from "@/components/editor"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 
-type ProductDescriptionProps = {
+
+type ProductDetailsProps = {
     form:any
 }
-const ProductDescription = ({form}:ProductDescriptionProps) => {
+const ProductDetails = ({form}:ProductDetailsProps) => {
   return (
     <FormField
-        name="description"
+        name="details"
         control={form.control}
         render={({field})=>(
             <FormItem>
-                <FormLabel>Product Description</FormLabel>
+                <FormLabel>Product Details</FormLabel>
                 <FormControl>
-                    <Textarea placeholder="Enter Product Description" {...field}/>
+                    <Editor {...field} />
                 </FormControl>
                 <FormMessage />
             </FormItem>
@@ -24,4 +23,4 @@ const ProductDescription = ({form}:ProductDescriptionProps) => {
   )
 }
 
-export default ProductDescription
+export default ProductDetails
