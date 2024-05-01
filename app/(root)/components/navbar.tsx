@@ -12,10 +12,8 @@ import { redirect } from "next/navigation";
 
 const Navbar = async () => {
   const user = await getCurrentUser();
-  if(!user){
-    return redirect('/login')
-  }
-  const profile = await getCurrentProfile(user?.id);
+
+  const profile = await getCurrentProfile();
 
   return (
     <div className="w-full">

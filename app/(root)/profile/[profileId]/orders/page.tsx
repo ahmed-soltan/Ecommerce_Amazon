@@ -6,17 +6,13 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 
 const OrderPage = async () => {
   const user = await getCurrentUser();
-  if(!user){
-    return redirect('/login')
-  }
-  const profile = await getCurrentProfile(user.id);
-  if(!profile){
-    return redirect('/login')
-  }
+
+  const profile = await getCurrentProfile();
+
   return (
     <div className="py-6">
       <Container>
-        <OrderDetails order={profile?.Order} profileId={profile.id}/>
+        <OrderDetails order={profile?.Order!} profileId={profile?.id!}/>
       </Container>
     </div>
   );

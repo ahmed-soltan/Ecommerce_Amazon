@@ -32,7 +32,7 @@ export const SideNavSheet = async () => {
   if(!user){
     return redirect('/login')
   }
-  const profile =await getCurrentProfile(user?.id);
+  const profile =await getCurrentProfile();
   return (
     <Sheet>
       <SheetTrigger asChild>

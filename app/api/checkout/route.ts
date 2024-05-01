@@ -13,7 +13,7 @@ export const POST = async (req: Request) => {
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
-        const profile = await getCurrentProfile(user.id);
+        const profile = await getCurrentProfile();
         if (!profile) {
             return NextResponse.json({ error: "Profile not found" }, { status: 404 });
         }
