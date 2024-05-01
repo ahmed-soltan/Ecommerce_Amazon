@@ -28,10 +28,6 @@ export const SideNavSheet = async () => {
     { label: "Browsing History", url: "#" },
     { label: "Your WishList", url: "/wishlist" },
   ];
-
-  if(!user){
-    return redirect('/login')
-  }
   const profile =await getCurrentProfile();
   return (
     <Sheet>
