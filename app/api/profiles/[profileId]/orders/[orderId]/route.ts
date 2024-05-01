@@ -1,7 +1,7 @@
-import prisma from "../../../lib/prismadb";
+import prisma from "../../../../../../lib/prismadb";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-export const POST = async (req: Request) => {
+export const PATCH = async (req: Request , {params}:{params:{profileId:string , orderId:string}}) => {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
@@ -14,15 +14,19 @@ export const POST = async (req: Request) => {
     console.log(body)
 
 
-    const profile = await prisma.profile.create({
+    const order = await prisma.order.update({
+      where:{
+        id:params.orderId,
+        profileId:params.profileId,
+      },
       data: {
         ...body,
       },
     });
 
-    return NextResponse.json(profile);
+    return NextResponse.json(order);
   } catch (error) {
-    console.log("PROFILE : ", error);
+    console.log("ORDER : ", error);
     return NextResponse.json(error);
   }
 };

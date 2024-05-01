@@ -28,7 +28,7 @@ export const SideNavSheet = async () => {
     { label: "Your WishList", url: "/wishlist" },
   ];
 
-  const profile = user?.id && (await getCurrentProfile(user?.id));
+  const profile =await getCurrentProfile();
   return (
     <Sheet>
       <SheetTrigger asChild>

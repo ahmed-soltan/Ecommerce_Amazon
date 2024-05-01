@@ -25,7 +25,7 @@ export const PATCH = async (req: Request , {params}:{params:{profileId:string}})
 
     return NextResponse.json(profile);
   } catch (error) {
-    console.log("REGISTER : ", error);
+    console.log("PROFILE : ", error);
     return NextResponse.json(error);
   }
 };

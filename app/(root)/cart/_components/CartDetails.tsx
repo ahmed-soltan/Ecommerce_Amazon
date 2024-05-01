@@ -27,6 +27,7 @@ const CartDetails = () => {
   
       const ShippingFee =100
       const Taxes =( (subTotal * 5)/100)
+      const totalAmount = subTotal+ShippingFee+Taxes
   return (
     <div className="grid grid-cols-1 md:grid-cols-6 gap-2 ">
     <div className=" col-span-4  flex flex-col gap-4">
@@ -92,9 +93,9 @@ const CartDetails = () => {
         <Separator/>
         <h1 className="text-lg flex items-center justify-between">
           Total Amount{" "}
-          <span className="font-medium">{formatPrice(subTotal+ShippingFee+Taxes)}</span>
+          <span className="font-medium">{formatPrice(totalAmount)}</span>
         </h1>
-        <CheckoutButton/>
+        <CheckoutButton cartProducts={cartProducts!} cartProductLength={cartProductLength} totalAmount={totalAmount}/>
       </div>
     </div>
   </div>

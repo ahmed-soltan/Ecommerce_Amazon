@@ -3,18 +3,19 @@ import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { AccountLists } from "./AccountLists";
 
-import logo from '../../../public/amazonLogo.png'
+import logo from "../../../public/amazonLogo.png";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { Package2Icon, PackageIcon, ShoppingCart } from "lucide-react";
 import CartTotal from "./CartTotal";
+import { getCurrentProfile } from "@/actions/getCurrentProfile";
 
-const Navbar = async() => {
-
+const Navbar = async () => {
   const user = await getCurrentUser();
-  
+  const profile = await getCurrentProfile();
+
   return (
     <div className="w-full">
-      <div className="flex flex-row justify-start items-center bg-slate-900 text-white gap-3 px-4 py-[1px]">
+      <div className="flex flex-row justify-start items-center bg-slate-900 text-white gap-3 px-4 py-2 lg:py-[1px] ">
         <div className="relative">
           <Link href="/">
             <Image
@@ -26,16 +27,16 @@ const Navbar = async() => {
             />
           </Link>
         </div>
-          <SearchBar />
+        <SearchBar />
         <div>
-            <AccountLists user={user!}/>
+          <AccountLists user={user!} />
         </div>
+        <Link href={`/profile/${profile?.id}/orders`} className="flex flex-col items-start px-3">
+          <span className="text-sm">Return </span>
+          <p className="text-sm font-bold">Orders</p>
+        </Link>
         <div className="relative">
-        <CartTotal/>
-        </div>
-        <div>
-           <PackageIcon className="w-7 h-7"/>
-           <p>Orders</p>
+          <CartTotal />
         </div>
       </div>
     </div>
