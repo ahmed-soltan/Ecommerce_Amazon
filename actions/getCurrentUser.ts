@@ -4,12 +4,12 @@ import { nextOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 
 export const getCurrentUser = async () => {
-  try {
-    const session = await getServerSession(nextOptions);
-
+  const session = await getServerSession(nextOptions);
   if (!session?.user?.email) {
     return null;
   }
+  try {
+
 
   const user = await prisma.user.findUnique({
     where: {

@@ -3,11 +3,11 @@ import { getCurrentUser } from "./getCurrentUser";
 
 
 export const getProfileById = async (profileId:string) => {
+  const user = await getCurrentUser()
+  if(!user){
+    return null
+  }
   try {
-    const user = await getCurrentUser()
-    if(!user){
-      return null
-    }
     const profile = await prisma.profile.findUnique({
       where: {
         id: profileId,

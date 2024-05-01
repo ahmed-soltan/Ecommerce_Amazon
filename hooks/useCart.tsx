@@ -25,7 +25,6 @@ type CartContextProps = {
 };
 
 export const cartContext = createContext<CartContextProps | null>(null);
-const savedItems = localStorage && localStorage.getItem("savedItems");
 
 export const CartContextProvider = (props: any) => {
   const [cartQtyTotal, setCartQtyTotal] = useState(0);
@@ -34,15 +33,15 @@ export const CartContextProvider = (props: any) => {
     null
   );
   const [savedProduct, setSavedProduct] = useState<cartProductType[] | null>(
-    () => {
-        return savedItems ? JSON.parse(savedItems) : [];
-    }
+   null
 );
 
   useEffect(() => {
     const cartItems: any = localStorage.getItem("cartItems");
+    const savedItems : any = localStorage.getItem("savedItems");
     const cProduct: cartProductType[] | null = JSON.parse(cartItems);
-
+    const cSavedProducts :cartProductType[] | null = JSON.parse(savedItems);
+    setSavedProduct(cSavedProducts);
     setCartProducts(cProduct);
     setCartQtyTotal(cProduct ? cProduct.length : 0);
   }, []);
