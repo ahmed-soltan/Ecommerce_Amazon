@@ -8,10 +8,14 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 import { Package2Icon, PackageIcon, ShoppingCart } from "lucide-react";
 import CartTotal from "./CartTotal";
 import { getCurrentProfile } from "@/actions/getCurrentProfile";
+import { redirect } from "next/navigation";
 
 const Navbar = async () => {
   const user = await getCurrentUser();
-  const profile = await getCurrentProfile();
+  if(!user){
+    return redirect('/login')
+  }
+  const profile = await getCurrentProfile(user?.id);
 
   return (
     <div className="w-full">

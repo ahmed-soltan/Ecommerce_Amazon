@@ -13,6 +13,7 @@ import {
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import GoogleTranslate from "./GoogleTranslation";
+import { redirect } from "next/navigation";
 
 export const SideNavSheet = async () => {
   const user = await getCurrentUser();
@@ -28,7 +29,10 @@ export const SideNavSheet = async () => {
     { label: "Your WishList", url: "/wishlist" },
   ];
 
-  const profile =await getCurrentProfile();
+  if(!user){
+    return redirect('/login')
+  }
+  const profile =await getCurrentProfile(user?.id);
   return (
     <Sheet>
       <SheetTrigger asChild>

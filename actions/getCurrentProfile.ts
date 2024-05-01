@@ -2,16 +2,12 @@ import prisma from "../lib/prismadb";
 import { getCurrentUser } from "./getCurrentUser";
 
 
-export const getCurrentProfile = async () => {
-  const user = await getCurrentUser();
+export const getCurrentProfile = async (userId:string) => {
 
-  if(!user){
-    return null
-  }
   try {
     const profile = await prisma.profile.findFirst({
       where: {
-        userId: user.id,
+        userId: userId,
         isSelected:true
       },
       include:{
