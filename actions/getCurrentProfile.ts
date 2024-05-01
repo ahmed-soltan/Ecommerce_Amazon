@@ -10,7 +10,7 @@ export const getCurrentProfile = async () => {
   try {
     const profile = await prisma.profile.findFirst({
       where: {
-        userId: userId,
+        userId: user.id,
         isSelected:true
       },
       include:{
