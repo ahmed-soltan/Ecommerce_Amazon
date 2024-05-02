@@ -44,6 +44,7 @@ const LoginForm = () => {
         if (callback?.ok) {
           toast.success("Logged in");
           router.refresh();
+          router.push("/");
         }
         if (callback?.error) {
           toast.error(callback.error);
@@ -53,7 +54,6 @@ const LoginForm = () => {
       console.error("Error during Login:", error);
       toast.error("Something went wrong");
     } finally {
-      router.push("/");
     }
   };
 
