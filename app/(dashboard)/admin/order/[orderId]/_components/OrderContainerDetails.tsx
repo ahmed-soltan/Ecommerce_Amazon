@@ -1,44 +1,58 @@
 "use client";
-import { Separator } from "@/components/ui/separator";
-import { Order } from "@prisma/client";
-import OrderItem from "../../_components/OrderItem";
-import { Button } from "@/components/ui/button";
-import moment from "moment";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-import { formatPrice } from "@/lib/formatPrice";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import OrderButton from "../../../../../../../components/OrderButton";
-import { XCircle } from "lucide-react";
 
-const OrderContainerDetails = ({ order }: { order: Order }) => {
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { formatPrice } from "@/lib/formatPrice";
+import { cn } from "@/lib/utils";
+import { Order, orderType } from "@prisma/client";
+import moment from "moment";
+import VendorOrderItem from "./OrderItem";
+import { useState } from "react";
+import OrderButton from "@/components/OrderButton";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { CheckCircle } from "lucide-react";
+
+type OrderContainerDetailsProps = {
+  order: Order;
+  products: orderType[];
+};
+const OrderContainerDetails = ({
+  order,
+  products,
+}: OrderContainerDetailsProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const onclick = async () => {
+  const onClick = async () => {
     try {
       setIsLoading(true);
-      await axios.patch(`/api/profiles/${order.profileId}/orders/${order.id}`, {
-        paymentStatus: "open",
+      await axios.patch(`/api/admin/order/${order.id}`, {
+        deliveryStatus:!order.deliveryStatus,
       });
-      toast.success("Order Canceled Successfully");
+      toast.success("Order Delivery Status Updated Successfully");
       router.refresh();
       // router.back()
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
+    }
+    finally{
+      setIsLoading(false)
     }
   };
+
+  const amount = products.reduce(
+    (acc, product) => acc + product.priceAfterDiscount * product.quantity,
+    0
+  );
   return (
-    <div className="flex flex-row items-start justify-between w-full">
+    <div className="flex items-start justify-between">
       <div className="flex flex-col gap-4">
         <h1 className="text-slate-800 font-medium text-3xl">Order Details</h1>
+        <Separator />
         {order.paymentStatus === "open" ? (
-          <p className="text-slate-700 text-sm">You Canceled This Order</p>
+          <p className="text-slate-700 text-sm">This Order was Canceled</p>
         ) : (
           <p className="text-slate-700 text-sm">
             Purchased {moment(order.createdAt).fromNow()}
@@ -47,7 +61,7 @@ const OrderContainerDetails = ({ order }: { order: Order }) => {
         <h1 className="text-slate-800 font-medium">
           Order Amount :{" "}
           <span className="text-slate-700 font-normal ">
-            {formatPrice(order.amount)}
+            {formatPrice(amount)}
           </span>
         </h1>
         <h1 className="text-slate-800 font-medium">
@@ -58,7 +72,7 @@ const OrderContainerDetails = ({ order }: { order: Order }) => {
               order.paymentStatus === "complete" && "bg-green-600"
             )}
           >
-            {order.paymentStatus}
+            {order.paymentStatus === "complete" ? "completed" : "Canceled"}
           </Badge>
         </h1>
         <h1 className="text-slate-800 font-medium">
@@ -74,18 +88,18 @@ const OrderContainerDetails = ({ order }: { order: Order }) => {
         </h1>{" "}
         <Separator />
         <div className="flex flex-col gap-4 items-start">
-          {order?.products.map((product) => (
-            <OrderItem key={product.productId} product={product} />
+          {products.map((product) => (
+            <VendorOrderItem key={product.productId} product={product} />
           ))}
         </div>
       </div>
-      {order.paymentStatus === "complete" || !order.deliveryStatus && (
+      {order.paymentStatus === "complete" && !order.deliveryStatus && (
         <OrderButton
-          onClick={onclick}
           isLoading={isLoading}
-          variant={"destructive"}
-          title={"Cancel Order"}
-          icon={XCircle}
+          variant={"success"}
+          title={"Mark As Delivered"}
+          onClick={onClick}
+          icon={CheckCircle}
         />
       )}
     </div>

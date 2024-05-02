@@ -17,120 +17,120 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice } from "@/lib/formatPrice";
-import { Products } from "@prisma/client";
-import Image from "next/image";
+import moment from "moment";
+import { Order, orderType } from "@prisma/client";
 
-export const columns: ColumnDef<Products>[] = [
+
+export const columns: ColumnDef<Order>[] = [
   {
-    accessorKey: "images",
+    accessorKey: "id",
     header: ({ column }) => {
       return (
         <Button variant="ghost">
-          Image
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const images: {
-        color: string;
-        colorCode: string;
-        image: string;
-      }[] = row.getValue("images");
-
-      const firstImage = images.length > 0 ? images[0].image : null;
-      return firstImage ? (
-        <Image src={firstImage} alt="Product Image" width={40} height={40} />
-      ) : (
-        <span>No Image</span>
-      );
-    },
-  },
-
-  {
-    accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Title
+          Order Id
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: "price",
+    accessorKey: "amount",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Price
+          Amount
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const price = parseFloat(row.getValue("price") || "0");
-      return formatPrice(price);
+      const amount = parseFloat(row.getValue("amount"))
+      return formatPrice(amount);
     },
   },
   {
-    accessorKey: "inStock",
+    accessorKey: "paymentStatus",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          in Stock
+          Payment Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const inStock = row.getValue("inStock") || false;
+      const paymentStatus = row.getValue("paymentStatus") || false;
       return (
         <Badge
-          className={cn(inStock && "bg-slate-400", inStock && "bg-orange-500")}
+          className={cn(paymentStatus==="open" && "bg-slate-400", paymentStatus==="complete" && "bg-green-600")}
         >
-          {inStock ? `in Stock` : "out of Stock"}
+          {paymentStatus==="open" ? `Canceled` : "Completed"}
         </Badge>
       );
     },
   },
   {
-    accessorKey: "category",
+    accessorKey: "deliveryStatus",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Category
+          Delivery Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const deliveryStatus = row.getValue("deliveryStatus") || false;
+      return (
+        <Badge
+          className={cn(!deliveryStatus && "bg-slate-400", deliveryStatus && "bg-green-600")}
+        >
+          {deliveryStatus ? `Delivered` : "Not Yet Delivered"}
+        </Badge>
+      );
+    },
   },
   {
-    accessorKey: "vendorId",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Actions
+          Created At
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const createdAt = row.getValue("createdAt") || false;
+      return (
+        <p className="text-slate-700">{moment(createdAt).fromNow()}</p>
+      );
+    },
+  },
+  {
+    accessorKey: "products",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost">
+          Action
         </Button>
       );
     },
     cell: ({ row }) => {
       const { id } = row.original;
-      const vendorId = row.getValue("vendorId");
+      const products:orderType[] = row.getValue("products");
 
       return (
         <DropdownMenu>
@@ -143,10 +143,10 @@ export const columns: ColumnDef<Products>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-            <Link href={`/vendor/${vendorId}/product/${id}`}>
+            <Link href={`/admin/order/${id}`}>
               <DropdownMenuItem className="flex items-center">
                 <Pencil className="w-4 h-4 mr-2" />
-                Edit
+                View
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />

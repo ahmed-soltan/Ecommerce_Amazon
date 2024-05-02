@@ -11,7 +11,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import CancelOrderButton from "../[orderId]/_components/CancelOrderButton";
+import CancelOrderButton from "../../../../../../components/OrderButton";
 
 type OrderListProps = {
   order: Order;
@@ -87,8 +87,8 @@ const OrderList = ({
         >
           View Order Details
         </Button>
-        {canceled && !delivered ? null : (
-         <CancelOrderButton variant={"link"} onCLick={onclick} isLoading={isLoading}/>
+        {canceled || order.deliveryStatus ? null : (
+         <CancelOrderButton variant={"link"} onClick={onclick} isLoading={isLoading} title="Cancel Order" />
         )}
       </div>
       <Separator />

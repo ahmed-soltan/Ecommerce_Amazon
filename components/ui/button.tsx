@@ -22,6 +22,7 @@ const buttonVariants = cva(
         link: "text-cyan-600 underline hover:underline dark:text-slate-50",
         amazonBtn:
           "bg-yellow-500 text-white hover:bg-yellow-600/90 dark:bg-yellow-600 dark:hover:bg-yellow-700/90 rounded-md ",
+          success:"bg-emerald-600 text-white hover:bg-emerald-500"
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -1,6 +1,4 @@
 import { getOrderById } from "@/actions/getOrderById";
-import { Separator } from "@/components/ui/separator";
-import OrderItem from "../_components/OrderItem";
 import Container from "@/components/Container";
 import OrderContainerDetails from "./_components/OrderContainerDetails";
 import { redirect } from "next/navigation";

@@ -29,13 +29,11 @@ import { Plus } from "lucide-react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  vendorId:string
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  vendorId
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);

@@ -17,10 +17,11 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice } from "@/lib/formatPrice";
-import { orderType } from "@prisma/client";
 import moment from "moment";
+import { Order, orderType } from "@prisma/client";
 
-export const columns: ColumnDef<any>[] = [
+
+export const columns: ColumnDef<Order>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
@@ -46,9 +47,8 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      const products:any = row.getValue("products")
-      console.log(products)
-      const amount = products.reduce((acc:any, product:any) => (
+      const products:orderType[] = row.getValue("products")
+      const amount = products.reduce((acc, product) => (
         acc + product.priceAfterDiscount * product.quantity
       ),0)
       return formatPrice(amount);
@@ -73,7 +73,7 @@ export const columns: ColumnDef<any>[] = [
         <Badge
           className={cn(paymentStatus==="open" && "bg-slate-400", paymentStatus==="complete" && "bg-green-600")}
         >
-          {paymentStatus==="open" ? `Open` : "Completed"}
+          {paymentStatus==="open" ? `Canceled` : "Completed"}
         </Badge>
       );
     },
@@ -95,9 +95,9 @@ export const columns: ColumnDef<any>[] = [
       const deliveryStatus = row.getValue("deliveryStatus") || false;
       return (
         <Badge
-          className={cn(deliveryStatus && "bg-slate-400", deliveryStatus && "bg-green-600")}
+          className={cn(!deliveryStatus && "bg-slate-400", deliveryStatus && "bg-green-600")}
         >
-          {deliveryStatus ? `Shipped` : "Not Yet Shippped"}
+          {deliveryStatus ? `Delivered` : "Not Yet Delivered"}
         </Badge>
       );
     },
@@ -123,10 +123,17 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "profileId",
-
+    accessorKey: "products",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost">
+          Action
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const { id } = row.original;
+      const products:orderType[] = row.getValue("products");
 
       return (
         <DropdownMenu>
@@ -139,7 +146,7 @@ export const columns: ColumnDef<any>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-            <Link href={`/orders/${id}`}>
+            <Link href={`/vendor/${products[0].vendorId}/order/${id}`}>
               <DropdownMenuItem className="flex items-center">
                 <Pencil className="w-4 h-4 mr-2" />
                 View

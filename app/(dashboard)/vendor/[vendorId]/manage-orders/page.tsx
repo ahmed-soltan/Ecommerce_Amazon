@@ -16,7 +16,6 @@ const ManageOrdersPage = async({params}:{params:{vendorId:string}}) => {
     products: order.products.filter(product => product.vendorId === params.vendorId)
   }));
 
-  console.log(filteredOrdersWithVendorProducts)
     return (
     <div className='p-6'>
       <DataTable columns={columns} data={filteredOrdersWithVendorProducts} vendorId={params.vendorId}/>
