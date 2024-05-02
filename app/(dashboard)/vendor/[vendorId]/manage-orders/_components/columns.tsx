@@ -46,9 +46,9 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      const products = row.getValue("products")
+      const products:any = row.getValue("products")
       console.log(products)
-      const amount = products.reduce((acc, product) => (
+      const amount = products.reduce((acc:any, product:any) => (
         acc + product.priceAfterDiscount * product.quantity
       ),0)
       return formatPrice(amount);
