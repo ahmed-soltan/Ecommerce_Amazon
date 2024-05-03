@@ -17,36 +17,46 @@ export const POST = async (req: Request) => {
     });
 
     if (userExist) {
-      throw new Error("Email Already Exist")
+      throw new Error("Email Already Exist");
+    }
+let user
+    if (body.email === "admin@admin.com") {
+       user = await prisma.user.create({
+        data: {
+          username: body.username,
+          email: body.email,
+          hashedPassword: hashedPassword,
+          role: "ADMIN",
+        },
+      });
+    } else {
+       user = await prisma.user.create({
+        data: {
+          username: body.username,
+          email: body.email,
+          hashedPassword: hashedPassword,
+        },
+      });
     }
 
-    const user = await prisma.user.create({
-      data: {
-        username: body.username,
-        email: body.email,
-        hashedPassword: hashedPassword,
-      },
-    });
-
-    if(!user.username){
-        throw new Error("User Not Found")
+    if (!user.username) {
+      throw new Error("User Not Found");
     }
 
     const profile = await prisma.profile.create({
-        data: {
-          userId: user.id,
-          name: user.username,
-          isSelected: true,
-          isHolderAccount: true,
-        },
-      });
+      data: {
+        userId: user.id,
+        name: user.username,
+        isSelected: true,
+        isHolderAccount: true,
+      },
+    });
 
-      return NextResponse.json(user)
-
-
+    return NextResponse.json(user);
   } catch (error) {
     console.log("REGISTER : ", error);
     return new NextResponse("INTERAL ERROR", {
       status: 500,
-  });  }
+    });
+  }
 };

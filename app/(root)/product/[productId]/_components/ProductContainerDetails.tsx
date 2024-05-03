@@ -101,7 +101,7 @@ const ProductContainerDetails = ({
   }
 
   return (
-    <div className="flex flex-col gap-4 bg-white p-2 rounded-md">
+    <div className="flex flex-col gap-4 bg-white p-4 rounded-md">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <ProductImage
           cartProduct={cartProduct}
@@ -223,22 +223,22 @@ const ProductContainerDetails = ({
           )}
         </div>
       </div>
-      <Separator />
+      <Separator className="h-[1px] bg-slate-600" />
 
       <div>
-        <h2 className="text-slate-800 text-3xl font-medium border-b p-2">
+        <h2 className="text-slate-800 text-2xl font-semibold p-2">
           Product Details
         </h2>
         <Preview value={product.details} />
       </div>
-      <Separator />
+      <Separator className="h-[1px] bg-slate-600" />
       <div>
-        <h2 className="text-slate-800 text-3xl font-medium border-b p-2 my-2">
+        <h2 className="text-slate-800 text-2xl font-semibold p-2 my-2">
           Products Description
         </h2>
         <p className="text-slate-600 text-sm">{product.description}</p>
       </div>
-      <Separator />
+      <Separator className="h-[1px] bg-slate-600" />
     </div>
   );
 };

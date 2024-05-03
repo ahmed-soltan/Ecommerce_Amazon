@@ -16,7 +16,7 @@ const Nav = async () => {
           <Link href={"/products"}>Toady&apos;s Deals</Link>
         </div>
         <div className="hidden lg:block">
-          {vendor ? (
+          {user && user?.role==="ADMIN" ?  <Link href={`/admin`}>Dashboard</Link> :vendor ? (
             <Link href={`/vendor/${vendor.id}`}>Dashboard</Link>
           ) : (
             <Link href={"/sell"}>Sell</Link>

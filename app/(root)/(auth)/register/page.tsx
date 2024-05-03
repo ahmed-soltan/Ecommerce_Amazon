@@ -4,7 +4,7 @@ import RegisterForm from "./RegisterForm"
 
 const RegisterPage = () => {
   return (
-    <div>
+    <div className="">
         <Container>
             <FormWrap>
                 <RegisterForm/>

@@ -37,6 +37,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Rating value={productRating} readOnly size="small"/>
             <p className="text-sm text-slate-600">({product.reviews?.length})</p>
           </div>
+          {product.discount && product.discount>0 ? (
+            <>
           <span className="bg-rose-700 text-white text-sm px-2 py-[2px] mx-2 font-medium rounded-md">
             Limited Time Deal
           </span>
@@ -48,6 +50,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <h1 className="text-slate-700 text-sm">Typical Price :
             <span className="line-through"> {formatPrice(product.price)}</span>
           </h1>
+          </>
+        ):(
+          <h1 className="text-slate-700 text-sm">
+            {formatPrice(product.price)}
+          </h1>
+        )}
         </div>
       </div>
     </Link>

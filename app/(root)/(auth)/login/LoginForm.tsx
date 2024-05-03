@@ -19,7 +19,9 @@ import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(3 , {
+    message: "Password must be at least 3 characters.",
+  }),
 });
 
 const LoginForm = () => {
