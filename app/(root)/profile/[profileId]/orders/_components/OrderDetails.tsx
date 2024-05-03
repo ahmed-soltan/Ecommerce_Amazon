@@ -22,7 +22,7 @@ const OrderDetails = ({ order , profileId }: OrderDetailsProps) => {
   return (
     <div className="flex item-start flex-col gap-4">
       <h1 className="text-slate-800 font-medium text-3xl">Your Orders</h1>
-      <Tabs defaultValue="account" className="w-full hidden md:block">
+      <Tabs defaultValue="orders" className="w-full hidden md:block">
         <TabsList>
           <TabsTrigger
             className="text-cyan-600 underline rounded-md"

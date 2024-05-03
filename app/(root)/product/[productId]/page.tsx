@@ -31,7 +31,6 @@ const page = async ({ params }: { params: { productId: string } }) => {
   if (!user) {
     return redirect("/login");
   }
-
   
   return (
     <div className="py-6 bg-white">

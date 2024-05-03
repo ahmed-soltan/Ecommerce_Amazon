@@ -5,8 +5,6 @@ import { Products, Profile, Review } from "@prisma/client";
 import moment from "moment";
 import Image from "next/image";
 import unknown from "../../../../../public/unknown.jpeg";
-import { Button } from "@/components/ui/button";
-import { Pencil, Trash } from "lucide-react";
 import { useState } from "react";
 type ProductType = {
   product: Products & {
@@ -17,12 +15,12 @@ type ProductType = {
 };
 
 const ListRating = ({ product, profiles, profileId }: ProductType) => {
-  const [isEditting , setIsEditting] = useState(false)
+  const reviews = product.reviews.filter(review => review.profileId !== profileId);
   return (
     <div className="col-span-4 p-4 w-full">
       <div className="text-sm mt-2 w-full">
-        {product.reviews &&
-          product.reviews.map((review: any) => {
+        {reviews &&
+          reviews.map((review: any) => {
             const userProfile = profiles.find(
               (profile: any) => review.profileId === profile.id
             );
@@ -62,17 +60,6 @@ const ListRating = ({ product, profiles, profileId }: ProductType) => {
                   </p>
                   <Separator className="my-2" />
                 </div>
-                {profileId===userProfile?.id && (
-
-                  <div className="flex items-center gap-2">
-                  <Button variant={"ghost"} size={"sm"}>
-                    <Pencil className="w-4 h-4"/>
-                  </Button>
-                  <Button variant={"ghost"} size={"sm"}>
-                    <Trash className="w-4 h-4"/>
-                  </Button>
-                </div>
-                )}
               </div>
             );
           })}

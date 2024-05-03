@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import OrderButton from "../../../../../../../components/OrderButton";
-import { XCircle } from "lucide-react";
+import { ArrowLeft, XCircle } from "lucide-react";
 
 const OrderContainerDetails = ({ order }: { order: Order }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +35,8 @@ const OrderContainerDetails = ({ order }: { order: Order }) => {
   };
   return (
     <div className="flex flex-row items-start justify-between w-full">
-      <div className="flex flex-col gap-4">
+      <div className="flex items-start flex-col gap-4">
+        <Button variant={"link"} onClick={()=>router.back()}><ArrowLeft className="w-4 h-4 mr-2"/> View Other Orders</Button>
         <h1 className="text-slate-800 font-medium text-3xl">Order Details</h1>
         {order.paymentStatus === "open" ? (
           <p className="text-slate-700 text-sm">You Canceled This Order</p>

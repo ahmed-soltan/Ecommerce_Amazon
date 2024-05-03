@@ -18,6 +18,11 @@ export const getCurrentProfile = async () => {
           orderBy:{
             createdAt:"desc"
           }
+        },
+        Review:{
+          orderBy:{
+            createdAt:"desc"
+          }
         }
       }
     });
