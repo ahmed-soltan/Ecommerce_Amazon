@@ -27,7 +27,7 @@ const ListRating = ({ product, profiles, profileId }: ProductType) => {
               (profile: any) => review.profileId === profile.id
             );
             return (
-              <div className="flex items-start jus w-full">
+              <div className="flex items-start jus w-full" key={review.id}>
                 <div
                   className="flex items-start justify-start flex-col gap-2 w-full"
                   key={review.id}
