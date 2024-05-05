@@ -5,14 +5,12 @@ import { AccountLists } from "./AccountLists";
 
 import logo from "../../../public/amazonLogo.png";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import { Package2Icon, PackageIcon, ShoppingCart } from "lucide-react";
 import CartTotal from "./CartTotal";
 import { getCurrentProfile } from "@/actions/getCurrentProfile";
-import { redirect } from "next/navigation";
+
 
 const Navbar = async () => {
   const user = await getCurrentUser();
-
   const profile = await getCurrentProfile();
 
   return (

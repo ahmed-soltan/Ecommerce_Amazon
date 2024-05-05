@@ -65,6 +65,8 @@ const AddRating = ({ product, profile }: AddRatingProps) => {
       );
     });
 
+    const {isSubmitting , isValid} = form.formState
+
   if (!deliveredOrder) {
     return null;
   }
@@ -190,7 +192,7 @@ const AddRating = ({ product, profile }: AddRatingProps) => {
                 }}
               />
               <Button
-                disabled={isLoading}
+                disabled={isLoading || isSubmitting || !isValid}
                 onClick={form.handleSubmit(onSubmit)}
                 variant={"amazonBtn"}
               >
@@ -233,7 +235,7 @@ const AddRating = ({ product, profile }: AddRatingProps) => {
                   }}
                 />
                 <Button
-                  disabled={isLoading}
+                  disabled={isLoading || isSubmitting || !isValid}
                   onClick={form.handleSubmit(onSubmit)}
                   variant={"amazonBtn"}
                 >

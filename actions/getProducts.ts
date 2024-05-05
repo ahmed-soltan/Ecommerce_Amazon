@@ -2,7 +2,6 @@ import prisma from "../lib/prismadb";
 
 
 export const getProducts = async () => {
-
   try {
     const products = await prisma.products.findMany({
       where: {
