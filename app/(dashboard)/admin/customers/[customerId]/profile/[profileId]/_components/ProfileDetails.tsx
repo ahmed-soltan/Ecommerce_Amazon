@@ -91,7 +91,7 @@ const ProfileDetails = ({ profile }: ProfileDetailsProps) => {
       <div className="flex flex-col items-start gap-4 w-full">
         {profile.Review.length ? (
           profile.Review.map((review) => (
-            <div className="flex items-start justify-between rounded-md border shadow-sm gap-2 p-4 w-full">
+            <div className="flex items-start justify-between rounded-md border shadow-sm gap-2 p-4 w-full" key={review.id}>
               <div
                 className="flex flex-col items-start justify-start"
                 key={review.id}
