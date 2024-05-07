@@ -33,8 +33,9 @@ export const POST = async (req: Request) => {
     const session = event.data.object as Stripe.Checkout.Session;
     const profileId = session?.metadata?.profileId;
     const orderId = session?.metadata?.orderId;
-    const amount = session?.metadata?.amount as string;
-    const quantity = session?.metadata?.quantity as string;
+
+    const billingAddress = session.customer_details!.address
+    const shippingAddress = session.shipping_details!.address
 
 
     if (event.type === "checkout.session.completed") {
@@ -52,7 +53,27 @@ export const POST = async (req: Request) => {
           id:orderId,
         },
         data: {
-          paymentStatus:session.status
+          paymentStatus:session.status,
+          ShippingAddress: {
+            create: {
+              name: session.customer_details!.name!,
+              city: shippingAddress!.city!,
+              country: shippingAddress!.country!,
+              postalCode: shippingAddress!.postal_code!,
+              street: shippingAddress!.line1!,
+              state: shippingAddress!.state,
+            },
+          },
+          BillingAddress: {
+            create: {
+              name: session.customer_details!.name!,
+              city: billingAddress!.city!,
+              country: billingAddress!.country!,
+              postalCode: billingAddress!.postal_code!,
+              street: billingAddress!.line1!,
+              state: billingAddress!.state,
+            },
+          },
         },
       });
     } else {

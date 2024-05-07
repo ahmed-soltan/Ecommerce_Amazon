@@ -85,7 +85,7 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
       profileId: profile?.id,
     };
       setIsLoading(true);
-      axios.patch(`/api/profiles/${profile.id}/rating`, productRating);
+      await axios.patch(`/api/profiles/${profile.id}/rating`, productRating);
       toast.success("Review Added successfully");
       router.refresh();
     } catch (error) {
@@ -173,7 +173,7 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
             onChange={(event, newValue) => setCustomValue("rating", newValue)}
           />
           <Form {...form}>
-            <form className="space-y-2">
+            <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 name="comment"
                 control={form.control}
@@ -195,7 +195,6 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
               />
               <Button
                 disabled={isLoading || isSubmitting || !isValid || panned}
-                onClick={form.handleSubmit(onSubmit)}
                 variant={"amazonBtn"}
               >
                 {isLoading ? "Loading..." : "Submit"}
@@ -217,8 +216,8 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
               onChange={(event, newValue) => setCustomValue("rating", newValue)}
               defaultValue={currentProductReview.rating}
             />
-            <Form {...form}>
-              <form className="space-y-2">
+            <Form {...form} >
+              <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                   name="comment"
                   control={form.control}
@@ -242,7 +241,6 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
                 />
                 <Button
                   disabled={isLoading || isSubmitting || !isValid}
-                  onClick={form.handleSubmit(onSubmit)}
                   variant={"amazonBtn"}
                 >
                   {isLoading ? "Loading..." : "Submit"}

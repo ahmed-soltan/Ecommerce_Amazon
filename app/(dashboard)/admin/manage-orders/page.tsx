@@ -5,12 +5,20 @@ const ManageOrdersPage = async() => {
   const orders = await prisma.order.findMany({
     orderBy:{
       createdAt: 'desc'
+    },
+    include:{
+      ShippingAddress:{
+        select:{
+          name:true
+        }
+      },
     }
   });
 
 
     return (
     <div className='p-6'>
+      {/*@ts-ignore*/}
       <DataTable columns={columns} data={orders}/>
     </div>
   )

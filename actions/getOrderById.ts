@@ -10,6 +10,10 @@ export const getOrderById = async (orderId:string ) => {
       where: {
         id: orderId,
       },
+      include:{
+        ShippingAddress:true,
+        BillingAddress:true
+      }
     });
     return order;
   } catch (error) {

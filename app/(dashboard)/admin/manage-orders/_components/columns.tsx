@@ -18,19 +18,28 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice } from "@/lib/formatPrice";
 import moment from "moment";
-import { Order, orderType } from "@prisma/client";
+import { Order, ShippingAddress, orderType } from "@prisma/client";
 
 
-export const columns: ColumnDef<Order>[] = [
+export const columns: ColumnDef<Order & {
+  ShippingAddress: {
+    name: string;
+  }
+}>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "ShippingAddress",
     header: ({ column }) => {
       return (
         <Button variant="ghost">
-          Order Id
+          Customer name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ row }) => {
+      const ShippingAddress = row.getValue("ShippingAddress")
+      //@ts-ignore
+      return ShippingAddress!.name;
     },
   },
   {

@@ -20,7 +20,7 @@ model User {
   hashedPassword String?
   phoneNumber    String?
 
-  role Role @default(CUSTOMER)
+  role   Role    @default(CUSTOMER)
   panned Boolean @default(false)
 
   createdAt DateTime @default(now())
@@ -156,8 +156,36 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  profileId String  @db.ObjectId
-  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId         String           @db.ObjectId
+  profile           Profile          @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  ShippingAddress   ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
+  shippingAddressId String?          @db.ObjectId
+  BillingAddress    BillingAddress?  @relation(fields: [billingAddressId], references: [id])
+  billingAddressId  String?          @db.ObjectId
+}
+
+model ShippingAddress {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  order       Order[]
+}
+
+model BillingAddress {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  street      String
+  city        String
+  postalCode  String
+  country     String
+  state       String?
+  phoneNumber String?
+  order       Order[]
 }
 
 model StripeCustomer {

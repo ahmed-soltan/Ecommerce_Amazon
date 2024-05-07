@@ -5,6 +5,10 @@ const page = async({params}:{params:{ orderId:string}}) => {
     const order = await prisma.order.findUnique({
         where: {
           id:params.orderId
+        },
+        include:{
+          ShippingAddress:true,
+          BillingAddress:true
         }
       });
 

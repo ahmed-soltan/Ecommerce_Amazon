@@ -67,7 +67,8 @@ export const POST = async (req: Request) => {
                     quantity: item.quantity,
                 };
             }),
-            success_url: `${process.env.NEXTAUTH_URL}/`,
+            shipping_address_collection: { allowed_countries: ['DE', 'US' , "EG"] },
+            success_url: `${process.env.NEXTAUTH_URL}/success`,
             cancel_url: `${process.env.NEXTAUTH_URL}/cart`,
             metadata: {
                 // Include any metadata you need here

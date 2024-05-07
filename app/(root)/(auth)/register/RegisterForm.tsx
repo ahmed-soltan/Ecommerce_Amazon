@@ -152,7 +152,7 @@ const RegisterForm = () => {
         </Form>
         <p>
           Already Have an Account ?{" "}
-          <Link href={"/register"} className="underline text-blue-400">
+          <Link href={"/login"} className="underline text-blue-400">
             Sign in
           </Link>
         </p>

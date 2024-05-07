@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";
-import { Order, orderType } from "@prisma/client";
+import { BillingAddress, Order, ShippingAddress, orderType } from "@prisma/client";
 import moment from "moment";
 import VendorOrderItem from "./OrderItem";
 import { useState } from "react";
@@ -15,7 +15,10 @@ import { useRouter } from "next/navigation";
 import { CheckCircle } from "lucide-react";
 
 type OrderContainerDetailsProps = {
-  order: Order;
+  order: Order & {
+    ShippingAddress: ShippingAddress | null;
+    BillingAddress: BillingAddress | null;
+  };
   products: orderType[];
 };
 const OrderContainerDetails = ({
@@ -70,7 +73,7 @@ const OrderContainerDetails = ({
         )}
         <h1 className="text-slate-800 font-medium">
           Order Amount :{" "}
-          <span className="text-slate-700 font-normal ">
+          <span className="text-slate-700 font-normal text-sm">
             {formatPrice(amount)}
           </span>
         </h1>
@@ -96,6 +99,26 @@ const OrderContainerDetails = ({
             {order.deliveryStatus ? "Delivered " : "Not Delivered Yet"}
           </Badge>
         </h1>{" "}
+        <h1 className="text-slate-800 font-medium">
+          Order Shipping Address Information :{" "}
+        </h1>
+        <div className="flex flex-col items-start ml-4 gap-1">
+          <span className="text-slate-700 font-normal text-sm">
+            Counrty : {order.ShippingAddress!.country}
+          </span>
+          <span className="text-slate-700 font-normal text-sm">
+            City : {order.ShippingAddress!.city}
+          </span>
+          <span className="text-slate-700 font-normal text-sm">
+            State : {order.ShippingAddress!.state}
+          </span>
+          <span className="text-slate-700 font-normal text-sm">
+            Street : {order.ShippingAddress!.street}
+          </span>
+          <span className="text-slate-700 font-normal text-sm">
+            Postal Code : {order.ShippingAddress!.postalCode}
+          </span>
+        </div>
         <Separator />
         <div className="flex flex-wrap gap-6 items-start">
           {products.map((product) => (
