@@ -2,7 +2,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { Order, Profile, Review } from "@prisma/client";
+import { BillingAddress, Order, Profile, Review, ShippingAddress } from "@prisma/client";
 import moment from "moment";
 import unknown from "../../../../../../../../public/unknown.jpeg";
 import Image from "next/image";
@@ -18,7 +18,10 @@ import toast from "react-hot-toast";
 import ConfirmModel from "@/components/ConfirmModel";
 type ProfileDetailsProps = {
   profile: Profile & {
-    Order: Order[];
+    Order: Order[] & {
+      ShippingAddress:ShippingAddress,
+      BillingAddress:BillingAddress
+    };
     Review: Review[];
   };
 };
@@ -130,6 +133,7 @@ const ProfileDetails = ({ profile }: ProfileDetailsProps) => {
               className="flex items-center justify-start rounded-md border shadow-sm gap-2 p-4 w-full"
               key={order.id}
             >
+                    {/*@ts-ignore*/}
               <OrderContainerDetails order={order} products={order.products} />
             </div>
           ))

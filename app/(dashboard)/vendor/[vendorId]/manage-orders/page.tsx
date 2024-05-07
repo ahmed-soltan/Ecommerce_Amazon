@@ -8,7 +8,14 @@ const ManageOrdersPage = async({params}:{params:{vendorId:string}}) => {
         some: {
           vendorId: params.vendorId
         }
-      }
+      },
+    },
+    include:{
+      ShippingAddress:{
+        select:{
+          name:true
+        }
+      },
     }
   });
   const filteredOrdersWithVendorProducts = ordersWithVendorProducts.map(order => ({
@@ -18,6 +25,7 @@ const ManageOrdersPage = async({params}:{params:{vendorId:string}}) => {
 
     return (
     <div className='p-6'>
+      {/* @ts-ignore */}
       <DataTable columns={columns} data={filteredOrdersWithVendorProducts} vendorId={params.vendorId}/>
     </div>
   )

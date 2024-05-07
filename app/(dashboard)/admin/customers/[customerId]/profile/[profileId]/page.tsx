@@ -6,6 +6,8 @@ const page = async({params}:{params:{customerId:string , profileId:string}}) => 
     const profile = await getProfileById(params.profileId)
   return (
     <div className="p-6">
+      {/*@ts-ignore*/}
+
         <ProfileDetails profile={profile!}/>
     </div>
   )

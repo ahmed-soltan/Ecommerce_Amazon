@@ -15,6 +15,10 @@ export const getProfileById = async (profileId: string) => {
         clothingShoesPreferences: true,
         Interests: true,
         Order: {
+          include:{
+            ShippingAddress:true,
+            BillingAddress:true
+          },
           orderBy: {
             createdAt: "desc",
           },
