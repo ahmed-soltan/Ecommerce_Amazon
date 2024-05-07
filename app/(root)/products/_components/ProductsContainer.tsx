@@ -15,7 +15,15 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Products, Review } from "@prisma/client";
-import { ArrowDown, ArrowLeft, ArrowRight, FilterIcon, LucideIcon, LucideMoveDown, MoveDown } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  FilterIcon,
+  LucideIcon,
+  LucideMoveDown,
+  MoveDown,
+} from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -56,7 +64,7 @@ const ProductsContainer = ({
   const [filters, setFilters] = useState({
     sort: "none",
   });
-    const [filteredProducts, setFilteredProducts] =
+  const [filteredProducts, setFilteredProducts] =
     useState<Products[]>(products);
   const router = useRouter();
   const searchParamsLinks = useSearchParams();
@@ -213,7 +221,7 @@ const ProductsContainer = ({
       </div>
       <div className="col-span-6 rounded-md bg-white flex flex-col items-start gap-4 p-5">
         <div className="flex w-full items-center justify-between">
-        <DropdownMenu>
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
                 Sort
@@ -268,8 +276,8 @@ const ProductsContainer = ({
                   </div>
                 </div>
                 <Separator className="my-5" />
-                <div className="flex flex-col items-start">
-                  <h1 className="text-xl font-medium text-slate-900">
+                <div className="flex flex-col items-start gap-4">
+                  <h1 className="text-lg font-medium text-slate-900">
                     Filter By price
                   </h1>
                   <div className="flex flex-row items-center flex-wrap gap-3">
@@ -337,7 +345,7 @@ const ProductsContainer = ({
             <div>No Product Found</div>
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3 w-full">
           <Button
             size={"sm"}
             onClick={onDecrease}
@@ -346,9 +354,8 @@ const ProductsContainer = ({
               !currentPage || (!!currentPage && parseInt(currentPage) === 1)
             }
           >
-            <ArrowLeft className="w-4 h-4 mr-2"/>
+            <ArrowLeft className="w-4 h-4 mr-2" />
             Previous
-
           </Button>
           <Button
             size={"sm"}
@@ -357,7 +364,7 @@ const ProductsContainer = ({
             variant={"outline"}
           >
             Next
-            <ArrowRight className="w-4 h-4 ml-2"/>
+            <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
       </div>

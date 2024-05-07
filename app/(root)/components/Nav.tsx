@@ -1,19 +1,21 @@
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import Link from "next/link";
 import { SideNavSheet } from "./SideNavSheet";
+import { getCurrentProfile } from "@/actions/getCurrentProfile";
 
 const Nav = async () => {
   const user = await getCurrentUser();
+  const profile = await getCurrentProfile()
   const vendor = user?.vendor;
 
   return (
     <div className="bg-gray-800 w-full text-slate-200">
       <div className="flex flex-row items-center justify-start text-sm gap-5 px-2">
         <div>
-          <SideNavSheet />
+          <SideNavSheet user={user!} profile={profile!}/>
         </div>
         <div className="hidden lg:block">
-          <Link href={"/products"}>Toady&apos;s Deals</Link>
+          <Link href={"/products"}>Today&apos;s Deals</Link>
         </div>
         <div className="hidden lg:block">
           {user && user?.role==="ADMIN" ?  <Link href={`/admin`}>Dashboard</Link> :vendor ? (

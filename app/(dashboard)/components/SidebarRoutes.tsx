@@ -3,11 +3,13 @@
 import {
   BarChart,
   Compass,
+  Handshake,
   Layout,
   List,
   PackageOpen,
   PencilRuler,
   User2Icon,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,6 +21,16 @@ const AdminRoutes = [
     icon: BarChart,
     label: "Analytics",
     path: `/admin/analytics`,
+  },
+  {
+    icon: Users,
+    label: "Customers",
+    path: `/admin/customers`,
+  },
+  {
+    icon: Handshake,
+    label: "Vendors",
+    path: `/admin/manage-vendors`,
   },
   {
     icon: PencilRuler,

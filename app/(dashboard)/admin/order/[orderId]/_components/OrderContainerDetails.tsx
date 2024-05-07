@@ -47,9 +47,19 @@ const OrderContainerDetails = ({
     0
   );
   return (
-    <div className="flex items-start justify-between">
-      <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
+        <div className="flex items-start justify-between w-full">
         <h1 className="text-slate-800 font-medium text-3xl">Order Details</h1>
+        {order.paymentStatus === "complete" && !order.deliveryStatus && (
+          <OrderButton
+            isLoading={isLoading}
+            variant={"success"}
+            title={"Mark As Delivered"}
+            onClick={onClick}
+            icon={CheckCircle}
+          />
+        )}
+      </div>
         <Separator />
         {order.paymentStatus === "open" ? (
           <p className="text-slate-700 text-sm">This Order was Canceled</p>
@@ -87,22 +97,12 @@ const OrderContainerDetails = ({
           </Badge>
         </h1>{" "}
         <Separator />
-        <div className="flex flex-col gap-4 items-start">
+        <div className="flex flex-wrap gap-6 items-start">
           {products.map((product) => (
             <VendorOrderItem key={product.productId} product={product} />
           ))}
         </div>
       </div>
-      {order.paymentStatus === "complete" && !order.deliveryStatus && (
-        <OrderButton
-          isLoading={isLoading}
-          variant={"success"}
-          title={"Mark As Delivered"}
-          onClick={onClick}
-          icon={CheckCircle}
-        />
-      )}
-    </div>
   );
 };
 

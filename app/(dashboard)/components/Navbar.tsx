@@ -18,7 +18,7 @@ const Navbar = () => {
           variant="ghost"
           className=""
         >
-          <MenuIcon className="w-10 h-10" />
+          <MenuIcon className="w-8 h-8" />
         </Button>
       </SheetTrigger>
       <SheetContent side={"left"} >

@@ -16,6 +16,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -25,6 +26,7 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+  const [isLoading , setIsLoading] = useState(false)
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,17 +40,21 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setIsLoading(true)
       signIn("credentials", {
         email: values.email,
         password: values.password,
         redirect: false,
       }).then((callback) => {
+        router.refresh();
         if (callback?.ok) {
           toast.success("Logged in");
           router.refresh();
           router.push("/");
+          window.location.reload();
         }
         if (callback?.error) {
+          router.refresh();
           toast.error(callback.error);
         }
       });
@@ -56,6 +62,8 @@ const LoginForm = () => {
       console.error("Error during Login:", error);
       toast.error("Something went wrong");
     } finally {
+      router.refresh();
+      setIsLoading(false)
     }
   };
 
@@ -102,7 +110,7 @@ const LoginForm = () => {
             <Button
               className="w-full md:w-auto"
               type="submit"
-              disabled={isSubmitting || !isValid}
+              disabled={isSubmitting || !isValid || isLoading}
             >
               Submit
             </Button>

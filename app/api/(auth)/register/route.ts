@@ -52,6 +52,7 @@ let user
       },
     });
 
+
     return NextResponse.json(user);
   } catch (error) {
     console.log("REGISTER : ", error);

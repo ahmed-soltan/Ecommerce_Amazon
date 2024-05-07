@@ -21,6 +21,7 @@ model User {
   phoneNumber    String?
 
   role Role @default(CUSTOMER)
+  panned Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

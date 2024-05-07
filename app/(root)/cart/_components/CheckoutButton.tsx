@@ -9,11 +9,13 @@ type CheckoutButtonProps = {
   cartProducts: cartProductType[];
   cartProductLength: number;
   totalAmount: number;
+  panned:boolean
 };
 const CheckoutButton = ({
   cartProducts,
   cartProductLength,
   totalAmount,
+  panned
 }: CheckoutButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const {ClearCart} = useCart()
@@ -39,7 +41,7 @@ const CheckoutButton = ({
     <Button
       className="w-full"
       variant={"amazonBtn"}
-      disabled={isLoading || cartProductLength === 0}
+      disabled={isLoading || cartProductLength === 0 || panned}
       onClick={onClick}
     >
       Proceed To Checkout

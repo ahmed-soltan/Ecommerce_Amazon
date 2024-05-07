@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import unknown from "../../../../../public/unknown.jpeg";
 import { Pencil, Trash, XIcon } from "lucide-react";
 import ConfirmModel from "@/components/ConfirmModel";
+import Link from "next/link";
 type AddRatingProps = {
   product: Products & {
     reviews: Review[];
@@ -29,8 +30,9 @@ type AddRatingProps = {
     Order: Order[];
     Review: Review[];
   };
+  panned:boolean
 };
-const AddRating = ({ product, profile }: AddRatingProps) => {
+const AddRating = ({ product, profile , panned }: AddRatingProps) => {
   const [isEditting, setIsEditting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -192,7 +194,7 @@ const AddRating = ({ product, profile }: AddRatingProps) => {
                 }}
               />
               <Button
-                disabled={isLoading || isSubmitting || !isValid}
+                disabled={isLoading || isSubmitting || !isValid || panned}
                 onClick={form.handleSubmit(onSubmit)}
                 variant={"amazonBtn"}
               >
@@ -201,6 +203,10 @@ const AddRating = ({ product, profile }: AddRatingProps) => {
             </form>
           </Form>
           <Separator />
+          {panned && (
+
+            <p className="text-sm text-rose-500">This Account is Not Allowed To Add Reviews. <Link href={"#"}><Button variant={"link"} className="pl-0" size={"sm"}>Report Now</Button></Link></p>
+          )}
         </div>
       )}
       {isEditting && currentProductReview && (

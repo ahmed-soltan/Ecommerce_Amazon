@@ -1,14 +1,22 @@
 import Container from "@/components/Container";
 import CartDetails from "./_components/CartDetails";
+import { getCurrentProfile } from "@/actions/getCurrentProfile";
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/actions/getCurrentUser";
 
-const page = () => {
+const CartPage = async() => {
+  const user = await getCurrentUser()
+  const profile = await getCurrentProfile()
+  if(!profile || !user){
+    return redirect('/login');
+  }
   return (
     <div className=" w-full my-10">
       <Container>
-        <CartDetails />
+        <CartDetails orders={profile.Order} panned={user?.panned}/>
       </Container>
     </div>
   );
 };
 
-export default page;
+export default CartPage;

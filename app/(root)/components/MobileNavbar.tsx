@@ -3,7 +3,8 @@ import SearchBar from "./SearchBar";
 import NavLinkItem from "./NavLinkItem";
 import { HomeIcon, ShoppingCart, User2Icon } from "lucide-react";
 import { SideNavSheet } from "./SideNavSheet";
-
+import { getCurrentProfile } from "@/actions/getCurrentProfile";
+import { getCurrentUser } from "@/actions/getCurrentUser";
 
 const navLinks = [
   { label: "Home" , icon:HomeIcon , url: "/" },
@@ -13,7 +14,12 @@ const navLinks = [
 ];
 
 
-const MobileNavbar = () => {
+const MobileNavbar = async() => {
+  const user = await getCurrentUser();
+  const profile = await getCurrentProfile();
+
+  
+
   return (
     <div>
       <div className=" w-full inset-x-0 fixed z-50 p-4  bg-gradient-to-b from-cyan-100 to-slate-200">
@@ -23,7 +29,7 @@ const MobileNavbar = () => {
         {navLinks.map(navLink =>(
           <NavLinkItem label={navLink.label} icon={navLink.icon} url={navLink.url} key={navLink.label}/>
         ))}
-        <SideNavSheet/>
+        <SideNavSheet user={user!} profile={profile!}/>
       </div>
     </div>
   );

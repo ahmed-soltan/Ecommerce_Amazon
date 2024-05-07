@@ -9,6 +9,10 @@ const OrderPage = async () => {
 
   const profile = await getCurrentProfile();
 
+  if(!profile){
+    return redirect('/login')
+  }
+
   return (
     <div className="py-6">
       <Container>

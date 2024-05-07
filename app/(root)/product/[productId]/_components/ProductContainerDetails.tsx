@@ -60,9 +60,6 @@ const ProductContainerDetails = ({
     sizes: [],
   });
 
-  useEffect(() => {
-   console.log(cartProducts)
-  }, [cartProducts]);
 
 
   const productRating =
@@ -210,6 +207,7 @@ const ProductContainerDetails = ({
                     isLoading ||
                     (cartProduct?.category === "Clothes" &&
                       cartProduct?.sizes?.length === 0)
+                      ||!user
                   }
                   variant={"amazonBtn"}
                   onClick={() => AddToCart(cartProduct)}

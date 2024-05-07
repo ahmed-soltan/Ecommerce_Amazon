@@ -1,6 +1,5 @@
+"use client"
 import { sideNavLinks } from "@/Utils/NavLinks";
-import { getCurrentProfile } from "@/actions/getCurrentProfile";
-import { getCurrentUser } from "@/actions/getCurrentUser";
 import { Button } from "@/components/ui/button";
 
 import { Separator } from "@/components/ui/separator";
@@ -13,22 +12,35 @@ import {
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import GoogleTranslate from "./GoogleTranslation";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { categories } from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/AddProductsForm";
+import { Profile, User, Vendor } from "@prisma/client";
 
-export const SideNavSheet = async () => {
-  const user = await getCurrentUser();
+export const SideNavSheet = ({user , profile}:{
+  user: User & {
+    vendor:Vendor | null
+  };
+  profile: Profile;
+}) => {
+  const router = useRouter()
   const navLinks = [
-    { label: "Toady's Deals", url: "/products" },
+    { label: "Today's Deals", url: "/products" },
     {
-      label: user?.vendor ? "Dashboard" : "Sell",
-      url: user?.vendor ? `/vendor/${user.vendor.id}` : "/sell",
+      label: user && user?.vendor ? "Dashboard" : "Sell",
+      url: user && user?.vendor ? `/vendor/${user.vendor.id}` : "/sell",
     },
     { label: "Buy Again", url: "/buy-again" },
     { label: `Amazon.com`, url: "#" },
     { label: "Browsing History", url: "#" },
     { label: "Your WishList", url: "/wishlist" },
   ];
-  const profile =await getCurrentProfile();
+  const filterByCategory = (category: string) => {
+    if (category === "All") {
+      router.push(`/products?page=1`);
+    } else {
+      router.push(`/products?key=${category}&page=1`);
+    }
+  };
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -40,7 +52,7 @@ export const SideNavSheet = async () => {
           <p className="hidden md:block">All</p>
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"}>
+      <SheetContent side={"left"} className="overflow-y-auto">
         <SheetHeader className=" w-full">
           <h1 className="font-medium text-xl text-start">
             {profile ? `Hello, ${profile.name}!` : `Hello, Guest!`}
@@ -60,11 +72,26 @@ export const SideNavSheet = async () => {
                 </Link>
               );
             })}
-          <Separator />
+            <Separator />
           </div>
-          <h1 className="font-medium text-xl text-slate-800">
+          <h1 className="font-medium text-lg text-slate-900">
             Shop By Category
           </h1>
+          <div className="flex items-start flex-col gap-4 my-2">
+            {categories.map((category) => {
+              const Icon = category.icon;
+              return (
+                <p
+                  onClick={() => filterByCategory(category.label)}
+                  key={category.label}
+                  className="cursor-pointer flex items-center text-sm"
+                >
+                  <Icon className="w-4 h-4 mr-1" /> {category.label}{" "}
+                </p>
+              );
+            })}
+            <Separator />
+          </div>
           <Separator />
           {sideNavLinks.map((link) => {
             return (
@@ -81,21 +108,14 @@ export const SideNavSheet = async () => {
                     key={link.label}
                     className="w-full flex flex-row items-center justify-between cursor-pointer gap-2"
                   >
-                    <h1  className="font-medium text-slate-600">
-
-                    {link.label}
-                    </h1>
+                    <h1 className="font-medium text-slate-600">{link.label}</h1>
                   </Link>
                 ))}
               </div>
             );
           })}
-          {!user && (
-            <Link href={'/login'}>
-              Login
-            </Link>
-          )}
-          <GoogleTranslate/>
+          {!user && <Link href={"/login"}>Login</Link>}
+          <GoogleTranslate />
         </div>
       </SheetContent>
     </Sheet>

@@ -1,11 +1,10 @@
 import prisma from "../lib/prismadb";
 import { getCurrentUser } from "./getCurrentUser";
 
-
-export const getProfileById = async (profileId:string) => {
-  const user = await getCurrentUser()
-  if(!user){
-    return null
+export const getProfileById = async (profileId: string) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    return null;
   }
   try {
     const profile = await prisma.profile.findUnique({
@@ -15,6 +14,16 @@ export const getProfileById = async (profileId:string) => {
       include: {
         clothingShoesPreferences: true,
         Interests: true,
+        Order: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+        Review: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
     return profile;

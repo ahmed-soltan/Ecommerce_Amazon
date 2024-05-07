@@ -22,7 +22,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       product.reviews.length;
   return (
     <Link href={`/product/${product.id}`}>
-      <div className="flex flex-col max-w-[500px] p-2 items-start border-b gap-2">
+      <div className="flex flex-col w-[300px] p-2 items-start border-b gap-2">
         <div className="relative h-[250px] w-full z-0">
           <Image
             src={product.images[0].image}

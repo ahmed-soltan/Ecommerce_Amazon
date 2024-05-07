@@ -39,12 +39,12 @@ const SearchBar = () => {
 
   return (
     <div className="relative w-full ">
-      <div className="absolute top-0 right-0 cursor-pointer bg-orange-500 p-3 rounded-r-md">
+      <button type={"submit"} className="absolute top-0 right-0 cursor-pointer bg-yellow-500 p-3 rounded-r-md">
         <Search
           className=" w-4 h-4 text-slate-100"
           onClick={onSubmit}
         />
-      </div>
+      </button>
       <Input
         className="w-full pl-4 bg-slate-50 text-slate-800"
         placeholder="Search For a Product..."
