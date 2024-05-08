@@ -13,6 +13,7 @@ const SearchBar = () => {
   const searchParams = useSearchParams();
 
   const onSubmit = () => {
+    console.log("hello worlf")
     const url = qs.stringifyUrl(
       {
         url: "/products",

@@ -43,12 +43,12 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
           <Separator />
           <div className="flex items-start flex-col gap-4">
             {cartProductLength > 0 ? (
-              cartProducts?.map((product) => (
+              cartProducts?.map((product , index) => (
                 <div
-                  key={product.productId}
+                  key={index}
                   className="flex flex-col gap-4 w-full"
                 >
-                  <CartProductItem product={product} />
+                  <CartProductItem product={product} index={index}/>
                   <Separator />
                 </div>
               ))
@@ -69,11 +69,11 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
           </TabsList>
           <Separator/>
           <TabsContent value="saved-items">
-            <div className="flex items-start justify-start gap-4">
+            <div className="flex items-start justify-center md:justify-start gap-4 flex-wrap">
               {savedProductLength > 0 ? (
-                savedProduct?.map((product) => (
-                  <div key={product.productId} className="flex flex-col gap-4">
-                    <SavedProductCard product={product} />
+                savedProduct?.map((product , index) => (
+                  <div key={index} className="flex flex-col gap-4">
+                    <SavedProductCard product={product} index={index}/>
                   </div>
                 ))
               ) : (

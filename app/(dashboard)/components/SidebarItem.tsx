@@ -14,7 +14,9 @@ const SidebarItem = ({ label, icon: Icon, path }: SidebarItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const isActive =
-    pathname === path 
+  (pathname === "/" && path === "/") ||
+  pathname === path ||
+  pathname?.startsWith(`${path}/`);
 
   const onClick = () => {
     router.push(path);

@@ -24,7 +24,9 @@ const CustomerDetails = ({ customer }: CustomerDetailsProps) => {
   const onclick = async () => {
     try {
       setIsLoading(true);
-      await axios.patch(`/api/admin/customer/${customer.id}`, { panned: !customer.panned });
+      await axios.patch(`/api/admin/customer/${customer.id}`, {
+        panned: !customer.panned,
+      });
       router.refresh();
       toast.success("Customer Status Updated Successfully");
     } catch (error) {
@@ -36,90 +38,106 @@ const CustomerDetails = ({ customer }: CustomerDetailsProps) => {
   };
   return (
     <div className="flex flex-col items-start gap-4 w-full">
-      <Button variant={"link"} className="pl-0" onClick={()=>router.push(`/admin/customers`)}><ArrowLeft className="w-4 h-4 mr-2"/> View Other Customers</Button>
-        <div className="flex items-start justify-between w-full">
-        <h1 className="text-3xl font-medium test-slate-900">
+      <Button
+        variant={"link"}
+        className="pl-0 "
+        onClick={() => router.push(`/admin/customers`)}
+      >
+        <ArrowLeft className="w-4 h-4 mr-2" /> View Other Customers
+      </Button>
+      <div className="flex items-start justify-between w-full">
+        <h1 className="text-2xl md:text-3xl font-medium test-slate-900">
           Customer Details
         </h1>
-      {customer.panned ? (
-        <Button
-          variant={"success"}
-          size={"sm"}
-          onClick={onclick}
-          disabled={isLoading}
-        >
-          <MinusCircle className="w-4 h-4 mr-2" />
-          unblock Customer
-        </Button>
-      ) : (
-        <Button
-          variant={"destructive"}
-          size={"sm"}
-          onClick={onclick}
-          disabled={isLoading}
-        >
-          <MinusCircle className="w-4 h-4 mr-2" />
-          Pan Customer
-        </Button>
-      )}
-    </div>
-        <Separator />
-        <h1 className="text-xl font-medium test-slate-800">
-          Customer ID :{" "}
-          <span className="text-base text-slate-600">{customer.id}</span>
-        </h1>
-        <h1 className="text-xl font-medium test-slate-800">
-          Customer Name :{" "}
-          <span className="text-base text-slate-600">{customer.username}</span>
-        </h1>
-        <h1 className="text-xl font-medium test-slate-800">
-          Customer Email Address :{" "}
-          <span className="text-base text-slate-600">{customer.email}</span>
-        </h1>
-        <h1 className="text-xl font-medium test-slate-800">
-          Customer Status :{" "}
-          <Badge
-            className={cn(
-              customer.panned && "bg-rose-500",
-              !customer.panned && "bg-green-600"
-            )}
+        {customer.panned ? (
+          <Button
+            variant={"success"}
+            size={"sm"}
+            onClick={onclick}
+            disabled={isLoading}
+            className=""
           >
-            {customer.panned ? `Panned` : "Not Panned"}
-          </Badge>
-        </h1>
-        <h1 className="text-xl font-medium test-slate-800">
-          Customer Created Account Date :{" "}
-          <span className="text-base text-slate-600">
-            {moment(customer.createdAt).fromNow()}
-          </span>
-        </h1>
-        <Separator />
-        <p>Customer Profiles : ({customer.profile.length}) Profiles</p>
-        <div className="flex items-center gap-4">
-          {customer.profile.map((profile) => (
-            <div
-              className="flex flex-col items-center justify-center rounded-md border shadow-sm gap-2 p-4 w-[300px]"
-              key={profile.id}
-            >
-              <Image
-                src={profile.profileImage || unknown}
-                alt={profile.name}
-                width={100}
-                height={100}
-                className="w-12 h-12 rounded-full"
-              />
-              <p className="text-slate-800 font-medium">{profile.name}</p>
-              <Link
-                href={`/admin/customers/${customer.id}/profile/${profile.id}`}
-              >
-                <Button variant={"link"} size={"sm"}>
-                  View <ArrowRight className="w-4 h-4 ml-1" />
-                </Button>
-              </Link>
-            </div>
-          ))}
-        </div>
+            <MinusCircle className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:block">unblock Customer</span>
+          </Button>
+        ) : (
+          <Button
+            variant={"destructive"}
+            size={"sm"}
+            onClick={onclick}
+            disabled={isLoading}
+          >
+            <MinusCircle className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:block">
+
+            Pan Customer
+            </span>
+          </Button>
+        )}
       </div>
+      <Separator />
+      <h1 className="text-normal md:text-xl font-normal test-slate-800">
+        Customer ID :{" "}
+        <span className="text-sm md:text-base text-slate-600">
+          {customer.id}
+        </span>
+      </h1>
+      <h1 className="text-normal md:text-xl font-normal test-slate-800">
+        Customer Name :{" "}
+        <span className="text-sm md:text-base text-slate-600">
+          {customer.username}
+        </span>
+      </h1>
+      <h1 className="text-normal md:text-xl font-normal test-slate-800">
+        Customer Email Address :{" "}
+        <span className="text-sm md:text-base text-slate-600">
+          {customer.email}
+        </span>
+      </h1>
+      <h1 className="text-normal md:text-xl font-normal test-slate-800">
+        Customer Status :{" "}
+        <Badge
+          className={cn(
+            customer.panned && "bg-rose-500",
+            !customer.panned && "bg-green-600"
+          )}
+        >
+          {customer.panned ? `Panned` : "Not Panned"}
+        </Badge>
+      </h1>
+      <h1 className="text-normal md:text-xl font-normal test-slate-800">
+        Customer Created Account Date :{" "}
+        <span className="text-sm md:text-base text-slate-600">
+          {moment(customer.createdAt).fromNow()}
+        </span>
+      </h1>
+      <Separator />
+      <p>Customer Profiles : ({customer.profile.length}) Profiles</p>
+      <div className="flex items-center gap-4 flex-wrap w-full justify-center md:justify-start ">
+        {customer.profile.map((profile) => (
+          <div
+            className="flex flex-col items-center justify-center rounded-md border shadow-sm gap-2 p-4 w-[300px]"
+            key={profile.id}
+          >
+            <Image
+              src={profile.profileImage || unknown}
+              alt={profile.name}
+              width={100}
+              height={100}
+              className="w-12 h-12 rounded-full"
+            />
+            <p className="text-slate-800 font-medium">{profile.name}</p>
+            <Link
+              href={`/admin/customers/${customer.id}/profile/${profile.id}`}
+            >
+              <Button variant={"link"} size={"sm"}>
+                View <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

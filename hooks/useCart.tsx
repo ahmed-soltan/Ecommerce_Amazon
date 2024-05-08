@@ -15,13 +15,13 @@ type CartContextProps = {
   cartProducts: cartProductType[] | null;
   savedProduct: cartProductType[] | null;
   handleAddToCartProduct: (product: cartProductType) => void;
-  handleRemoverProductFromCart: (product: cartProductType) => void;
-  handleRemoverProductFromSavedLater: (product: cartProductType) => void;
-  handleQuantityIncrease: (product: cartProductType) => void;
-  handleQuantityDecrease: (product: cartProductType) => void;
+  handleRemoverProductFromCart: (index: number) => void;
+  handleRemoverProductFromSavedLater: (index: number) => void;
+  handleQuantityIncrease: (index: number) => void;
+  handleQuantityDecrease: (index: number) => void;
   ClearCart: () => void;
   cartAmountTotal: number;
-  handleSaveLater: (product: cartProductType) => void;
+  handleSaveLater: (index: number) => void;
 };
 
 export const cartContext = createContext<CartContextProps | null>(null);
@@ -45,168 +45,120 @@ export const CartContextProvider = (props: any) => {
     setCartProducts(cProduct);
     setCartQtyTotal(cProduct ? cProduct.length : 0);
   }, []);
-
+  
   const handleAddToCartProduct = useCallback(
     (product: cartProductType) => {
       setCartProducts((prev: cartProductType[] | null) => {
-        const isProductExist = prev?.find(
-          (item: cartProductType) => item.productId === product.productId
-        );
-
-        // Check if the product is also in the savedProduct
-        const isProductSaved = savedProduct?.find(
-          (item: cartProductType) => item.productId === product.productId
-        );
-
-        // Remove the product from savedProduct if found
-        if (isProductSaved) {
-          setSavedProduct((prevSaved: cartProductType[] | null) => {
-            const updatedSaved = prevSaved?.filter(
-              (item: cartProductType) => item.productId !== product.productId
-            );
-            localStorage.setItem("savedItems", JSON.stringify(updatedSaved));
-            return updatedSaved || prevSaved;
-          });
-        }
-
-        if (isProductExist) {
-          // If the product is already in the cart, increase its quantity
-          const updatedCart = prev?.map((item: cartProductType) => {
-            if (item.productId === product.productId) {
-              return {
-                ...item,
-                quantity: item.quantity + product.quantity,
-              };
-            }
-            return item;
-          });
-          if (updatedCart) {
-            localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-            setCartQtyTotal(updatedCart.length);
-          }
-          return updatedCart || prev;
-        } else {
-          // If the product is not in the cart, add it
-          const updatedCart = prev
-            ? [...prev, { ...product, quantity: product.quantity }]
-            : [{ ...product, quantity: product.quantity }];
-          localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-          setCartQtyTotal(updatedCart.length);
-          return updatedCart;
-        }
+        const updatedCart = prev ? [...prev, product] : [product];
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+        setCartQtyTotal(updatedCart.length);
+        return updatedCart;
       });
     },
-    [cartProducts, savedProduct]
+    [setCartProducts, setCartQtyTotal]
   );
+  
+  
 
 
   const handleSaveLater = useCallback(
-    (product: cartProductType) => {
-        setCartProducts((prevCart: cartProductType[] | null) => {
-            // Filter out the product being saved for later
-            const updatedCart = prevCart?.filter(
-                (item: cartProductType) => item.productId !== product.productId
-            );
-
-            if (updatedCart) {
-                localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-                setCartQtyTotal(updatedCart.length);
-            }
-
-            return updatedCart || prevCart;
-        });
-
-        setSavedProduct((prevSaved: cartProductType[] | null) => {
-            // Add the product to savedProducts
-            const updatedSaved = prevSaved ? [...prevSaved, product] : [product];
-            localStorage.setItem("savedItems", JSON.stringify(updatedSaved));
-            return updatedSaved;
-        });
+    (index: number) => {
+      setCartProducts((prevCart: cartProductType[] | null) => {
+        if (prevCart) {
+          // Remove the product being saved for later
+          const updatedCart = prevCart.filter(
+            (item: cartProductType, currentIndex: number) => currentIndex !== index
+          );
+  
+          localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+          setCartQtyTotal(updatedCart.length);
+  
+          return updatedCart;
+        }
+        return prevCart;
+      });
+  
+      setSavedProduct((prevSaved: cartProductType[] | null) => {
+        if (cartProducts && cartProducts[index]) {
+          // Add the product to savedProducts
+          const productToSave = cartProducts[index];
+          const updatedSaved = prevSaved ? [...prevSaved, productToSave] : [productToSave];
+          localStorage.setItem("savedItems", JSON.stringify(updatedSaved));
+          return updatedSaved;
+        }
+        return prevSaved;
+      });
     },
     [cartProducts]
+  );
+  
+
+const handleRemoverProductFromCart = useCallback(
+  (index: number) => {
+    setCartProducts((prev: cartProductType[] | null) => {
+      if (prev) {
+        const updatedCart = [...prev];
+        updatedCart.splice(index, 1); // Remove the product at the specified index
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+        setCartQtyTotal(updatedCart.length);
+        return updatedCart;
+      }
+      return prev;
+    });
+  },
+  [cartProducts]
 );
 
-  const handleRemoverProductFromCart = useCallback(
-    (product: cartProductType) => {
-      setCartProducts((prev: cartProductType[] | null) => {
-        const updateCart = prev
-          ? prev.filter(
-              (item: cartProductType) => item.productId !== product.productId
-            )
-          : prev;
-        if (cartProducts) {
-          setCartProducts(updateCart);
-          localStorage.setItem("cartItems", JSON.stringify(updateCart));
-          setCartQtyTotal(updateCart?.length || 0);
-        }
-        return updateCart;
-      });
-    },
-    [cartProducts]
-  );
-  const handleRemoverProductFromSavedLater = useCallback(
-    (product: cartProductType) => {
-      setSavedProduct((prev: cartProductType[] | null) => {
-        const savedProducts = prev
-          ? prev.filter(
-              (item: cartProductType) => item.productId !== product.productId
-            )
-          : prev;
-        if (savedProducts) {
-          setSavedProduct(savedProducts);
-          localStorage.setItem("savedItems", JSON.stringify(savedProducts));
-        }
-        return savedProducts;
-      });
-    },
-    [savedProduct]
-  );
+const handleRemoverProductFromSavedLater = useCallback(
+  (index: number) => {
+    setSavedProduct((prev: cartProductType[] | null) => {
+      if (prev) {
+        // Remove the product from savedProducts based on index
+        const updatedSaved = prev.filter(
+          (item: cartProductType, currentIndex: number) => currentIndex !== index
+        );
+        localStorage.setItem("savedItems", JSON.stringify(updatedSaved));
+        return updatedSaved;
+      }
+      return prev;
+    });
+  },
+  [savedProduct]
+);
+
 
   const handleQuantityIncrease = useCallback(
-    (product: cartProductType) => {
-      let updateCart;
-
-      if (product.quantity === 99) {
-        return toast.error("Maximum quantity Reached");
-      }
+    (index: number) => {
       if (cartProducts) {
-        updateCart = [...cartProducts];
-        const existProduct = cartProducts.findIndex(
-          (item) => item.productId === product.productId
-        );
-        if (existProduct > -1) {
-          updateCart[existProduct].quantity =
-            updateCart[existProduct].quantity + 1;
+        const updatedCart = [...cartProducts];
+        const product = updatedCart[index];
+        if (product.quantity === 99) {
+          return toast.error("Maximum quantity Reached");
         }
-        setCartProducts(updateCart);
-        localStorage.setItem("cartItems", JSON.stringify(updateCart));
+        product.quantity += 1;
+        setCartProducts(updatedCart);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       }
     },
     [cartProducts]
   );
-
+  
   const handleQuantityDecrease = useCallback(
-    (product: cartProductType) => {
-      let updateCart;
-
-      if (product.quantity === 1) {
-        return;
-      }
+    (index: number) => {
       if (cartProducts) {
-        updateCart = [...cartProducts];
-        const existProduct = cartProducts.findIndex(
-          (item) => item.productId === product.productId
-        );
-        if (existProduct > -1) {
-          updateCart[existProduct].quantity =
-            updateCart[existProduct].quantity - 1;
+        const updatedCart = [...cartProducts];
+        const product = updatedCart[index];
+        if (product.quantity === 1) {
+          return;
         }
-        setCartProducts(updateCart);
-        localStorage.setItem("cartItems", JSON.stringify(updateCart));
+        product.quantity -= 1;
+        setCartProducts(updatedCart);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       }
     },
     [cartProducts]
   );
+  
 
   const ClearCart = useCallback(() => {
     setCartQtyTotal(0);

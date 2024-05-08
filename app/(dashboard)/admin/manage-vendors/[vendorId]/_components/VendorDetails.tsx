@@ -45,78 +45,78 @@ const VendorDetails = ({ vendor }: VendorDetailsProps) => {
         <ArrowLeft className="w-4 h-4 mr-2" /> View Other vendors
       </Button>
       <div className="flex items-start justify-between w-full">
-        <h1 className="text-3xl font-medium test-slate-900">vendor Details</h1>
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-medium test-slate-900">vendor Details</h1>
       </div>
       <Separator  className="h-[1px] bg-slate-600"/>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor ID :{" "}
         <span className="text-base text-slate-600">{vendor.id}</span>
       </h1>
-      <h1 className="text-3xl font-medium test-slate-900">
+      <h1 className="text-xl md:text-2xl lg:text-3xl font-medium test-slate-900">
         Store Information
       </h1>
       <Separator  className="h-[1px] bg-slate-600"/>
       <Image src={vendor.storeLogo} alt="Store Logo" width={300} height={300} />
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Store Name :{" "}
         <span className="text-base text-slate-600">{vendor.storeName}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Store Description :{" "}
         <span className="text-base text-slate-600">{vendor.storeDescription}</span>
       </h1>
       <Separator  className="h-[1px] bg-slate-600"/>
-      <h1 className="text-3xl font-medium test-slate-900">
+      <h1 className="text-xl md:text-2xl lg:text-3xl font-medium test-slate-900">
         Business Information
       </h1>
       <Separator  className="h-[1px] bg-slate-600"/>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Business Name :{" "}
         <span className="text-base text-slate-600">{vendor.businessName}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Company Registertion Number :{" "}
         <span className="text-base text-slate-600">{vendor.companyRegistrationNumber}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Country :{" "}
         <span className="text-base text-slate-600">{vendor.country}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor State :{" "}
         <span className="text-base text-slate-600">{vendor.state}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor City :{" "}
         <span className="text-base text-slate-600">{vendor.city}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Address Line 1 :{" "}
         <span className="text-base text-slate-600">{vendor.addressLine1}</span>
       </h1>
       <Separator className="h-[1px] bg-slate-600"/>
-      <h1 className="text-3xl font-medium test-slate-900">
+      <h1 className="text-xl md:text-2xl lg:text-3xl font-medium test-slate-900">
         Seller Information
       </h1>
       <Separator className="h-[1px] bg-slate-600"/>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Full Name :{" "}
         <span className="text-base text-slate-600">{vendor.fullName}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor username :{" "}
         <span className="text-base text-slate-600">{vendor.username}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Phone Number :{" "}
         <span className="text-base text-slate-600">{vendor.phoneNumber}</span>
       </h1>
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Email Address :{" "}
         <span className="text-base text-slate-600">{vendor.email}</span>
       </h1>
 
-      <h1 className="text-xl font-medium test-slate-800">
+      <h1 className="md:text-normal lg:text-xl font-normal test-slate-700">
         vendor Created Account Date :{" "}
         <span className="text-base text-slate-600">
           {moment(vendor.createdAt).fromNow()}
@@ -135,7 +135,7 @@ const VendorDetails = ({ vendor }: VendorDetailsProps) => {
               alt={product.name}
               width={200}
               height={100}
-              className="min-h-[300px]"
+              className="max-h-[200px]"
             />
             <h1 className="text-slate-800 font-medium">{product.name}</h1>
             <p className="text-slate-700 font-medium text-sm">{formatPrice(product.price)}</p>

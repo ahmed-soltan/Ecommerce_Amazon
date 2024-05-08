@@ -16,17 +16,7 @@ const VendorPage = async () => {
   if (!vendor) {
     return redirect("/");
   }
-  return (
-    <div className="flex flex-col items-start gap-4 mt-5 p-4">
-      <h1 className="text-3xl text-slate-800 font-medium">Vendor Profile</h1>
-      <Separator />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
-        <BusinessInformation vendor={vendor} />
-        <SellerInformation vendor={vendor} />
-        <StoreInformation vendor={vendor} />
-      </div>
-    </div>
-  );
+  return redirect(`/vendor/${vendor.id}/profile`);
 };
 
 export default VendorPage;

@@ -11,12 +11,18 @@ import { formatPrice } from "@/lib/formatPrice";
 
 type SavedProductCardProps = {
   product: cartProductType;
+  index:number
 };
 
-const SavedProductCard = ({ product }: SavedProductCardProps) => {
+const SavedProductCard = ({ product , index }: SavedProductCardProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { handleAddToCartProduct, handleRemoverProductFromSavedLater } =
     useCart();
+
+    const handleRemoveAndAddToCart = ()=>{
+      handleRemoverProductFromSavedLater(index)
+      handleAddToCartProduct(product)
+    }
   return (
     <div className="flex flex-col p-2 items-start border-b gap-1">
       <Link href={`/product/${product.productId}`} className="z-10">
@@ -61,14 +67,14 @@ const SavedProductCard = ({ product }: SavedProductCardProps) => {
         variant={"outline"}
         className="w-full"
         size={"sm"}
-        onClick={() => handleAddToCartProduct(product)}
+        onClick={handleRemoveAndAddToCart}
       >
         Move To Cart
       </Button>
       <Button
         variant={"link"}
         size={"sm"}
-        onClick={() => handleRemoverProductFromSavedLater(product)}
+        onClick={() => handleRemoverProductFromSavedLater(index)}
         className="text-xs z-50"
       >
         {" "}
