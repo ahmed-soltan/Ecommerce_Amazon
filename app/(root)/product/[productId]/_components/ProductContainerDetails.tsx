@@ -12,6 +12,9 @@ import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/preview";
 import { useCart } from "@/hooks/useCart";
 import toast from "react-hot-toast";
+import { useWishlist } from "@/hooks/useWishList";
+import { shortenTitle } from "@/Utils/stringCut";
+import { useBrowsingHistory } from "@/hooks/useBrowsingHistory";
 
 type ProductContainerDetailsProps = {
   product: Products & {
@@ -48,6 +51,8 @@ const ProductContainerDetails = ({
 }: ProductContainerDetailsProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const {handleAddToCartProduct , cartProducts} = useCart()
+  const {handleAddToBrowsingHistory} = useBrowsingHistory()
+  const {handleAddToWishList} = useWishlist()
   const [cartProduct, setcartProduct] = useState<cartProductType>({
     productId: product.id,
     name: product.name,
@@ -59,6 +64,10 @@ const ProductContainerDetails = ({
       product.price - (product.price * (product?.discount || 0 * 100)) / 100,
     sizes: [],
   });
+
+  useEffect(()=>{
+    handleAddToBrowsingHistory(product)
+  },[product])
 
 
 
@@ -94,7 +103,11 @@ const ProductContainerDetails = ({
 
   const AddToCart = (product:cartProductType)=>{
     handleAddToCartProduct(product);
-    toast.success(`${product.name} Added To Cart`)
+    toast.success(`${shortenTitle(product.name , 20)} Added To Cart`)
+  }
+  const AddToWishlist = (product:Products)=>{
+    handleAddToWishList(product);
+    toast.success(`${shortenTitle(product.name , 20)} Added To WishList`)
   }
 
   return (
@@ -214,7 +227,7 @@ const ProductContainerDetails = ({
                 >
                   Add To Cart
                 </Button>
-                <Button disabled={isLoading}>Add To WishList</Button>
+                <Button disabled={isLoading} onClick={()=>AddToWishlist(product)}>Add To WishList</Button>
                 {!user && <p className="text-rose-400">Login First</p>}
               </div>
             </>

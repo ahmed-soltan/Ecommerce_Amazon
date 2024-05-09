@@ -35,7 +35,7 @@ const Nav = async () => {
           </div>
         )}
         <div>
-          <Link href={"#"}>Browsing History</Link>
+          <Link href={"/browsing-history"}>Browsing History</Link>
         </div>
         <div>
           <Link href={"/wishlist"}>Your Wishlist</Link>

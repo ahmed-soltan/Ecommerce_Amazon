@@ -1,5 +1,4 @@
 import { cartProductType } from "@/app/(root)/product/[productId]/_components/ProductContainerDetails";
-import { Products } from "@prisma/client";
 import {
   createContext,
   useCallback,

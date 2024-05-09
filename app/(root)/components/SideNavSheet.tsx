@@ -31,7 +31,7 @@ export const SideNavSheet = ({user , profile}:{
     },
     { label: "Buy Again", url: "/buy-again" },
     { label: `Amazon.com`, url: "#" },
-    { label: "Browsing History", url: "#" },
+    { label: "Browsing History", url: "/browsing-history" },
     { label: "Your WishList", url: "/wishlist" },
   ];
   const filterByCategory = (category: string) => {
