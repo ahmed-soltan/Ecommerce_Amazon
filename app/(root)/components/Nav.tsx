@@ -8,6 +8,8 @@ const Nav = async () => {
   const profile = await getCurrentProfile()
   const vendor = user?.vendor;
 
+  console.log(vendor)
+
   return (
     <div className="bg-gray-800 w-full text-slate-200">
       <div className="flex flex-row items-center justify-start text-sm gap-5 px-2">
@@ -15,10 +17,10 @@ const Nav = async () => {
           <SideNavSheet user={user!} profile={profile!}/>
         </div>
         <div className="hidden lg:block">
-          <Link href={"/products"}>Today&apos;s Deals</Link>
+          <Link href={"/products?&page=1"}>Today&apos;s Deals</Link>
         </div>
         <div className="hidden lg:block">
-          {user && user?.role==="ADMIN" ?  <Link href={`/admin`}>Dashboard</Link> :vendor ? (
+          {user && user?.role==="ADMIN" ?  <Link href={`/admin`}>Dashboard</Link> : vendor ? (
             <Link href={`/vendor/${vendor.id}`}>Dashboard</Link>
           ) : (
             <Link href={"/sell"}>Sell</Link>

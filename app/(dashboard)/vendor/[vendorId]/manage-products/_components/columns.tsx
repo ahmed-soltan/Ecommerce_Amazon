@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatPrice } from "@/lib/formatPrice";
 import { Products } from "@prisma/client";
 import Image from "next/image";
+import { shortenTitle } from "@/Utils/stringCut";
 
 export const columns: ColumnDef<Products>[] = [
   {
@@ -59,6 +60,10 @@ export const columns: ColumnDef<Products>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ row }) => {
+      const title : string =row.getValue("name");
+      return shortenTitle(title , 40);
     },
   },
   {

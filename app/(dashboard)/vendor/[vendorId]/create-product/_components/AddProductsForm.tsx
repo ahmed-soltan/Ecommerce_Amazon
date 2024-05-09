@@ -19,9 +19,15 @@ import { Image } from "@prisma/client";
 import ProductCategory from "./ProductCategory";
 import {
   AccessibilityIcon,
+  BellElectric,
+  Book,
+  Camera,
+  Cpu,
+  Film,
   Footprints,
   ForkliftIcon,
   Gamepad2Icon,
+  Headphones,
   HeartPulseIcon,
   HomeIcon,
   LaptopIcon,
@@ -101,6 +107,26 @@ export const categories = [
     label: "Shoes",
     icon: Footprints,
   },
+  {
+    label: "Movies",
+    icon: Film,
+  },
+  {
+    label: "Books",
+    icon: Book,
+  },
+  {
+    label: "Electronics",
+    icon: Cpu,
+  },
+  {
+    label: "Head Phones",
+    icon: Headphones,
+  },
+  {
+    label: "Camera",
+    icon: Camera,
+  },
 ];
 
 const formSchema = z.object({
@@ -117,6 +143,7 @@ const formSchema = z.object({
   brand: z.string().min(3, {
     message: "Product description must be at least 3 characters.",
   }),
+  details:z.string(),
   inStock: z.boolean(),
   discount: z.string(),
 });
@@ -138,6 +165,7 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
       price: "",
       category: "",
       description: "",
+      details:"",
       brand: "",
       inStock: false,
       discount: "",

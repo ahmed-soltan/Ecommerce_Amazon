@@ -3,6 +3,7 @@ import CartDetails from "./_components/CartDetails";
 import { getCurrentProfile } from "@/actions/getCurrentProfile";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/actions/getCurrentUser";
+import { getProducts } from "@/actions/getProducts";
 
 const CartPage = async() => {
   const user = await getCurrentUser()

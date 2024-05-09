@@ -51,7 +51,6 @@ const LoginForm = () => {
           toast.success("Logged in");
           router.refresh();
           router.push("/");
-          window.location.reload();
         }
         if (callback?.error) {
           router.refresh();
@@ -64,6 +63,7 @@ const LoginForm = () => {
     } finally {
       router.refresh();
       setIsLoading(false)
+      window.location.reload();
     }
   };
 

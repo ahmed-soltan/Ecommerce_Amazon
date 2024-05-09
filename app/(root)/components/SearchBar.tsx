@@ -13,7 +13,6 @@ const SearchBar = () => {
   const searchParams = useSearchParams();
 
   const onSubmit = () => {
-    console.log("hello worlf")
     const url = qs.stringifyUrl(
       {
         url: "/products",
@@ -38,6 +37,12 @@ const SearchBar = () => {
     setValue(e.target.value);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSubmit();
+    }
+  };
+
   return (
     <div className="relative w-full ">
       <button type={"submit"} className="absolute top-0 right-0 cursor-pointer bg-yellow-500 p-3 rounded-r-md">
@@ -51,6 +56,7 @@ const SearchBar = () => {
         placeholder="Search For a Product..."
         value={value || ""}
         onChange={handleChange}
+        onKeyPress={handleKeyPress} // Add this line to listen for Enter key press
       />
     </div>
   );

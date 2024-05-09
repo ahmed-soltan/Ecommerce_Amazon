@@ -1,3 +1,4 @@
+import { shortenTitle } from "@/Utils/stringCut";
 import { formatPrice } from "@/lib/formatPrice";
 import { Rating } from "@mui/material";
 import { Products, Review } from "@prisma/client";
@@ -22,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       product.reviews.length;
   return (
     <Link href={`/product/${product.id}`}>
-      <div className="flex flex-col w-[300px] p-2 items-start border-b gap-2">
+      <div className="flex flex-col w-[230px] p-2 items-start border-b gap-2">
         <div className="relative h-[250px] w-full z-0">
           <Image
             src={product.images[0].image}
@@ -32,7 +33,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
         </div>
         <div className="flex items-center justify-center flex-col text-center w-full gap-1">
-          <h1 className="font-medium text-slate-800 text-lg">{product.name}</h1>
+          <h1 className="font-medium text-slate-800 text-sm">{shortenTitle(product.name , 100)}</h1>
           <div className="flex items-center">
           <Rating value={productRating} readOnly size="small"/>
             <p className="text-sm text-slate-600">({product.reviews?.length})</p>

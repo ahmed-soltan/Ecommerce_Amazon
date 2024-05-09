@@ -6,6 +6,8 @@ import { useState } from "react";
 import SetQuantity from "../../product/[productId]/_components/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
+import { Products } from "@prisma/client";
+import Link from "next/link";
 
 type CartProductItemProps = {
   product: cartProductType;
@@ -58,7 +60,9 @@ const CartProductItem = ({ product , index }: CartProductItemProps) => {
         <div className="flex items-center justify-start flex-wrap gap-3">
             <Button variant={"link"} onClick={()=>handleRemoverProductFromCart(index)} className="m-0 p-0 text-sm" size={"sm"}>Delete</Button>
             <Button variant={"link"} className="m-0 p-0 text-sm" size={"sm"} onClick={()=>handleSaveLater(index)}>Save For Later</Button>
+            <Link href={`/cart/${product.productId}`}>
             <Button variant={"link"} className="m-0 p-0 text-sm" size={"sm"}>Compare With Similar Products</Button>
+            </Link>
         </div>
       </div>
     </div>

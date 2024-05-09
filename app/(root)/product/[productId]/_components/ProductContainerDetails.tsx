@@ -106,7 +106,7 @@ const ProductContainerDetails = ({
           handleColorSelect={handleColor}
         />
         <div className="flex flex-col gap-3 items-start">
-          <h2 className="text-slate-800 text-3xl font-medium">
+          <h2 className="text-slate-700 text-3xl font-medium">
             {product?.name}
           </h2>
           <div className="gap-2 flex items-center">

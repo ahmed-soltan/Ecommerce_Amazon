@@ -13,10 +13,12 @@ const page = async ({
     return redirect(`/vendor/${params.vendorId}/manage-products`);
   }
 
-
-
   return (
- <ProductContainer product={product} vendorId={params.vendorId} productId={params.productId}/>
+    <ProductContainer
+      product={product}
+      vendorId={params.vendorId}
+      productId={params.productId}
+    />
   );
 };
 

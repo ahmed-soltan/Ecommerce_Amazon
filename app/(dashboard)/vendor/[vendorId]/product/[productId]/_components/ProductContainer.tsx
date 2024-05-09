@@ -19,7 +19,8 @@ import { Products, Review } from "@prisma/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { Minus, MinusCircle, Trash } from "lucide-react";
+import { ArrowLeft, Minus, MinusCircle, Trash } from "lucide-react";
+import Link from "next/link";
 
 type ProductContainerProps = {
   vendorId: string;
@@ -63,6 +64,9 @@ const ProductContainer = ({
         />
       )}
       <div className="p-6 flex flex-wrap flex-col items-start gap-4">
+        <Link href={`/vendor/${vendorId}/manage-products`}>
+          <Button variant={"link"} className="pl-0"> <ArrowLeft className="w-4 h-4 mr-2"/> View Other Products</Button>
+        </Link>
         <div className="flex items-start justify-between w-full flex-wrap gap-3">
           <h1 className="text-slate-800 font-medium text-3xl">
             Product Details

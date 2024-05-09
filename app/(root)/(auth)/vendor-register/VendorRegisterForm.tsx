@@ -158,7 +158,7 @@ const VendorRegisterForm = ({user}:VendorRegisterFormProps) => {
       };
 
   return (
-    <div className="flex flex-col items-start gap-3">
+    <div className="flex flex-col items-start gap-3 bg-white p-3">
       <h1 className="font-medium text-slate-800 text-3xl">
         Create Your Selling Account
       </h1>

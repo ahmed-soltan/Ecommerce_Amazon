@@ -24,7 +24,7 @@ export const SideNavSheet = ({user , profile}:{
 }) => {
   const router = useRouter()
   const navLinks = [
-    { label: "Today's Deals", url: "/products" },
+    { label: "Today's Deals", url: "/products?&page=1" },
     {
       label: user && user?.vendor ? "Dashboard" : "Sell",
       url: user && user?.vendor ? `/vendor/${user.vendor.id}` : "/sell",

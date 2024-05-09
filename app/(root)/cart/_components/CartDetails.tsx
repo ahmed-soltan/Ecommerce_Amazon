@@ -9,7 +9,7 @@ import { cartProductType } from "../../product/[productId]/_components/ProductCo
 import CartProductItem from "./CartProductItem";
 import SavedProductCard from "./SavedProductCard";
 import CheckoutButton from "./CheckoutButton";
-import { Order } from "@prisma/client";
+import { Order, Products } from "@prisma/client";
 import BuyAgainProducts from "../../buy-again/_components/BuyAgainProducts";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
@@ -55,7 +55,9 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
             ) : (
               <div className="flex items-start flex-col gap-3">
                 <h1>Your Shopping Cart is Empty</h1>
+                <Link href={'/products?&page=1'}>
                 <Button variant={"amazonBtn"}>Start Shopping</Button>
+                </Link>
               </div>
             )}
           </div>

@@ -2,15 +2,14 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Image, Products, Review, Vendor } from "@prisma/client";
+import { Products, Review } from "@prisma/client";
 import { Pencil, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import Step1 from "@/app/(root)/(auth)/vendor-register/_components/Step1";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import ProductTitle from "../../../create-product/_components/ProductTitle";
+import ProductBrand from "../../../create-product/_components/ProductBrand";
 
 type ProductBrandEditProps = {
   product: Products & {
@@ -79,7 +78,7 @@ const ProductBrandEdit = ({
       {isEditing ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ProductTitle form={form} />
+            <ProductBrand form={form} />
             <Button
               type="submit"
               className="my-2"
