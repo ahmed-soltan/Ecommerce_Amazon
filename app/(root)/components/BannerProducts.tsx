@@ -17,7 +17,7 @@ const BannerProducts = ({products}:{products:any[]}) => {
         }
         const ProductPhoto = product&& category.label==="Clothes" ? product.images[1].image:product.images[0].image
         return (
-          <div className="p-4 bg-white w-[400px] h-[450px] flex items-start flex-col justify-between gap-4 rounded-md">
+          <div className="p-4 bg-white w-[400px] h-[450px] flex items-start flex-col justify-between gap-4 rounded-md" key={category.label}>
           <h1 className="text-xl font-bold text-slate-900 pl-2">{category.label}</h1>
           <div className="relative mt-4">
             <Image
