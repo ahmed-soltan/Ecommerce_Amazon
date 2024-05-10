@@ -17,7 +17,7 @@ const ProfileIdPage = async ({ params }: { params: { profileId: string } }) => {
     return redirect("/");
   }
   return (
-    <div className="p-6">
+    <div className="py-6">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-8 gap-5">
           <div className="lg:col-span-2 border flex items-center justify-start flex-col gap-3 p-5 bg-white rounded-md max-h-[250px]">
@@ -27,7 +27,8 @@ const ProfileIdPage = async ({ params }: { params: { profileId: string } }) => {
                 alt={profile.name}
                 width={100}
                 height={100}
-                className="rounded-full border-[1.5px] border-orange-300 p-1"
+                className="rounded-full border-[1.5px] border-orange-300 p-1 object-cover"
+                style={{ aspectRatio: "1/1" }}
               />
             </div>
             <div className="flex items-center">
@@ -51,20 +52,20 @@ const ProfileIdPage = async ({ params }: { params: { profileId: string } }) => {
               </p>
               <div className="flex flex-col items-start w-full rounded-lg gap-5">
                 <div className="bg-slate-100 border-2 flex items-center w-full p-5 gap-2 rounded-lg flex-wrap">
-                  <span className="font-medium text-2xl">
+                  <span className="font-medium text-lg lg:text-2xl">
                     Clothing & Shoes |{" "}
                   </span>
 
-                  <p className="text-slate-500 text-lg"> Size, fit and price</p>
+                  <p className="text-slate-500 text-base lg:text-lg"> Size, fit and price</p>
                 </div>
-                <h1 className="text-lg font-bold">About You</h1>
+                <h1 className="text-base lg:text-lg font-bold">About You</h1>
                 <Separator />
                 <Clothes profile={profile} />
               </div>
               <div className="flex flex-col items-start w-full rounded-lg gap-5">
                 <div className="bg-slate-100 border-2 flex items-center w-full p-5 gap-2 rounded-lg flex-wrap">
-                  <span className="font-medium text-2xl">Interests | </span>
-                  <p className="text-slate-500 text-lg">
+                  <span className="font-medium text-lg lg:text-2xl">Interests | </span>
+                  <p className="text-slate-500 text-base lg:text-lg">
                     Activities and hobbies
                   </p>
                 </div>
@@ -72,7 +73,7 @@ const ProfileIdPage = async ({ params }: { params: { profileId: string } }) => {
                   <InterestsList profile={profile} />
                 )}
                 <p className="text-xs text-slate-500">
-                  <span className="font-bold text-lg text-slate-800">
+                  <span className="font-bold text-base lg:text-lg text-slate-800">
                     Suggested interests{" "}
                   </span>{" "}
                   Based on your Amazon activity and popular interests

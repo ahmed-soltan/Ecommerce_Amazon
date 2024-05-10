@@ -90,7 +90,7 @@ export const categories = [
     icon: HeartPulseIcon,
   },
   {
-    label: "video Games",
+    label: "Video Games",
     icon: Gamepad2Icon,
   },
   {

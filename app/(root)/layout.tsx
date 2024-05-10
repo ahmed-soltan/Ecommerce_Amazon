@@ -28,7 +28,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             <MobileNavbar />
           </div>
           <main className="pt-[60px] md:pt-[100px] ">
-            <Container>{children}</Container>
+            {children}
           </main>
           <Footer />
         </WishListProvider>

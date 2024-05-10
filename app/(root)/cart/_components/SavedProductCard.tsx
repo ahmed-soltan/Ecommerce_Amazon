@@ -24,7 +24,7 @@ const SavedProductCard = ({ product , index }: SavedProductCardProps) => {
       handleAddToCartProduct(product)
     }
   return (
-    <div className="flex flex-col p-2 items-start border-b gap-1">
+    <div className="flex flex-col p-2 items-start border-b gap-1 max-w-[300px]">
       <Link href={`/product/${product.productId}`} className="z-10">
         <div className="flex flex-col min-w-[250px] p-2 items-start gap-1">
           <div className="relative h-[250px] w-full z-0">

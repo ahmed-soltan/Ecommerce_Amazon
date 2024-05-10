@@ -71,8 +71,6 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
     } catch (error) {
         console.error(error);
         toast.error("Something went wrong");
-    }finally{
-          router.push('/')
     }
   }; 
 
@@ -107,6 +105,8 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
               width={50}
               height={50}
               className="rounded-full"
+              style={{ aspectRatio: "1/1" }}
+
             />
           </div>
         ) : (
@@ -117,6 +117,8 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
               width={50}
               height={50}
               className="rounded-full"
+              style={{ aspectRatio: "1/1" }}
+
             />
           </div>
         )}

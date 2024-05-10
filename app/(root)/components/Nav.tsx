@@ -16,17 +16,17 @@ const Nav = async () => {
         <div>
           <SideNavSheet user={user!} profile={profile!}/>
         </div>
-        <div className="hidden lg:block">
+        <div>
           <Link href={"/products?&page=1"}>Today&apos;s Deals</Link>
         </div>
-        <div className="hidden lg:block">
+        <div>
           {user && user?.role==="ADMIN" ?  <Link href={`/admin`}>Dashboard</Link> : vendor ? (
             <Link href={`/vendor/${vendor.id}`}>Dashboard</Link>
           ) : (
             <Link href={"/sell"}>Sell</Link>
           )}
         </div>
-        <div className="hidden sm:block">
+        <div>
           <Link href={"/buy-again"}>Buy Again</Link>
         </div>
         {user && (
@@ -34,8 +34,8 @@ const Nav = async () => {
             <Link href={"#"}>{user?.username}&apos;s Amazon.com</Link>
           </div>
         )}
-        <div>
-          <Link href={"/browsing-history"}>Browsing History</Link>
+        <div  className="hidden lg:block">
+          <Link href={"/browsing-history"} >Browsing History</Link>
         </div>
         <div>
           <Link href={"/wishlist"}>Your Wishlist</Link>

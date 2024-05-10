@@ -46,45 +46,45 @@ const RatingComponent = ({ reviews }: { reviews: Review[] }) => {
       <span className="text-slate-600 text-sm">
         {reviews.length} Global Rating
       </span>
-      <div className="flex items-start gap-1 w-full flex-wrap my-2">
+      <div className="flex items-start gap-3 flex-wrap w-full my-2 justify-start">
         <span className="text-cyan-600 text-sm">5 Stars</span>
-        <div className="flex items-center gap-1 flex-wrap w-full">
+        <div className="flex items-center gap-1 flex-wrap justify-start">
           <Progress value={parseFloat(ratingPercentages[5])} />
           <span className="text-cyan-600 text-sm">
             {parseFloat(ratingPercentages[5])}%
           </span>
         </div>
       </div>
-      <div className="flex items-start gap-1 w-full flex-wrap my-2">
+      <div className="flex items-start gap-3 flex-wrap w-full my-2 justify-start">
         <span className="text-cyan-600 text-sm">4 Stars</span>
-        <div className="flex items-center gap-1 flex-wrap w-full">
+        <div className="flex items-center gap-1 flex-wrap justify-start">
           <Progress value={parseFloat(ratingPercentages[4])} />
           <span className="text-cyan-600 text-sm">
             {parseFloat(ratingPercentages[4])}%
           </span>
         </div>
       </div>
-      <div className="flex items-start gap-1 w-full flex-wrap my-2">
+      <div className="flex items-start gap-3 flex-wrap w-full my-2 justify-start">
         <span className="text-cyan-600 text-sm">3 Stars</span>
-        <div className="flex items-center gap-1 flex-wrap w-full">
+        <div className="flex items-center gap-1 flex-wrap justify-start">
           <Progress value={parseFloat(ratingPercentages[3])} />
           <span className="text-cyan-600 text-sm">
             {parseFloat(ratingPercentages[3])}%
           </span>
         </div>
       </div>
-      <div className="flex items-start gap-1 w-full flex-wrap my-2">
+      <div className="flex items-start gap-3 flex-wrap w-full my-2 justify-start">
         <span className="text-cyan-600 text-sm">2 Stars</span>
-        <div className="flex items-center gap-1 flex-wrap w-full">
+        <div className="flex items-center gap-1 flex-wrap justify-start">
           <Progress value={parseFloat(ratingPercentages[2])} />
           <span className="text-cyan-600 text-sm">
             {parseFloat(ratingPercentages[2])}%
           </span>
         </div>
       </div>
-      <div className="flex items-start gap-1 w-full flex-wrap my-2">
+      <div className="flex items-start gap-3 flex-wrap w-full my-2 justify-start">
         <span className="text-cyan-600 text-sm">1 Stars</span>
-        <div className="flex items-center gap-1 flex-wrap w-full">
+        <div className="flex items-center gap-1 flex-wrap justify-start">
           <Progress value={parseFloat(ratingPercentages[1])} />
           <span className="text-cyan-600 text-sm">
             {parseFloat(ratingPercentages[1])}%

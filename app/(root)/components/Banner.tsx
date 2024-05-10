@@ -32,7 +32,7 @@ export const Banner = () => {
           <CarouselItem key={index}>
             <div className="p-1">
               <Card className="border-none">
-                <CardContent className="flex aspect-square items-start justify-start p-6 w-full h-[600px] lg:max-h-[500px]">
+                <CardContent className="flex aspect-square items-start justify-start p-0 w-full sm:h-[300px] md:h-[600px] lg:max-h-[500px]">
                   <Image
                     src={image}
                     alt="banner"

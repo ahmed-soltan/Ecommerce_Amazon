@@ -1,3 +1,4 @@
+import { shortenTitle } from "@/Utils/stringCut";
 import { formatPrice } from "@/lib/formatPrice";
 import { Rating } from "@mui/material";
 import { Products, Review } from "@prisma/client";
@@ -22,8 +23,8 @@ const TopDealsProductsCard = ({ product }: TopDealsProductsCardProps) => {
       product.reviews.length;
   return (
     <Link href={`/product/${product.id}`}>
-      <div className="flex flex-col w-[300px] p-2 items-start border-b gap-2">
-        <div className="relative h-[250px] w-full z-0">
+      <div className="flex flex-col w-[250px] md:w-[300px] p-2 items-start border-b gap-2">
+        <div className="relative h-[200px] md:h-[250px] w-full z-0">
           <Image
             src={product.images[0].image}
             alt={product.name || ""}
@@ -38,7 +39,7 @@ const TopDealsProductsCard = ({ product }: TopDealsProductsCardProps) => {
               ({product.reviews?.length})
             </p>
           </div>
-          <h1 className="font-medium text-slate-800 text-sm">{product.name}</h1>
+          <h1 className="font-medium text-slate-800 text-sm">{shortenTitle(product.name , 100)}</h1>
           {product.discount && product.discount > 0 ? (
             <>
               <div className="flex items-center">

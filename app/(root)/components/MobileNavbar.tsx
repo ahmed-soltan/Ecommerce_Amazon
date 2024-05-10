@@ -25,7 +25,7 @@ const MobileNavbar = async() => {
       <div className=" w-full inset-x-0 fixed z-50 p-4  bg-gradient-to-b from-cyan-100 to-slate-200">
         <SearchBar />
       </div>
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-2 px-4 bg-slate-100 flex items-center justify-between">
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-2 px-4 bg-white flex items-center justify-between border-t shadow-md">
         {navLinks.map(navLink =>(
           <NavLinkItem label={navLink.label} icon={navLink.icon} url={navLink.url} key={navLink.label}/>
         ))}

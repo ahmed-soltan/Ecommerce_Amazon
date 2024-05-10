@@ -36,8 +36,8 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
   const Taxes = (subTotal * 5) / 100;
   const totalAmount = subTotal + ShippingFee + Taxes;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-6 gap-2 ">
-      <div className=" col-span-4  flex flex-col gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-6 gap-2 ">
+      <div className=" col-span-12 md:col-span-4  flex flex-col gap-4">
         <div className="bg-white p-5 rounded-md flex flex-col items-start gap-4">
           <h1 className="font-medium text-3xl">Shopping Cart</h1>
           <Separator />
@@ -90,7 +90,7 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
           </TabsContent>
         </Tabs>
       </div>
-      <div className="flex flex-col gap-2 col-span-2">
+      <div className="flex flex-col gap-2 col-span-12 md:col-span-2 w-full">
         <div className="bg-white p-2 flex flex-col gap-3">
           <h1 className="text-lg flex items-center justify-between">
             Subtotal ({cartProductLength} items){" "}

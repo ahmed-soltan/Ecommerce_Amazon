@@ -13,10 +13,8 @@ const page = async({searchParams}:SearchProps) => {
    const products = await getFilteredProducts({...searchParams})
    console.log(searchParams)
   return (
-    <div className="p-6">
-      <Container>
+    <div className="py-6">
         <ProductsContainer products={products!} searchParams={searchParams}/>
-      </Container>
     </div>
   )
 }

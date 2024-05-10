@@ -22,8 +22,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
     product.reviews.reduce((acc: any, item: any) => acc + item.rating, 0) /
       product.reviews.length;
   return (
-    <Link href={`/product/${product.id}`}>
-      <div className="flex flex-col w-[230px] p-2 items-start border-b gap-2">
+    <Link href={`/product/${product.id}`} className="w-full">
+      <div className="flex flex-col min-w-[230px] p-2 items-start border-b gap-2">
         <div className="relative h-[250px] w-full z-0">
           <Image
             src={product.images[0].image}

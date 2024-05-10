@@ -62,6 +62,8 @@ const ProfileDetails = ({ profile }: ProfileDetailsProps) => {
         width={200}
         height={200}
         className="w-20 h-20 rounded-full"
+        style={{ aspectRatio: "1/1" }}
+
       />
 
       <h1 className="text-xl font-medium test-slate-800">

@@ -53,7 +53,7 @@ const page = async ({ params }: { params: { productId: string } }) => {
           )}
           <Separator className="h-[1px] bg-slate-600"/>
           <div className="rounded-md p-4 grid grid-cols-1 lg:grid-cols-6 gap-4 w-full">
-            <div className="flex flex-col items-start gap-2 p-2 lg:p-4 lg:col-span-2 w-full lg:border-r-[1px]">
+            <div className="flex flex-col items-start gap-2 p-2 lg:p-4 col-span-12 md:col-span-2 w-full lg:border-r-[1px]">
               <RatingComponent reviews={product.reviews}/>
               <AddRating profile={profile!} product={product} panned={user.panned}/>
             </div>

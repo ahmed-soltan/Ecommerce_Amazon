@@ -125,6 +125,8 @@ const CustomerDetails = ({ customer }: CustomerDetailsProps) => {
               width={100}
               height={100}
               className="w-12 h-12 rounded-full"
+              style={{ aspectRatio: "1/1" }}
+
             />
             <p className="text-slate-800 font-medium">{profile.name}</p>
             <Link

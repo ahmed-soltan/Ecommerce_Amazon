@@ -148,7 +148,7 @@ const ProductContainerDetails = ({
               formatPrice(product.price)
             )}
           </div>
-          {product.discount && product.discount > 0 && (
+          {product.discount && product.discount > 0 ? (
             <div className="text-justify flex items-center gap-2">
               <span className="font-medium text-lg text-slate-800">
                 Discount :{" "}
@@ -159,7 +159,7 @@ const ProductContainerDetails = ({
                 </h1>
               </div>
             </div>
-          )}
+          ):null}
           <div className="text-slate-700">
             <span className="font-medium text-lg text-slate-800">
               CATEGORY :{" "}

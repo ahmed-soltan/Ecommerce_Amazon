@@ -9,7 +9,7 @@ interface SearchProps {
 export const getFilteredProducts = async ({
   key,
   page = 1,
-  pageSize = 10,
+  pageSize = 12,
 }: SearchProps) => {
   try {
     let products;

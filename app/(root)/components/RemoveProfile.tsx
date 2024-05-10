@@ -90,6 +90,8 @@ export const RemoveProfile = ({
                         width={40}
                         height={40}
                         className="rounded-full"
+                        style={{ aspectRatio: "1/1" }}
+
                       />
                       <div className="flex flex-col items-start">
                         <p className="text-black text-sm">{profile.name}</p>

@@ -130,6 +130,8 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
                   width={150}
                   height={150}
                   className="rounded-full border-[1.5px] border-cyan-300 p-1"
+                  style={{ aspectRatio: "1/1" }}
+
                 />
               </div>
               <div className=" flex flex-col items-start">

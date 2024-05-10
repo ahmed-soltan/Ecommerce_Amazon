@@ -140,7 +140,7 @@ const ProductsContainer = ({
     return <div>Loading...</div>;
   }
   return (
-    <div className="grid grid-cols-1 md:grid-cols-7 gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-7 gap-2">
       <div className="col-span-1 rounded-md p-3 hidden lg:block bg-white ">
         <div className="flex flex-col items-start gap-4">
           <h1 className="text-lg font-medium text-slate-900">
@@ -219,7 +219,7 @@ const ProductsContainer = ({
           </div>
         </div>
       </div>
-      <div className="col-span-6 rounded-md bg-white flex flex-col items-start gap-4 p-5">
+      <div className="col-span-12 lg:col-span-6 rounded-md bg-white flex flex-col items-start gap-4 p-5 w-full">
         <div className="flex w-full items-center justify-between">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -336,7 +336,7 @@ const ProductsContainer = ({
             </Sheet>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap items-center lg:items-start justify-center lg:justify-start gap-4">
+        <div className="flex flex-row flex-wrap items-center lg:items-start justify-center lg:justify-start gap-2">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product: any) => (
               <ProductCard product={product} key={product.id} />

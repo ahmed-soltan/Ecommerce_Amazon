@@ -49,7 +49,7 @@ export const ManageProfiles = ({ user }: AccountListsProps) => {
       <DialogTrigger asChild>
         <div className="w-full hover:bg-transparent p-0">
           {!currentProfile || user.profile.length === 0 ? (
-            <div className="w-full p-2 flex flex-row items-center justify-between bg-teal-100">
+            <div className="w-full p-2 flex flex-row items-center justify-between bg-teal-100 rounded-md">
               <p>Who is Shopping ? </p>
               <Button
                 variant={"ghost"}
@@ -61,7 +61,7 @@ export const ManageProfiles = ({ user }: AccountListsProps) => {
             </div>
           ) : (
             <>
-              <div className="w-full p-2 flex flex-row items-center justify-between bg-teal-100">
+              <div className="w-full p-2 flex flex-row items-center justify-between bg-teal-100 rounded-md">
                 <div className="flex items-center gap-2">
                   <>
                     <Image
@@ -74,6 +74,8 @@ export const ManageProfiles = ({ user }: AccountListsProps) => {
                       width={40}
                       height={40}
                       className="rounded-full"
+                      style={{ aspectRatio: "1/1" }}
+
                     />
                     <div className="flex flex-col items-start">
                       <p className="text-black font-bold">
@@ -137,6 +139,8 @@ export const ManageProfiles = ({ user }: AccountListsProps) => {
                         width={40}
                         height={40}
                         className="rounded-full"
+                        style={{ aspectRatio: "1/1" }}
+
                       />
                       <div className="flex flex-col items-start">
                         <p className="text-black text-sm">{profile.name}</p>
