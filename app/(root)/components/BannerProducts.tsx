@@ -7,7 +7,7 @@ import Link from "next/link"
 
 const BannerProducts = ({products}:{products:any[]}) => {
   return (
-    <div className="p-5 hidden md:flex items-center flex-wrap gap-4 ">
+    <div className="p-5 flex items-center gap-4 w-full overflow-x-auto" style={{ overflowX: 'auto', scrollbarWidth:"none" }}>
     {
       categories.map((category)=>{
         const product = products?.find((product:any) => product.category===category.label)
@@ -17,7 +17,7 @@ const BannerProducts = ({products}:{products:any[]}) => {
         }
         const ProductPhoto = product&& category.label==="Clothes" ? product.images[1].image:product.images[0].image
         return (
-          <div className="p-4 bg-white w-[400px] h-[450px] flex items-start flex-col justify-between gap-4 rounded-md" key={category.label}>
+          <div className="p-4 bg-white min-w-[380px] h-[450px] flex items-start flex-col justify-between gap-4 rounded-md" key={category.label}>
           <h1 className="text-xl font-bold text-slate-900 pl-2">{category.label}</h1>
           <div className="relative mt-4">
             <Image
