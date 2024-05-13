@@ -34,6 +34,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Label } from "@/components/ui/label";
 
 interface ProductsContainerProps {
   products: any;
@@ -155,7 +156,8 @@ const ProductsContainer = ({
                   key={category.label}
                   className="cursor-pointer flex items-center text-sm"
                 >
-                  <Icon className="w-4 h-4 mr-1" /> {category.label}{" "}
+                  <Input type="radio" className="text-sm w-3 h-3 mr-2" name={"Category"} id={category.label} />
+                  <Icon className="w-4 h-4 mr-1" /> <Label htmlFor={category.label}>{category.label}{" "}</Label>
                 </p>
               );
             })}
