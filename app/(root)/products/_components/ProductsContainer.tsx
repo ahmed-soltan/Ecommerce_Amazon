@@ -298,6 +298,7 @@ const ProductsContainer = ({
                                     type="number"
                                     {...field}
                                     className="max-w-[80px]"
+                                    autoFocus={false}
                                   />
                                 </FormControl>
                               </FormItem>
@@ -314,6 +315,7 @@ const ProductsContainer = ({
                                     type="number"
                                     {...field}
                                     className="max-w-[80px]"
+                                    autoFocus={false}
                                   />
                                 </FormControl>
                               </FormItem>
@@ -336,7 +338,7 @@ const ProductsContainer = ({
             </Sheet>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap items-center lg:items-start justify-center lg:justify-start gap-2">
+        <div className="flex flex-row flex-wrap items-start justify-center lg:justify-start gap-2">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product: any) => (
               <ProductCard product={product} key={product.id} />

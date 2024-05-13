@@ -54,7 +54,7 @@ const SidebarRoutes = ({ vendor }: SidebarRoutesProps) => {
     {
       icon: User2Icon,
       label: "Profile",
-      path: `/vendor/${vendor?.id}`,
+      path: `/vendor/${vendor?.id}/profile`,
     },
     {
       icon: BarChart,

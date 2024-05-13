@@ -124,7 +124,7 @@ const VendorRegisterForm = ({user}:VendorRegisterFormProps) => {
          const response = await axios.post('/api/vendors' , vendorData)
          router.refresh()
          toast.success("Vendor Account Created Successfully")
-         router.push(`/vendor/${response.data.id}`)
+         router.push(`/vendor/${response.data.id}/profile`)
        } catch (error) {
           console.log(error)
           toast.error("Something went wrong")
