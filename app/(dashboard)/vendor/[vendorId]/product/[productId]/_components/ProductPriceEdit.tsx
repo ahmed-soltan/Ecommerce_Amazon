@@ -48,7 +48,7 @@ const ProductPriceEdit = ({
       data.price = parseFloat(data.price);
 
       await axios.patch(`/api/vendors/${vendorId}/products/${productId}`, data);
-      toast.success("Profile updated successfully");
+      toast.success("Product Price updated successfully");
       router.refresh();
     } catch (error) {
       console.error(error);

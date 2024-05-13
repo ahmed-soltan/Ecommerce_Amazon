@@ -66,7 +66,7 @@ const ProductImagesEdit = ({
         `/api/vendors/${vendorId}/products/${productId}`,
         productImages
       );
-      toast.success("Profile updated successfully");
+      toast.success("Product images updated successfully");
       router.refresh();
     } catch (error) {
       console.error(error);

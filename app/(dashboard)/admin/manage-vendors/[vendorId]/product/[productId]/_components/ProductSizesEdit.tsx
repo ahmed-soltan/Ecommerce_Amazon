@@ -58,7 +58,7 @@ const ProductSizesEdit = ({
         `/api/vendors/${vendorId}/products/${productId}`,
         productSizes
       );
-      toast.success("Profile updated successfully");
+      toast.success("Product Sizes updated successfully");
       router.refresh();
     } catch (error) {
       console.error(error);

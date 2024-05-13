@@ -42,7 +42,7 @@ const ProductTitleEdit = ({
   const onSubmit = async (data: any) => {
     try {
       await axios.patch(`/api/vendors/${vendorId}/products/${productId}`, data);
-      toast.success("Profile updated successfully");
+      toast.success("Product Title updated successfully");
       router.refresh();
     } catch (error) {
       console.error(error);
