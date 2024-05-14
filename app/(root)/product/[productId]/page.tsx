@@ -39,10 +39,10 @@ const page = async ({ params }: { params: { productId: string } }) => {
           <ProductContainerDetails product={product} user={user} />
           {relatedProductsLength > 0 && (
             <div className="bg-white p-2 rounded-md w-full">
-              <h2 className="text-2xl font-semibold text-slate-800 my-3">
+              <h2 className="text-2xl font-semibold text-slate-800 my-3 text-center md:text-left w-full">
                 Related Products
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              <div className="flex flex-wrap items-center md:items-start justify-center md:justify-start gap-4">
                 {relatedProducts?.map((product) => (
                   <div key={product.id}>
                     <ProductCard product={product} />

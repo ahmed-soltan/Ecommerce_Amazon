@@ -37,7 +37,7 @@ export const AccountLists = ({ user }:AccountListsProps) => {
       <DropdownMenuTrigger asChild>
         <Button variant={"ghost"} className="flex flex-col items-start hover:bg-transparent hover:text-white">
           {user ? (
-            <span className="text-sm text-slate-200">Hello, {currentProfile?.name}</span>
+            <span className="text-sm text-slate-200">Hello, {currentProfile?.name ? currentProfile?.name : "Guest"}</span>
           ) : (
             <Link href={"/login"} className="flex flex-col">
               <span className="text-sm">Hello, Sign in</span>

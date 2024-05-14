@@ -21,7 +21,7 @@ const Nav = async () => {
         </div>
         <div>
           {user && user?.role==="ADMIN" ?  <Link href={`/admin`}>Dashboard</Link> : vendor ? (
-            <Link href={`/vendor/${vendor.id}`}>Dashboard</Link>
+            <Link href={`/vendor/${vendor.id}/profile`}>Dashboard</Link>
           ) : (
             <Link href={"/sell"}>Sell</Link>
           )}

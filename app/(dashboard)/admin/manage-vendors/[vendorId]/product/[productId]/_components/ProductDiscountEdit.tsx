@@ -93,7 +93,7 @@ const ProductDiscountEdit = ({
         <div className="flex flex-col items-start gap-4 my-2">
           <div>
             Product Discount :
-            <span className="text-slate-500"> {product.discount}%</span>
+            <span className="text-slate-500"> {product?.discount ? product.discount :0}%</span>
           </div>
         </div>
       )}

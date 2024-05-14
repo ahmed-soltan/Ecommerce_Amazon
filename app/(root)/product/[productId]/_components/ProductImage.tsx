@@ -19,7 +19,7 @@ const ProductImage = ({
 }: productImageProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-6 gap-3 h-[500px] w-full">
-      <div className="border-2 flex md:flex-col items-start p-2 gap-2 overflow-auto">
+      <div className="border-2 flex md:flex-col items-start p-2 gap-2 overflow-auto w-full">
         {product.images.map(
           (image: { color: string; image: string; colorCode: string }) => {
             return (
@@ -45,7 +45,7 @@ const ProductImage = ({
           }
         )}
       </div>
-      <div className="col-span-5 border-2 relative min-h-[300px]">
+      <div className="col-span-1 md:col-span-5 border-2 relative min-h-[300px]">
         <Image
           src={cartProduct?.selectedImage.image}
           alt={product.category || ""}

@@ -10,23 +10,8 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import {
-  AccessibilityIcon,
-  Footprints,
-  ForkliftIcon,
-  Gamepad2Icon,
-  HeartPulseIcon,
-  HomeIcon,
-  LaptopIcon,
-  PcCaseIcon,
-  PhoneIcon,
-  Shirt,
-  Sofa,
-  StoreIcon,
-  Tv2Icon,
-  WatchIcon,
-} from "lucide-react";
 import ProductCategory from "../../../create-product/_components/ProductCategory";
+import { categories } from "../../../create-product/_components/AddProductsForm";
 
 type ProductCategoryEditProps = {
   product: Products & {
@@ -40,64 +25,7 @@ type ProductCategoryEditProps = {
   productId: string;
   vendorId: string;
 };
-export const categories = [
-  {
-    label: "All",
-    icon: StoreIcon,
-  },
-  {
-    label: "Phones",
-    icon: PhoneIcon,
-  },
-  {
-    label: "Labtops",
-    icon: LaptopIcon,
-  },
-  {
-    label: "Desktop",
-    icon: PcCaseIcon,
-  },
-  {
-    label: "Watchs",
-    icon: WatchIcon,
-  },
-  {
-    label: "TVs",
-    icon: Tv2Icon,
-  },
-  {
-    label: "Accessories",
-    icon: AccessibilityIcon,
-  },
-  {
-    label: "Clothes",
-    icon: Shirt,
-  },
-  {
-    label: "Furnitures",
-    icon: Sofa,
-  },
-  {
-    label: "Home",
-    icon: HomeIcon,
-  },
-  {
-    label: "Kitchen",
-    icon: ForkliftIcon,
-  },
-  {
-    label: "Personal Care",
-    icon: HeartPulseIcon,
-  },
-  {
-    label: "video Games",
-    icon: Gamepad2Icon,
-  },
-  {
-    label: "Shoes",
-    icon: Footprints,
-  },
-];
+
 const ProductCategoryEdit = ({
   product,
   vendorId,

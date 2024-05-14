@@ -7,7 +7,7 @@ import Link from "next/link"
 
 const BannerProducts = ({products}:{products:any[]}) => {
   return (
-    <div className="p-5 flex items-center gap-4 w-full overflow-x-auto" style={{ overflowX: 'auto', scrollbarWidth:"none" }}>
+    <div className="flex items-center gap-4 w-full my-2 lg:flex-wrap overflow-x-auto">
     {
       categories.map((category)=>{
         const product = products?.find((product:any) => product.category===category.label)
@@ -17,15 +17,14 @@ const BannerProducts = ({products}:{products:any[]}) => {
         }
         const ProductPhoto = product&& category.label==="Clothes" ? product.images[1].image:product.images[0].image
         return (
-          <div className="p-4 bg-white min-w-[380px] h-[450px] flex items-start flex-col justify-between gap-4 rounded-md" key={category.label}>
+          <div className="p-4 bg-white min-w-[300px] lg:min-w-[310px] xl:min-w-[330px] h-[400px] flex items-start flex-col justify-between gap-4 rounded-md" key={category.label}>
           <h1 className="text-xl font-bold text-slate-900 pl-2">{category.label}</h1>
-          <div className="relative mt-4">
+          <div className="relative mt-4 w-full h-full">
             <Image
               src={ProductPhoto!}
               alt={`Deals on ${category.label}`}
-              width={300}
-              height={300}
-              className="min-h-[250px] w-full"
+             fill
+              className="max-h-[250px] w-full"
               style={{aspectRatio:'1/1'}}
             />
           </div>

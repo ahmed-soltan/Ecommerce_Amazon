@@ -29,38 +29,39 @@ export const BrowsingHistoryContextProvider = (props: any) => {
   );
 
   useEffect(() => {
+    // Check if browsing history data exists in localStorage when the component mounts
     const BrowsingHistoryItems: any = localStorage.getItem("BrowsingHistoryItems");
     if (BrowsingHistoryItems) {
       const cProduct: Products[] | null = JSON.parse(BrowsingHistoryItems);
       setBrowsingHistoryProducts(cProduct);
     }
   }, []);
+  
 
   const handleAddToBrowsingHistory = useCallback(
     (product: Products) => {
       setBrowsingHistoryProducts((prev: Products[] | null) => {
         if (prev) {
-          // Check if the product already exists in the browsing history
           const isProductInHistory = prev.some((historyProduct) => historyProduct.id === product.id);
           if (isProductInHistory) {
-            // If the product is already in the browsing history, return the current browsing history without modification
             return prev;
           } else {
-            // If the product is not in the browsing history, add it
             const updatedHistory = [...prev, product];
             localStorage.setItem("BrowsingHistoryItems", JSON.stringify(updatedHistory));
+            console.log("Updated browsing history:", updatedHistory);
             return updatedHistory;
           }
         } else {
-          // If browsing history is null, initialize it with the product
           const updatedHistory = [product];
           localStorage.setItem("BrowsingHistoryItems", JSON.stringify(updatedHistory));
+          console.log("Initialized browsing history:", updatedHistory);
           return updatedHistory;
         }
       });
     },
     [setBrowsingHistoryProducts]
   );
+  
   
 
   const handleRemoveProductFromBrowsingHistory = useCallback(

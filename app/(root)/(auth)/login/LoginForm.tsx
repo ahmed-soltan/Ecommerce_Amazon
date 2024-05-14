@@ -63,7 +63,6 @@ const LoginForm = () => {
     } finally {
       router.refresh();
       setIsLoading(false)
-      window.location.reload();
     }
   };
 

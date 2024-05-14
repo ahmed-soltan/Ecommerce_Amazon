@@ -46,6 +46,7 @@ export const PUT = async (req: Request, { params }: { params: { profileId: strin
     // Update the currently selected profile to unselect it
     await prisma.profile.updateMany({
       where: {
+        userId:currentUser.id,
         NOT: {
           id: params.profileId,
         },

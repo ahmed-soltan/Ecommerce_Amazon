@@ -4,6 +4,8 @@ import { Rating } from "@mui/material";
 import { Products, Review } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "./ui/button";
+import { cartProductType } from "@/app/(root)/product/[productId]/_components/ProductContainerDetails";
 
 type TopDealsProductsCardProps = {
   product: Products & {
@@ -14,13 +16,28 @@ type TopDealsProductsCardProps = {
       colorCode: string;
     }[];
   };
+  isInCart?: boolean;
 };
 
-const TopDealsProductsCard = ({ product }: TopDealsProductsCardProps) => {
+const TopDealsProductsCard = ({
+  product,
+  isInCart,
+}: TopDealsProductsCardProps) => {
   const productRating =
     product.reviews &&
     product.reviews.reduce((acc: any, item: any) => acc + item.rating, 0) /
       product.reviews.length;
+  const cartProduct = {
+    productId: product.id,
+    name: product.name,
+    selectedImage: { ...product.images[0] },
+    quantity: 1,
+    category: product.category,
+    vendorId: product.vendorId,
+    priceAfterDiscount:
+      product.price - (product.price * (product?.discount || 0 * 100)) / 100,
+    sizes: [],
+  };
   return (
     <Link href={`/product/${product.id}`}>
       <div className="flex flex-col w-[250px] md:w-[300px] p-2 items-start border-b gap-2">
@@ -39,11 +56,15 @@ const TopDealsProductsCard = ({ product }: TopDealsProductsCardProps) => {
               ({product.reviews?.length})
             </p>
           </div>
-          <h1 className="font-medium text-slate-800 text-sm">{shortenTitle(product.name , 100)}</h1>
+          <h1 className="font-medium text-slate-800 text-sm">
+            {shortenTitle(product.name, 100)}
+          </h1>
           {product.discount && product.discount > 0 ? (
             <>
               <div className="flex items-center">
-                <h1 className="text-slate-100 px-1 bg-rose-600 text-sm">{product.discount}% OFF</h1>
+                <h1 className="text-slate-100 px-1 bg-rose-600 text-sm">
+                  {product.discount}% OFF
+                </h1>
                 <span className="text-rose-700 text-sm py-[2px] mx-2 font-medium rounded-md">
                   Limited Time Deal
                 </span>
@@ -69,6 +90,11 @@ const TopDealsProductsCard = ({ product }: TopDealsProductsCardProps) => {
           )}
         </div>
       </div>
+      {isInCart && (
+        <Button className="w-full" variant={"ghost"}>
+          In The Cart
+        </Button>
+      ) }
     </Link>
   );
 };

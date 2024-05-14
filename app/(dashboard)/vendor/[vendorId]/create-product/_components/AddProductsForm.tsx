@@ -36,6 +36,7 @@ import {
   Shirt,
   Sofa,
   StoreIcon,
+  ToyBrick,
   Tv2Icon,
   WatchIcon,
 } from "lucide-react";
@@ -127,6 +128,10 @@ export const categories = [
     label: "Camera",
     icon: Camera,
   },
+  {
+    label: "Toys",
+    icon: ToyBrick,
+  }
 ];
 
 const formSchema = z.object({

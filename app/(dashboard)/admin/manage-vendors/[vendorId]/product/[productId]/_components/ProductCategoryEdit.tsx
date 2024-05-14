@@ -2,19 +2,25 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Image, Products, Review, Vendor } from "@prisma/client";
-import { Pencil, XIcon } from "lucide-react";
+import { Products, Review } from "@prisma/client";
+import { Pencil, ToyBrick, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import Step1 from "@/app/(root)/(auth)/vendor-register/_components/Step1";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+
 import {
   AccessibilityIcon,
+  Book,
+  Camera,
+  Cpu,
+  Film,
   Footprints,
   ForkliftIcon,
   Gamepad2Icon,
+  Headphones,
   HeartPulseIcon,
   HomeIcon,
   LaptopIcon,
@@ -26,6 +32,7 @@ import {
   Tv2Icon,
   WatchIcon,
 } from "lucide-react";
+
 import ProductCategory from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/ProductCategory";
 
 type ProductCategoryEditProps = {
@@ -90,13 +97,37 @@ export const categories = [
     icon: HeartPulseIcon,
   },
   {
-    label: "Video Games",
+    label: "video Games",
     icon: Gamepad2Icon,
   },
   {
     label: "Shoes",
     icon: Footprints,
   },
+  {
+    label: "Movies",
+    icon: Film,
+  },
+  {
+    label: "Books",
+    icon: Book,
+  },
+  {
+    label: "Electronics",
+    icon: Cpu,
+  },
+  {
+    label: "Head Phones",
+    icon: Headphones,
+  },
+  {
+    label: "Camera",
+    icon: Camera,
+  },
+  {
+    label: "Toys",
+    icon: ToyBrick,
+  }
 ];
 const ProductCategoryEdit = ({
   product,

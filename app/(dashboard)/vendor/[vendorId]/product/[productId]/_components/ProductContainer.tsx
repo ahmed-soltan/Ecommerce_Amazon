@@ -1,5 +1,4 @@
 "use client";
-import ProductDetails from "./ProductDetails";
 import { Separator } from "@/components/ui/separator";
 import ProductTitleEdit from "./ProductTitleEdit";
 import ProductDescriptionEdit from "./ProductDescriptionEdit";

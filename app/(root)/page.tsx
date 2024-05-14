@@ -1,30 +1,31 @@
-import { getProducts } from "@/actions/getProducts"
-import { Banner } from "./components/Banner"
+import { getProducts } from "@/actions/getProducts";
+import { Banner } from "./components/Banner";
 import TopDealsProducts from "./components/TopDealsProducts";
-import Container from "@/components/Container";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { categories } from "../(dashboard)/vendor/[vendorId]/create-product/_components/AddProductsForm";
 import BannerProducts from "./components/BannerProducts";
+import NewProducts from "./components/NewProducts";
+import BrowsingHistoryHomePage from "./components/BrowsingHistoryHomePage";
 
-const Home = async() => {
+const Home = async () => {
   const products = await getProducts();
-  const topDealsProducts = products?.filter(product => product.discount && product.discount>0).slice(0,9)
+  const topDealsProducts = products
+    ?.filter((product) => product.discount && product.discount > 0)
+    .slice(0, 9);
+  const newProducts = products?.slice(0, 9);
+
 
   return (
     <div className="mb-10 px-2 md:px-10 lg:px-20">
       <div className="relative">
-      <Banner/>
-      <BannerProducts products={products!}/>
+        <Banner />
+        <BannerProducts products={products!} />
       </div>
       <div className="">
-
-        
-      <TopDealsProducts products={topDealsProducts!}/>
+        <NewProducts products={newProducts!} />
+        <TopDealsProducts products={topDealsProducts!} />
+        <BrowsingHistoryHomePage />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

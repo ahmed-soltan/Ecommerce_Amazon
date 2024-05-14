@@ -27,7 +27,7 @@ export const SideNavSheet = ({user , profile}:{
     { label: "Today's Deals", url: "/products?&page=1" },
     {
       label: user && user?.vendor ? "Dashboard" : "Sell",
-      url: user && user?.vendor ? `/vendor/${user.vendor.id}` : "/sell",
+      url: user && user?.vendor ? `/vendor/${user.vendor.id}/profile` : "/sell",
     },
     { label: "Buy Again", url: "/buy-again" },
     { label: `Amazon.com`, url: "#" },
