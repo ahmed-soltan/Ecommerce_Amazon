@@ -8,11 +8,13 @@ import { getProducts } from "@/actions/getProducts";
 const CartPage = async() => {
   const user = await getCurrentUser()
   const profile = await getCurrentProfile()
+
   if(!profile || !user){
     return redirect('/login');
   }
+
   return (
-    <div className=" w-full my-10">
+    <div className="w-full my-10">
       <Container>
         <CartDetails orders={profile.Order} panned={user?.panned}/>
       </Container>

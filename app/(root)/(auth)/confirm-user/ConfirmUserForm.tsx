@@ -52,9 +52,7 @@ const ConfirmUserForm = () => {
     } catch (error) {
       console.error("Error during Confirming User:", error);
       toast.error("Something went wrong");
-    } finally {
-      router.push("/");
-    }
+    } 
   };
 
   return (

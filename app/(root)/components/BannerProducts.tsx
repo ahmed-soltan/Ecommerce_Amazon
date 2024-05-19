@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
 
-const BannerProducts = ({products}:{products:any[]}) => {
+const BannerProducts = ({products}:{products:any}) => {
   return (
     <div className="flex items-center gap-4 w-full my-2 lg:flex-wrap overflow-x-auto">
     {

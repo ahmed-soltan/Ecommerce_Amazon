@@ -10,7 +10,7 @@ const BuyAgainPage = async() => {
         return redirect('/login')
     }
   return (
-    <div className="p-6">
+    <div className="p-6 bg-white">
         <Container>
             <h1 className="text-3xl text-slate-900 font-medium">Bug Again</h1>
             <Separator className="my-5"/>

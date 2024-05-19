@@ -21,8 +21,7 @@ const OrderDetails = ({ order , profileId }: OrderDetailsProps) => {
   
   return (
     <div className="flex item-start flex-col gap-4">
-      <h1 className="text-slate-800 font-medium text-3xl">Your Orders</h1>
-      <Tabs defaultValue="orders" className="w-full hidden md:block">
+      <Tabs defaultValue="orders" className="w-full overflow-x-auto">
         <TabsList>
           <TabsTrigger
             className="text-cyan-600 underline rounded-md"
@@ -118,7 +117,7 @@ const OrderDetails = ({ order , profileId }: OrderDetailsProps) => {
           )}
         </TabsContent>
       </Tabs>
-      <div className="block md:hidden">
+      {/* <div className="block md:hidden">
         {allOrders.length > 0 ? (
           <div className="bg-white p-5 rounded-md flex flex-col items-start gap-4">
             <h1 className="font-medium text-3xl">Orders</h1>
@@ -134,7 +133,7 @@ const OrderDetails = ({ order , profileId }: OrderDetailsProps) => {
             </p>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

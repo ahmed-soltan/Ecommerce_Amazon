@@ -7,7 +7,7 @@ import Image from "next/image";
 const Section4 = () => {
   return (
     <div className="flex items-center flex-col flex-wrap h-full py-8 gap-10">
-      <h1 className="text-6xl font-bold text-slate-800 text-center">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 text-center">
         Brand Case Studies
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">

@@ -17,6 +17,7 @@ import banner4 from "../../../public/banner4.jpg";
 import banner5 from "../../../public/banner5.jpg";
 
 const images = [banner1, banner2, banner3, banner4, banner5];
+
 export const Banner = () => {
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 

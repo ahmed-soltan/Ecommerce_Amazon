@@ -16,7 +16,7 @@ const Section2 = () => {
         />
       </div>
       <div className="flex items-start flex-col gap-4 w-[700px]">
-        <h1 className="text-6xl font-bold text-slate-800">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800">
           Get started with $50,000 in incentives
         </h1>
         <p className="text-slate-800 text-lg">

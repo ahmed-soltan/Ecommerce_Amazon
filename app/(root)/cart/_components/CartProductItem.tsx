@@ -18,7 +18,7 @@ const CartProductItem = ({ product , index }: CartProductItemProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const {handleQuantityIncrease , handleQuantityDecrease , handleRemoverProductFromCart , handleSaveLater} = useCart()
   return (
-    <div className="flex gap-2 items-start justify-start flex-wrap">
+    <div className="flex gap-2 items-start justify-start flex-col flex-wrap">
       <div className="relative aspect-video">
         <Image
           src={product.selectedImage.image}

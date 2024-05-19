@@ -8,13 +8,17 @@ import Link from "next/link"
 import { useEffect } from "react"
 
 const Success = ({profile}:{profile:Profile}) => {
+
     const confitte = useConfettiStore()
+    
     useEffect(()=>{
         confitte.setOpen()
         setTimeout(()=>{
             confitte.setClose()
         },5000)
     },[])
+
+
   return (
     <div className="flex flex-col items-center justify-center w-full gap-5 h-full">
         <div className="bg-emerald-600 text-white w-36 h-36 flex items-center justify-center rounded-full">

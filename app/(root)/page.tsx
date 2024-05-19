@@ -7,9 +7,8 @@ import BrowsingHistoryHomePage from "./components/BrowsingHistoryHomePage";
 
 const Home = async () => {
   const products = await getProducts();
-  const topDealsProducts = products
-    ?.filter((product) => product.discount && product.discount > 0)
-    .slice(0, 9);
+  const topDealsProducts = products?.filter((product) => product.discount && product.discount > 0).slice(0, 9);
+
   const newProducts = products?.slice(0, 9);
 
 
@@ -22,7 +21,7 @@ const Home = async () => {
       <div className="">
         <NewProducts products={newProducts!} />
         <TopDealsProducts products={topDealsProducts!} />
-        <BrowsingHistoryHomePage />
+        {/* <BrowsingHistoryHomePage /> */}
       </div>
     </div>
   );
