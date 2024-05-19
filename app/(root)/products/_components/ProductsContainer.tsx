@@ -340,7 +340,7 @@ const ProductsContainer = ({
             </Sheet>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap items-start justify-center lg:justify-start gap-2">
+        <div className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-2 w-full">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product: any) => (
               <ProductCard product={product} key={product.id} />
