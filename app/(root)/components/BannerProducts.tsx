@@ -11,10 +11,11 @@ const BannerProducts = ({products}:{products:any}) => {
     {
       categories.map((category)=>{
         const product = products?.find((product:any) => product.category===category.label)
-        console.log(product)
+        
         if(!product || category.label==="Clothes"){
           return null
         }
+
         const ProductPhoto = product&& category.label==="Clothes" ? product.images[1].image:product.images[0].image
         return (
           <div className="p-4 bg-white min-w-[300px] lg:min-w-[310px] xl:min-w-[330px] h-[400px] flex items-start flex-col justify-between gap-4 rounded-md" key={category.label}>

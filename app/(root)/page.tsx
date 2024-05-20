@@ -21,7 +21,7 @@ const Home = async () => {
       <div className="">
         <NewProducts products={newProducts!} />
         <TopDealsProducts products={topDealsProducts!} />
-        {/* <BrowsingHistoryHomePage /> */}
+        <BrowsingHistoryHomePage />
       </div>
     </div>
   );

@@ -9,7 +9,9 @@ const BuyAgainProducts = ({ orders }: { orders: Order[] }) => {
     <div className="flex items-center justify-start gap-4 flex-wrap">
       {orders.length > 0 ? orders.map((order) => {
         return order.products.map((product) => (
-          <OrderCard key={product.productId} product={product} createdAt={order.createdAt}/>
+          <OrderCard key={product.productId}
+           product={product} 
+           createdAt={order.createdAt}/>
         ));
       }):(
         <div className="flex items-center justify-center">
