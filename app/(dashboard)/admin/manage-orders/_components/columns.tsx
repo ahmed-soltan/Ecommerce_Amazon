@@ -39,7 +39,7 @@ export const columns: ColumnDef<Order & {
     cell: ({ row }) => {
       const ShippingAddress = row.getValue("ShippingAddress")
       //@ts-ignore
-      return ShippingAddress!.name;
+      return ShippingAddress && ShippingAddress!.name;
     },
   },
   {
