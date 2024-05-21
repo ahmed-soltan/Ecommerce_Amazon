@@ -12,7 +12,7 @@ import { getCurrentProfile } from "@/actions/getCurrentProfile";
 const Navbar = async () => {
   const user = await getCurrentUser();
   const profile = await getCurrentProfile();
-
+ 
   return (
     <div className="w-full">
       <div className="flex flex-row justify-start items-center bg-slate-900 text-white gap-3 px-4 py-2 lg:py-[1px] ">

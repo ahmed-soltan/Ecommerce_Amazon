@@ -13,6 +13,7 @@ const BrowsingHistoryProducts = () => {
   const { BrowsingHistoryProducts, handleRemoveProductFromBrowsingHistory } =
     useBrowsingHistory();
   const { handleAddToCartProduct, cartProducts } = useCart();
+  
 
   return (
     <div className="flex flex-col items-start gap-5 bg-white p-5">

@@ -1,5 +1,6 @@
 "use client";
 
+import { shortenTitle } from "@/Utils/stringCut";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "@/lib/formatPrice";
@@ -54,16 +55,16 @@ const SimilarProductsDetails = ({
       <div className="flex item-center flex-wrap gap-4">
         <Link
           href={`/product/${product.id}`}
-          className="flex flex-col items-start gap-2"
+          className="flex flex-col items-start gap-2 max-w-[400px]"
         >
           <Image
             src={product.images[0].image}
             alt={product.name}
             width={200}
             height={100}
-            className="max-h-[150px]"
+            className="h-[150px]"
           />
-          <h1 className="text-lg font-medium text-slate-700">{product.name}</h1>
+          <h1 className="text-lg font-medium text-slate-700">{shortenTitle(product.name,100)}</h1>
           <ul className="flex flex-col items-start gap-2 w-full">
             <li className="bg-slate-200 w-full p-1">
               {formatPrice(product.price)}
@@ -93,7 +94,7 @@ const SimilarProductsDetails = ({
             <div key={product.id}>
               <Link
                 href={`/product/${product.id}`}
-                className="flex flex-col items-start gap-2 z-10 mb-3"
+                className="flex flex-col items-start gap-2 z-10 mb-3 max-w-[400px]"
               >
                 <Image
                   src={product.images[0].image}
@@ -103,7 +104,7 @@ const SimilarProductsDetails = ({
                   className="max-h-[150px]"
                 />
                 <h1 className="text-lg font-medium text-slate-700">
-                  {product.name}
+                  {shortenTitle(product.name,100)}
                 </h1>
                 <ul className="flex flex-col items-start gap-2 w-full">
                   <li className="bg-slate-200 w-full p-1">

@@ -8,7 +8,7 @@ const BrowsingHistoryHomePage = () => {
   const {BrowsingHistoryProducts} = useBrowsingHistory()
   const { cartProducts } = useCart();
 
-  if(!BrowsingHistoryProducts){
+  if(!BrowsingHistoryProducts || BrowsingHistoryProducts.length===0){
     return null;
   }
   return (
