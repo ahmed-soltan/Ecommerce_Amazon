@@ -41,7 +41,7 @@ const OrderContainerDetails = ({
     }
   };
   return (
-    <div className="flex flex-row items-start justify-between w-full">
+    <div className="flex flex-row items-start justify-between w-full bg-white p-5">
       <div className="flex items-start flex-col gap-4">
         <Button variant={"link"} onClick={() => router.back()} className="pl-0">
           <ArrowLeft className="w-4 h-4 mr-2" /> View Other Orders
@@ -82,26 +82,31 @@ const OrderContainerDetails = ({
             {order.deliveryStatus ? "Delivered " : "Not Delivered Yet"}
           </Badge>
         </h1>{" "}
-        <h1 className="text-slate-800 font-medium">
-          Order Shipping Address Information :{" "}
-        </h1>
-        <div className="flex flex-col items-start ml-4 gap-1">
-          <span className="text-slate-700 font-normal text-sm">
-            Counrty : {order.ShippingAddress!.country}
-          </span>
-          <span className="text-slate-700 font-normal text-sm">
-            City : {order.ShippingAddress!.city}
-          </span>
-          <span className="text-slate-700 font-normal text-sm">
-            State : {order.ShippingAddress!.state}
-          </span>
-          <span className="text-slate-700 font-normal text-sm">
-            Street : {order.ShippingAddress!.street}
-          </span>
-          <span className="text-slate-700 font-normal text-sm">
-            Postal Code : {order.ShippingAddress!.postalCode}
-          </span>
-        </div>
+        {order.ShippingAddress && (
+          <>
+            <h1 className="text-slate-800 font-medium">
+              Order Shipping Address Information :{" "}
+            </h1>
+
+            <div className="flex flex-col items-start ml-4 gap-1">
+              <span className="text-slate-700 font-normal text-sm">
+                Counrty : {order.ShippingAddress!.country}
+              </span>
+              <span className="text-slate-700 font-normal text-sm">
+                City : {order.ShippingAddress!.city}
+              </span>
+              <span className="text-slate-700 font-normal text-sm">
+                State : {order.ShippingAddress!.state}
+              </span>
+              <span className="text-slate-700 font-normal text-sm">
+                Street : {order.ShippingAddress!.street}
+              </span>
+              <span className="text-slate-700 font-normal text-sm">
+                Postal Code : {order.ShippingAddress!.postalCode}
+              </span>
+            </div>
+          </>
+        )}
         <Separator />
         <div className="flex flex-wrap gap-6 items-start">
           {order?.products.map((product) => (
@@ -109,7 +114,7 @@ const OrderContainerDetails = ({
           ))}
         </div>
       </div>
-      {order.paymentStatus === "complete" ||
+      {order.paymentStatus === "complete" &&
         (!order.deliveryStatus && (
           <OrderButton
             onClick={onclick}

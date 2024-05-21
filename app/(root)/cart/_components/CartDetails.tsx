@@ -15,7 +15,13 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
+const CartDetails = ({
+  orders,
+  panned,
+}: {
+  orders: Order[];
+  panned: boolean;
+}) => {
   const { cartProducts, savedProduct } = useCart();
   const cartProductLength = cartProducts?.length ? cartProducts.length : 0;
   const savedProductLength = savedProduct?.length ? savedProduct.length : 0;
@@ -31,7 +37,6 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
       )
     : 0;
 
-
   const ShippingFee = 100;
   const Taxes = (subTotal * 5) / 100;
   const totalAmount = subTotal + ShippingFee + Taxes;
@@ -43,20 +48,17 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
           <Separator />
           <div className="flex items-start flex-col gap-4">
             {cartProductLength > 0 ? (
-              cartProducts?.map((product , index) => (
-                <div
-                  key={index}
-                  className="flex flex-col gap-4 w-full"
-                >
-                  <CartProductItem product={product} index={index}/>
+              cartProducts?.map((product, index) => (
+                <div key={index} className="flex flex-col gap-4 w-full">
+                  <CartProductItem product={product} index={index} />
                   <Separator />
                 </div>
               ))
             ) : (
               <div className="flex items-start flex-col gap-3">
                 <h1>Your Shopping Cart is Empty</h1>
-                <Link href={'/products?&page=1'}>
-                <Button variant={"amazonBtn"}>Start Shopping</Button>
+                <Link href={"/products?&page=1"}>
+                  <Button variant={"amazonBtn"}>Start Shopping</Button>
                 </Link>
               </div>
             )}
@@ -69,13 +71,13 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
             <TabsTrigger value="saved-items">Saved Items</TabsTrigger>
             <TabsTrigger value="buy-again">Buy Again</TabsTrigger>
           </TabsList>
-          <Separator/>
+          <Separator />
           <TabsContent value="saved-items">
             <div className="flex items-start justify-center md:justify-start gap-4 flex-wrap">
               {savedProductLength > 0 ? (
-                savedProduct?.map((product , index) => (
+                savedProduct?.map((product, index) => (
                   <div key={index} className="flex flex-col gap-4">
-                    <SavedProductCard product={product} index={index}/>
+                    <SavedProductCard product={product} index={index} />
                   </div>
                 ))
               ) : (
@@ -86,7 +88,7 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
             </div>
           </TabsContent>
           <TabsContent value="buy-again">
-            <BuyAgainProducts orders={orders}/>
+            <BuyAgainProducts orders={orders} />
           </TabsContent>
         </Tabs>
       </div>
@@ -112,11 +114,16 @@ const CartDetails = ({orders , panned}:{orders:Order[] , panned:boolean}) => {
             cartProducts={cartProducts!}
             cartProductLength={cartProductLength}
             totalAmount={totalAmount}
-              panned={panned}
+            panned={panned}
           />
           {panned && (
             <p className="text-sm text-rose-600">
-             This is Account is Panned. <Link href={"#"}><Button variant={"link"} size={"sm"} className="pl-0">Report Now</Button></Link>
+              This is Account is Panned.{" "}
+              <Link href={"#"}>
+                <Button variant={"link"} size={"sm"} className="pl-0">
+                  Report Now
+                </Button>
+              </Link>
             </p>
           )}
         </div>

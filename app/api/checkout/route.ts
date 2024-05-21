@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import prisma from '../../../lib/prismadb'
-import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { getCurrentProfile } from "@/actions/getCurrentProfile";
@@ -9,6 +8,7 @@ import { cartProductType } from "@/app/(root)/product/[productId]/_components/Pr
 export const POST = async (req: Request) => {
     try {
         const body = await req.json();
+
         const user = await getCurrentUser();
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -20,27 +20,6 @@ export const POST = async (req: Request) => {
         
         const { products, amount } = body;
 
-        let stripeCustomer = await prisma.stripeCustomer.findUnique({
-            where: {
-                userId: user.id
-            },
-            select: {
-                stripeCustomerId: true
-            }
-        });
-        
-        if (!stripeCustomer) {
-            const customer = await stripe.customers.create({
-                email: user.email!
-            });
-
-            stripeCustomer = await prisma.stripeCustomer.create({
-                data: {
-                    userId: user.id,
-                    stripeCustomerId: customer.id
-                }
-            });
-        }
 
         const order = await prisma.order.create({
             data: {
@@ -71,7 +50,6 @@ export const POST = async (req: Request) => {
             success_url: `${process.env.NEXTAUTH_URL}/success`,
             cancel_url: `${process.env.NEXTAUTH_URL}/cart`,
             metadata: {
-                // Include any metadata you need here
                 profileId: profile.id,
                 orderId: order.id
             }
