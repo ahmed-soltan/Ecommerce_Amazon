@@ -66,6 +66,8 @@ const OrderContainerDetails = ({
         </Badge>
       </h1>{" "}
       <Separator />
+      {order.ShippingAddress && (
+        <>
       <h1 className="text-slate-800 font-medium">
           Order Shipping Address Information :{" "}
         </h1>
@@ -86,6 +88,8 @@ const OrderContainerDetails = ({
             Postal Code : {order.ShippingAddress!.postalCode}
           </span>
         </div>
+        </>
+      )}
       <div className="flex flex-col gap-4 items-start">
         {products.map((product) => (
           <VendorOrderItem key={product.productId} product={product} vendorId={vendorId}/>
