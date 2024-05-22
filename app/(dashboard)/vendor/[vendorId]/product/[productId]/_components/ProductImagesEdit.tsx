@@ -115,7 +115,7 @@ const ProductImagesEdit = ({
           </Button>
         </>
       ) : (
-        <div className="flex items-start gap-4 my-2">
+        <div className="flex items-center gap-4 my-2">
           {images.map((image) => {
             return (
               <div
@@ -125,7 +125,7 @@ const ProductImagesEdit = ({
                 <span className="text-slate-500" style={{ color: image.color }}>
                   {image.color}
                 </span>
-                <div className="reltive aspect-video">
+                <div className="relative">
                   <Image
                     src={image.image!}
                     alt={image.color}

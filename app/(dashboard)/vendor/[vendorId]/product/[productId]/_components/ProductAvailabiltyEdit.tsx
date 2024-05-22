@@ -37,11 +37,12 @@ const ProductAvailabiltyEdit = ({
   const router = useRouter();
   const form = useForm({
     defaultValues: {
-      inStock: product.inStock || "",
+      inStock: product.inStock,
     },
   });
 
   const { isSubmitting, isValid, isDirty } = form.formState;
+  const hasChanged = form.getValues("inStock") !== product.inStock
 
   const onSubmit = async (data: any) => {
     try {
@@ -86,7 +87,7 @@ const ProductAvailabiltyEdit = ({
             <Button
               type="submit"
               className="my-2"
-              disabled={!isDirty || isSubmitting || !isValid}
+              disabled={!hasChanged || isSubmitting }
             >
               Save
             </Button>
