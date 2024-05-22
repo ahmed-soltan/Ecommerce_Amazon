@@ -31,15 +31,15 @@ export const columns: ColumnDef<Order & {
     header: ({ column }) => {
       return (
         <Button variant="ghost">
-          Order Id
+          Customer name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const ShippingAddress = row.getValue("ShippingAddress");
+      const ShippingAddress = row.getValue("ShippingAddress")
       //@ts-ignore
-      return ShippingAddress!.name
+      return ShippingAddress && ShippingAddress!.name;
     },
   },
   {
