@@ -25,7 +25,7 @@ import {
   MoveDown,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import {
   DropdownMenu,
@@ -84,6 +84,13 @@ const ProductsContainer = ({
   useEffect(() => {
     sortProducts();
   }, [filters]);
+  const minPriceRef = useRef<HTMLInputElement>(null);
+  const maxPriceRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (minPriceRef.current) minPriceRef.current.blur();
+    if (maxPriceRef.current) maxPriceRef.current.blur();
+  }, []);
 
   const sortProducts = () => {
     let sortedProducts = [...filteredProducts];
@@ -257,8 +264,8 @@ const ProductsContainer = ({
                   <FilterIcon className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side={"left"}>
-                <div className="flex flex-col items-start gap-4">
+              <SheetContent side={"left"} className="overflow-y-auto">
+                <div className="flex flex-col items-start gap-4 overflow-y-auto">
                   <h1 className="text-lg font-medium text-slate-900">
                     Select a Category
                   </h1>
@@ -301,11 +308,12 @@ const ProductsContainer = ({
                                     {...field}
                                     className="max-w-[80px]"
                                     autoFocus={false}
-                                  />
+                                    ref={minPriceRef}
+                                    />
                                 </FormControl>
                               </FormItem>
                             )}
-                          />
+                            />
                           <FormField
                             name="maxPrice"
                             control={form.control}
@@ -318,6 +326,7 @@ const ProductsContainer = ({
                                     {...field}
                                     className="max-w-[80px]"
                                     autoFocus={false}
+                                    ref={maxPriceRef}
                                   />
                                 </FormControl>
                               </FormItem>

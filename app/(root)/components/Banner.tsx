@@ -24,20 +24,20 @@ export const Banner = () => {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full z-0 "
+      className="w-full z-0 rounded-xl"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
         {images.map((image, index) => (
           <CarouselItem key={index}>
-            <div className="p-1">
+            <div className="p-1 py-5">
               <Card className="border-none">
-                <CardContent className="flex aspect-square items-start justify-start p-0 w-full sm:h-[300px] md:h-[600px] lg:max-h-[500px]">
+                <CardContent className="flex items-start justify-start p-0 w-full sm:h-[200px] md:h-[400px] lg:max-h-[500px] rounded-xl">
                   <Image
                     src={image}
                     alt="banner"
-                    className="object-fit w-full h-full"
+                    className="object-fit w-full h-full rounded-xl"
                   />
                 </CardContent>
               </Card>
