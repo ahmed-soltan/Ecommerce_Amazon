@@ -25,10 +25,10 @@ const BannerProducts = ({ products }: { products: any }) => {
             ? product.images[1].image
             : product.images[0].image;
         return (
-          <Link href={`/products?key=${category.label}&page=1`}>
+          <Link href={`/products?key=${category.label}&page=1`}   key={category.label}>
             <div
               className="p-2 bg-white min-w-[250px] lg:min-w-[310px] xl:min-w-[330px] flex items-center justify-between gap-4 rounded-md"
-              key={category.label}
+            
             >
               <h1 className="text-lg font-medium text-slate-900 pl-2">
                 {category.label}
