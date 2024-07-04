@@ -22,7 +22,7 @@ const BrowsingHistoryProducts = () => {
       </h1>
       <Separator />
       {BrowsingHistoryProducts && BrowsingHistoryProducts.length > 0 ? (
-        <div className={"flex flex-wrap items-start gap-3"}>
+        <div className={"flex flex-row flex-wrap items-center justify-center lg:justify-start gap-2 w-full"}>
           {BrowsingHistoryProducts.map((product: Products, index: number) => {
             const cartProduct = {
               productId: product.id,

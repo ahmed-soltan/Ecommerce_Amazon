@@ -133,7 +133,7 @@ const ProductsContainer = ({
   };
 
   const onSubmit = (data: FieldValues) => {
-    const { minPrice, maxPrice } = data; // Retrieve minPrice and maxPrice from form data
+    const { minPrice, maxPrice } = data;
 
     const filtered = products.filter((product: any) => {
       const price = parseFloat(product.price);

@@ -34,7 +34,6 @@ export const ManageProfiles = ({ user }: AccountListsProps) => {
       setIsLoading(true);
       await axios.put(`/api/profiles/${id}`, { isSelected: true });
       toast.success("profile switched successfully");
-      router.push("/");
       router.refresh();
     } catch {
       console.error("Error switching profile");

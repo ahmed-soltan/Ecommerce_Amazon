@@ -19,7 +19,7 @@ const WishlistProducts = () => {
       </h1>
       <Separator />
       {wishlistProducts && wishlistProducts.length > 0 ? (
-        <div className={"flex flex-wrap items-start gap-3"}>
+        <div className={"flex flex-row flex-wrap items-center justify-center lg:justify-start gap-2 w-full"}>
           {wishlistProducts.map((product: Products, index: number) => {
             const cartProduct = {
               productId: product.id,
