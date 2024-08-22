@@ -68,7 +68,7 @@ export const columns: ColumnDef<User>[] = [
         <Badge
           className={cn(panned && "bg-rose-500", !panned && "bg-green-600")}
         >
-          {panned ? `Panned` : "Not Panned"}
+          {panned ? `banned` : "Not banned"}
         </Badge>
       );
     },

@@ -30,10 +30,10 @@ type AddRatingProps = {
     Order: Order[];
     Review: Review[];
   };
-  panned:boolean
+  panned: boolean;
 };
-const AddRating = ({ product, profile , panned }: AddRatingProps) => {
-  const [isEditting, setIsEditting] = useState(false);
+const AddRating = ({ product, profile, panned }: AddRatingProps) => {
+  const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -67,7 +67,7 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
       );
     });
 
-    const {isSubmitting , isValid} = form.formState
+  const { isSubmitting, isValid } = form.formState;
 
   if (!deliveredOrder) {
     return null;
@@ -75,15 +75,15 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
 
   const onSubmit = async (values: FieldValues) => {
     try {
-    if (values.rating === 0) {
-      toast.error("Please select a rating");
-      return;
-    }
-    const productRating = {
-      ...values,
-      productId: product.id,
-      profileId: profile?.id,
-    };
+      if (values.rating === 0) {
+        toast.error("Please select a rating");
+        return;
+      }
+      const productRating = {
+        ...values,
+        productId: product.id,
+        profileId: profile?.id,
+      };
       setIsLoading(true);
       await axios.patch(`/api/profiles/${profile.id}/rating`, productRating);
       toast.success("Review Added successfully");
@@ -94,7 +94,7 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
     } finally {
       form.reset();
       setIsLoading(false);
-      setIsEditting(false);
+      setIsEditing(false);
     }
   };
 
@@ -112,14 +112,13 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
     } finally {
       form.reset();
       setIsLoading(false);
-      setIsEditting(false);
+      setIsEditing(false);
     }
   };
-  
 
   return (
     <div className="w-full">
-      {!isEditting && currentProductReview && (
+      {!isEditing && currentProductReview && (
         <div className="flex items-start w-full">
           <div className="flex items-start justify-start flex-col gap-2 w-full">
             <div className="flex items-center justify-start gap-2">
@@ -131,7 +130,6 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
                   height={150}
                   className="rounded-full border-[1.5px] border-cyan-300 p-1"
                   style={{ aspectRatio: "1/1" }}
-
                 />
               </div>
               <div className=" flex flex-col items-start">
@@ -155,7 +153,7 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
             <Button
               variant={"ghost"}
               size={"sm"}
-              onClick={() => setIsEditting(true)}
+              onClick={() => setIsEditing(true)}
               disabled={isLoading}
             >
               <Pencil className="w-4 h-4" />
@@ -168,7 +166,7 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
           </div>
         </div>
       )}
-      {!isEditting && !currentProductReview && (
+      {!isEditing && !currentProductReview && (
         <div className="flex flex-col gap-2 w-full">
           <h1 className="text-2xl text-slate-700 font-medium"></h1>
           <Rating
@@ -205,12 +203,18 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
           </Form>
           <Separator />
           {panned && (
-
-            <p className="text-sm text-rose-500">This Account is Not Allowed To Add Reviews. <Link href={"#"}><Button variant={"link"} className="pl-0" size={"sm"}>Report Now</Button></Link></p>
+            <p className="text-sm text-rose-500">
+              This Account is Not Allowed To Add Reviews.{" "}
+              <Link href={"#"}>
+                <Button variant={"link"} className="pl-0" size={"sm"}>
+                  Report Now
+                </Button>
+              </Link>
+            </p>
           )}
         </div>
       )}
-      {isEditting && currentProductReview && (
+      {isEditing && currentProductReview && (
         <div className="flex items-start gap-2 w-full">
           <div className="flex flex-col gap-2 w-full">
             <h1 className="text-2xl text-slate-700 font-medium"></h1>
@@ -218,8 +222,11 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
               onChange={(event, newValue) => setCustomValue("rating", newValue)}
               defaultValue={currentProductReview.rating}
             />
-            <Form {...form} >
-              <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
+            <Form {...form}>
+              <form
+                className="space-y-2"
+                onSubmit={form.handleSubmit(onSubmit)}
+              >
                 <FormField
                   name="comment"
                   control={form.control}
@@ -255,7 +262,7 @@ const AddRating = ({ product, profile , panned }: AddRatingProps) => {
             <Button
               variant={"ghost"}
               size={"sm"}
-              onClick={() => setIsEditting(false)}
+              onClick={() => setIsEditing(false)}
             >
               <XIcon className="w-4 h-4 mr-2" />
               <p className="text-slate-700 text-sm">Cancel</p>

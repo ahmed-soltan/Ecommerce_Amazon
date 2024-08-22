@@ -70,7 +70,7 @@ const CustomerDetails = ({ customer }: CustomerDetailsProps) => {
             <MinusCircle className="w-4 h-4 sm:mr-2" />
             <span className="hidden sm:block">
 
-            Pan Customer
+            ban Customer
             </span>
           </Button>
         )}
@@ -102,7 +102,7 @@ const CustomerDetails = ({ customer }: CustomerDetailsProps) => {
             !customer.panned && "bg-green-600"
           )}
         >
-          {customer.panned ? `Panned` : "Not Panned"}
+          {customer.panned ? `banned` : "Not banned"}
         </Badge>
       </h1>
       <h1 className="text-normal md:text-xl font-normal test-slate-800">

@@ -118,7 +118,7 @@ const CartDetails = ({
           />
           {panned && (
             <p className="text-sm text-rose-600">
-              This is Account is Panned.{" "}
+              This is Account is banned.{" "}
               <Link href={"#"}>
                 <Button variant={"link"} size={"sm"} className="pl-0">
                   Report Now
