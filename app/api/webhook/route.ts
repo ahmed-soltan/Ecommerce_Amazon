@@ -44,10 +44,7 @@ export const POST = async (req: Request) => {
           status: 401,
         });
       }
-      console.log("PROFILE_ID" , profileId);
-      console.log(session)
       
-
       await prisma.order.update({
         where:{
           id:orderId,

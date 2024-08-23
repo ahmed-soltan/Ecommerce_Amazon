@@ -114,7 +114,6 @@ const VendorRegisterForm = ({user}:VendorRegisterFormProps) => {
     }
 
     const onSubmit =async (data:z.infer<typeof formSchema>)=>{
-        console.log(data , image)
        try {
          const vendorData={
           ...data,

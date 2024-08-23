@@ -26,10 +26,6 @@ export const InterestsPage = ({ profile }: InterestsProps) => {
     label: interest,
   }));
 
-  const interestsLength = profile?.Interests?.interest.length || 0;
-  console.log(interestsLength);
-  const currentInterest = selectedInterests?.length || 0;
-  console.log(currentInterest);
   const isChanged = selectedInterests?.length ===0;
 
   const handleAddInterest = (interest: string) => {

@@ -8,11 +8,9 @@ const Nav = async () => {
   const profile = await getCurrentProfile()
   const vendor = user?.vendor;
 
-  console.log(vendor)
-
   return (
-    <div className="bg-gray-800 w-full text-slate-200">
-      <div className="flex flex-row items-center justify-start text-sm gap-5 px-2">
+    <div className="bg-gray-800 w-full text-white font-medium py-1">
+      <div className="flex flex-row items-center justify-start text-[15px] gap-5 px-2">
         <div>
           <SideNavSheet user={user!} profile={profile!}/>
         </div>

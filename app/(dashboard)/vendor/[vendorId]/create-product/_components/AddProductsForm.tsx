@@ -192,9 +192,6 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
 
   const category = form.watch("category");
 
@@ -216,13 +213,6 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
     }
   };
 
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
-
-  useEffect(() => {
-    console.log(sizes);
-  }, [sizes]);
 
   const totalFields = requiredField.length;
   const completedFields = requiredField.filter(Boolean).length;

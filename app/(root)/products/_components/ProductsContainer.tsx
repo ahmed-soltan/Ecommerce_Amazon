@@ -137,7 +137,6 @@ const ProductsContainer = ({
 
     const filtered = products.filter((product: any) => {
       const price = parseFloat(product.price);
-      console.log(price);
       return price >= minPrice && price <= maxPrice;
     });
 

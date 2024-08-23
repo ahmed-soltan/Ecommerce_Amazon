@@ -33,7 +33,6 @@ export const getFilteredProducts = async ({
         take: pageSize,
       });
     } else {
-      // If no key is provided, fetch all products
       products = await prisma.products.findMany({
         include: {
           reviews: true,

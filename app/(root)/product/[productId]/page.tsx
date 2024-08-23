@@ -20,7 +20,6 @@ const page = async ({ params }: { params: { productId: string } }) => {
   if (!product) {
     return null;
   }
-  // console.log(profile)
   const products = await getProductByCategoryId(product?.category);
   const relatedProducts = products
     ?.filter((product) => product.id === product.id)

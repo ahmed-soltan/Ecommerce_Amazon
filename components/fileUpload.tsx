@@ -17,10 +17,8 @@ const FileUpload = ({
     endpoint={endpoint}
     onClientUploadComplete={(res) => {
       onChange(res?.[0].url);
-      console.log(res?.[0].url)
     }}
     onUploadError={(error: Error) => {
-      // Do something with the error.
       toast.error(`ERROR! ${error?.message}`);
     }}
   />

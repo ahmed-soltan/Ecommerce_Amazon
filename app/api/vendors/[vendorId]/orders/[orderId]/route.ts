@@ -11,8 +11,6 @@ export const PATCH = async (req: Request , {params}:{params:{vendorId:string , o
       });
     }
     const body = await req.json();
-    console.log(body)
-
 
     const order = await prisma.order.update({
       where:{

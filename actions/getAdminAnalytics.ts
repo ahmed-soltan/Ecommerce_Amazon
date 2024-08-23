@@ -18,7 +18,6 @@ export const getAdminAnalytics = async(userId:string)=>{
 
 
         const groupEarning = await groupByCourse(orders)
-        console.log(groupEarning)
         const data = Object.entries(groupEarning).map(([orderId , total])=>({
             id:orderId,
             total:total

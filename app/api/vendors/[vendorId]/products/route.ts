@@ -19,9 +19,6 @@ export const POST = async (req: Request , {params}:{params:{vendorId:string}}) =
     }
 
     const body = await req.json();
-    
-    console.log(body)
-
 
     const product = await prisma.products.create({
       data: {

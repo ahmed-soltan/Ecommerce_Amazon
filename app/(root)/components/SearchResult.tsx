@@ -4,7 +4,6 @@ type SearchProps ={
     }
   }
 const SearchResult = ({searchParams}:SearchProps) => {
-    console.log(searchParams)
   return (
     <div>SearchResult</div>
   )

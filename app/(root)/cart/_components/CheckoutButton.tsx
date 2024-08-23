@@ -27,7 +27,6 @@ const CheckoutButton = ({
       };
       setIsLoading(true);
       const response = await axios.post(`/api/checkout`, orderDetails);
-      console.log(response.data);
       ClearCart()
       window.location.assign(response.data.url);
     } catch (error) {

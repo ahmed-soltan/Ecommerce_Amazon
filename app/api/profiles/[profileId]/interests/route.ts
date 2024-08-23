@@ -1,6 +1,7 @@
 import prisma from "../../../../../lib/prismadb";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/actions/getCurrentUser";
+
 export const PATCH = async (
   req: Request,
   { params }: { params: { profileId: string } }
@@ -14,7 +15,6 @@ export const PATCH = async (
       });
     }
     const body = await req.json();
-    console.log(body);
 
     const clothes = await prisma.interests.upsert({
       where: {

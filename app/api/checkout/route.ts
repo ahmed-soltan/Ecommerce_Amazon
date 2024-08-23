@@ -10,9 +10,6 @@ export const POST = async (req: Request) => {
     try {
         const body = await req.json();
         
-        // Log the incoming request body for debugging
-        console.log("Request body:", body);
-        
         const user = await getCurrentUser();
         if (!user) {
             console.error("User not found");
@@ -37,18 +34,16 @@ export const POST = async (req: Request) => {
             return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
         }
 
-        // Create the order in the database
         const order = await prisma.order.create({
             data: {
                 amount: amount,
-                products: products, // Ensure products are correctly stored
+                products: products,
                 deliveryStatus: false,
                 profileId: profile.id,
                 paymentStatus: "open"
             }
         });
 
-        // Create Stripe checkout session
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             mode: "payment",
@@ -56,7 +51,7 @@ export const POST = async (req: Request) => {
                 return {
                     price_data: {
                         currency: "usd",
-                        unit_amount: Math.round(item.priceAfterDiscount * 100), // Ensure the amount is correctly converted to cents
+                        unit_amount: Math.round(item.priceAfterDiscount * 100),
                         product_data: {
                             name: item.name,
                         },
@@ -73,8 +68,6 @@ export const POST = async (req: Request) => {
             }
         });
 
-        console.log("SESSION:", session);
-        console.log("ORDER:", order);
         
         return NextResponse.json({ url: session.url });
     } catch (error) {

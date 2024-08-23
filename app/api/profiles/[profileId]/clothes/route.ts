@@ -11,7 +11,6 @@ export const PATCH = async (req: Request , {params}:{params:{profileId:string}})
       });
     }
     const body = await req.json();
-    console.log(body)
 
 
     const clothes = await prisma.clothingShoesPreferences.upsert({

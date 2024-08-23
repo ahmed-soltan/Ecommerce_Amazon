@@ -35,9 +35,6 @@ export const nextOptions: AuthOptions = {
           throw new Error("User password is not set");
         }
 
-        console.log(password)
-        console.log(user.hashedPassword)
-
         const correctPassword = await bcrypt.compare(
           password,
           user.hashedPassword

@@ -14,7 +14,6 @@ export const PATCH = async (
       });
     }
     const body = await req.json();
-    console.log(body);
 
     const reviews = await prisma.review.upsert({
       where: {

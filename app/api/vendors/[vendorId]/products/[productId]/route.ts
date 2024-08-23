@@ -11,7 +11,6 @@ export const PATCH = async (req: Request , {params}:{params:{vendorId:string , p
       });
     }
     const body = await req.json();
-    console.log(body)
 
 
     const product = await prisma.products.update({

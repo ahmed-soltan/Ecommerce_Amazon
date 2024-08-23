@@ -3,7 +3,6 @@ import prisma from "../lib/prismadb";
 interface Product {
   name: string;
   price: number;
-  // Other product fields...
 }
 
 export const filterProducts = async (minPrice: number, maxPrice: number) => {
@@ -17,8 +16,6 @@ export const filterProducts = async (minPrice: number, maxPrice: number) => {
       }
     });
 
-    console.log(products);
-    // Do something with the filtered products
   } catch (error) {
     console.error("Error filtering products:", error);
   }

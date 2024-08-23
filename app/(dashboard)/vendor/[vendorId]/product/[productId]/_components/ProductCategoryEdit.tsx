@@ -40,10 +40,6 @@ const ProductCategoryEdit = ({
   });
 
   const category = form.watch("category");
-  useEffect(()=>{
-    console.log(category)
-
-  },[category])
 
   const { isSubmitting, isValid, isDirty } = form.formState;
   const onSubmit = async (data: any) => {

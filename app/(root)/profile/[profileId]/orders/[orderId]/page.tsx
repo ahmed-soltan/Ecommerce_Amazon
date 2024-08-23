@@ -12,7 +12,6 @@ const page = async ({
   if(!order){
     return redirect('/')
   }
-  console.log(order)
   return (
     <div className="py-6">
       <Container>

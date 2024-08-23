@@ -49,7 +49,7 @@ export const SideNavSheet = ({user , profile}:{
           className="flex items-center gap-2 font-bold hover:bg-transparent hover:text-white p-0"
         >
           <MenuIcon className="w-7 h-7" />
-          <p className="hidden md:block">All</p>
+          <p className="hidden md:block text-[15px]">All</p>
         </Button>
       </SheetTrigger>
       <SheetContent side={"left"} className="overflow-y-auto">
@@ -77,7 +77,7 @@ export const SideNavSheet = ({user , profile}:{
           <h1 className="font-medium text-lg text-slate-900">
             Shop By Category
           </h1>
-          <div className="flex items-start flex-col gap-4 my-2">
+          <div className="flex items-start flex-col gap-4">
             {categories.map((category) => {
               const Icon = category.icon;
               return (
@@ -90,7 +90,6 @@ export const SideNavSheet = ({user , profile}:{
                 </p>
               );
             })}
-            <Separator />
           </div>
           <Separator />
           {sideNavLinks.map((link) => {

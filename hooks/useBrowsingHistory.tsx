@@ -48,13 +48,11 @@ export const BrowsingHistoryContextProvider = (props: any) => {
           } else {
             const updatedHistory = [...prev, product];
             localStorage.setItem("BrowsingHistoryItems", JSON.stringify(updatedHistory));
-            console.log("Updated browsing history:", updatedHistory);
             return updatedHistory;
           }
         } else {
           const updatedHistory = [product];
           localStorage.setItem("BrowsingHistoryItems", JSON.stringify(updatedHistory));
-          console.log("Initialized browsing history:", updatedHistory);
           return updatedHistory;
         }
       });

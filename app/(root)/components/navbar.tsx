@@ -22,8 +22,8 @@ const Navbar = async () => {
               src={logo}
               alt="Amazon Logo"
               className="object-contain"
-              width={150}
-              height={150}
+              width={180}
+              height={180}
             />
           </Link>
         </div>

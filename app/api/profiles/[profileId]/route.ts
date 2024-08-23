@@ -11,8 +11,6 @@ export const PATCH = async (req: Request , {params}:{params:{profileId:string}})
       });
     }
     const body = await req.json();
-    console.log(body)
-
 
     const profile = await prisma.profile.update({
       where:{
@@ -25,7 +23,6 @@ export const PATCH = async (req: Request , {params}:{params:{profileId:string}})
 
     return NextResponse.json(profile);
   } catch (error) {
-    console.log("PROFILE : ", error);
     return NextResponse.json(error);
   }
 };
@@ -40,10 +37,8 @@ export const PUT = async (req: Request, { params }: { params: { profileId: strin
     }
 
     const body = await req.json();
-    console.log(body);
     const { isSelected } = body;
 
-    // Update the currently selected profile to unselect it
     await prisma.profile.updateMany({
       where: {
         userId:currentUser.id,
@@ -56,7 +51,6 @@ export const PUT = async (req: Request, { params }: { params: { profileId: strin
       },
     });
 
-    // Update the newly selected profile to mark it as selected
     const profile = await prisma.profile.update({
       where: {
         id: params.profileId,
@@ -83,7 +77,6 @@ export const DELETE = async (req: Request, { params }: { params: { profileId: st
     }
 
 
-    // Update the newly selected profile to mark it as selected
     const profile = await prisma.profile.delete({
       where: {
         id: params.profileId,
