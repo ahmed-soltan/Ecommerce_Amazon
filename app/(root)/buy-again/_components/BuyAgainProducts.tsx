@@ -4,10 +4,12 @@ import OrderCard from "@/components/OrderCard";
 const BuyAgainProducts = async () => {
   const profile = await getCurrentProfile();
 
-  if(!profile || !profile.Order){
+  if (!profile || !profile.Order) {
     return (
-      <div className="text-slate-700 italic">You Haven't make any orders yet</div>
-    )
+      <div className="text-slate-700 italic">
+        You Haven&apos;t make any orders yet
+      </div>
+    );
   }
 
   return (
