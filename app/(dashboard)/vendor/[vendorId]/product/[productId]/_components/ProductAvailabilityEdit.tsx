@@ -2,20 +2,18 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Image, Products, Review, Vendor } from "@prisma/client";
+import { Products, Review, Vendor } from "@prisma/client";
 import { Pencil, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import Step1 from "@/app/(root)/(auth)/vendor-register/_components/Step1";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import ProductTitle from "../../../create-product/_components/ProductTitle";
-import ProductAvailabilty from "../../../create-product/_components/ProductAvailabilty";
+import ProductAvailability from "../../../create-product/_components/ProductAvailabilty";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-type ProductAvailabiltyEditProps = {
+type ProductAvailabilityEditProps = {
   product: Products & {
     reviews: Review[] | null;
     images: {
@@ -28,11 +26,11 @@ type ProductAvailabiltyEditProps = {
   vendorId: string;
 };
 
-const ProductAvailabiltyEdit = ({
+const ProductAvailabilityEdit = ({
   product,
   vendorId,
   productId,
-}: ProductAvailabiltyEditProps) => {
+}: ProductAvailabilityEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const form = useForm({
@@ -83,7 +81,7 @@ const ProductAvailabiltyEdit = ({
       {isEditing ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ProductAvailabilty form={form} />
+            <ProductAvailability form={form} />
             <Button
               type="submit"
               className="my-2"
@@ -112,4 +110,4 @@ const ProductAvailabiltyEdit = ({
   );
 };
 
-export default ProductAvailabiltyEdit;
+export default ProductAvailabilityEdit;

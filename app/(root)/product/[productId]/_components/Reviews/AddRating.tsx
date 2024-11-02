@@ -1,4 +1,16 @@
 "use client";
+
+import { Rating } from "@mui/material";
+import axios from "axios";
+import moment from "moment";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Pencil, Trash, XIcon } from "lucide-react";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,19 +21,10 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { Rating } from "@mui/material";
-import { Order, Products, Profile, Review, orderType } from "@prisma/client";
-import axios from "axios";
-import moment from "moment";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import unknown from "../../../../../public/unknown.jpeg";
-import { Pencil, Trash, XIcon } from "lucide-react";
+import { Order, Products, Profile, Review, User, orderType } from "@prisma/client";
+import unknown from "../../../../../../public/unknown.jpeg";
 import ConfirmModel from "@/components/ConfirmModel";
-import Link from "next/link";
+
 type AddRatingProps = {
   product: Products & {
     reviews: Review[];
@@ -29,10 +32,11 @@ type AddRatingProps = {
   profile: Profile & {
     Order: Order[];
     Review: Review[];
-  };
-  panned: boolean;
+  } | null;
+  user: User | null;
 };
-const AddRating = ({ product, profile, panned }: AddRatingProps) => {
+
+const AddRating = ({ product, profile, user }: AddRatingProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -40,12 +44,14 @@ const AddRating = ({ product, profile, panned }: AddRatingProps) => {
   const currentProductReview = profile?.Review?.find(
     (review) => review.productId === product.id
   );
+  
   const form = useForm<FieldValues>({
     defaultValues: {
       rating: currentProductReview?.rating || 0,
       comment: currentProductReview?.comment || "",
     },
   });
+
   const setCustomValue = (id: string, value: any) => {
     form.setValue(id, value, {
       shouldValidate: true,
@@ -194,7 +200,7 @@ const AddRating = ({ product, profile, panned }: AddRatingProps) => {
                 }}
               />
               <Button
-                disabled={isLoading || isSubmitting || !isValid || panned}
+                disabled={isLoading || isSubmitting || !isValid || !user || user.panned}
                 variant={"amazonBtn"}
               >
                 {isLoading ? "Loading..." : "Submit"}
@@ -202,7 +208,17 @@ const AddRating = ({ product, profile, panned }: AddRatingProps) => {
             </form>
           </Form>
           <Separator />
-          {panned && (
+          {!user && (
+            <p className="text-sm text-rose-500">
+              You need to sign in to add a review.{" "}
+              <Link href={"/login"}>
+                <Button variant={"link"} className="pl-0" size={"sm"}>
+                  Sign In
+                </Button>
+              </Link>
+            </p>
+          )}
+          {user && user.panned && (
             <p className="text-sm text-rose-500">
               This Account is Not Allowed To Add Reviews.{" "}
               <Link href={"#"}>

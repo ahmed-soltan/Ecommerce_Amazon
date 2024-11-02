@@ -1,9 +1,9 @@
-import { shortenTitle } from "@/Utils/stringCut";
-import { formatPrice } from "@/lib/formatPrice";
-import { Rating } from "@mui/material";
-import { Products, Review } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { Rating } from "@mui/material";
+import { Products, Review } from "@prisma/client";
+
+import { formatPrice } from "@/lib/formatPrice";
 
 type ProductCardProps = {
   product: Products & {
@@ -33,30 +33,39 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
         </div>
         <div className="flex items-center justify-center flex-col text-center w-full gap-1">
-          <h1 className="font-medium text-slate-800 text-sm">{shortenTitle(product.name , 100)}</h1>
+          <h1 className="font-medium text-slate-800 text-sm line-clamp-2">
+            {product.name}
+          </h1>
           <div className="flex items-center">
-          <Rating value={productRating} readOnly size="small"/>
-            <p className="text-sm text-slate-600">({product.reviews?.length})</p>
+            <Rating value={productRating} readOnly size="small" />
+            <p className="text-sm text-slate-600">
+              ({product.reviews?.length})
+            </p>
           </div>
-          {product.discount && product.discount>0 ? (
+          {product.discount && product.discount > 0 ? (
             <>
-          <span className="bg-rose-700 text-white text-sm px-2 py-[2px] mx-2 font-medium rounded-md">
-            Limited Time Deal
-          </span>
-          <h1 className=" text-rose-600">
-             {product.discount}%
-             {'  '}
-             <span className="text-sm text-slate-700">{formatPrice(product.price - (product.price * (product?.discount || 0 * 100)) / 100)}</span>
-          </h1>
-          <h1 className="text-slate-700 text-sm">Typical Price :
-            <span className="line-through"> {formatPrice(product.price)}</span>
-          </h1>
-          </>
-        ):(
-          <h1 className="text-slate-700 text-sm">
-            {formatPrice(product.price)}
-          </h1>
-        )}
+              <h1 className=" text-rose-600">
+                {product.discount}%{"  "}
+                <span className="text-sm text-slate-700">
+                  {formatPrice(
+                    product.price -
+                      (product.price * (product?.discount || 0 * 100)) / 100
+                  )}
+                </span>
+              </h1>
+              <h1 className="text-slate-700 text-sm">
+                Typical Price :
+                <span className="line-through">
+                  {" "}
+                  {formatPrice(product.price)}
+                </span>
+              </h1>
+            </>
+          ) : (
+            <h1 className="text-slate-700 text-sm">
+              {formatPrice(product.price)}
+            </h1>
+          )}
         </div>
       </div>
     </Link>

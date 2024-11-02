@@ -19,7 +19,10 @@ const ProductImage = ({
 }: productImageProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-6 gap-3 h-[500px] w-full">
-      <div className="border-2 flex md:flex-col items-start p-2 gap-2 overflow-auto w-full">
+      <div
+        className="border-2 flex md:flex-col items-start p-2 gap-2 overflow-auto w-full"
+        style={{ scrollbarWidth: "none" }}
+      >
         {product.images.map(
           (image: { color: string; image: string; colorCode: string }) => {
             return (

@@ -1,15 +1,17 @@
 "use client";
-import React, { useState } from "react";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Pencil, XIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Products, Vendor } from "@prisma/client";
-import { Pencil, XIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
-import Step1 from "@/app/(root)/(auth)/vendor-register/_components/Step1";
 import { Separator } from "@/components/ui/separator";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import Step1 from "@/app/(root)/(auth)/vendor-register/_components/Step1";
 
 type BusinessInformationProps = {
   vendor: Vendor & {

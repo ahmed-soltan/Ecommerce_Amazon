@@ -1,4 +1,14 @@
 "use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, MinusCircle, Trash } from "lucide-react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { Products, Review } from "@prisma/client";
 import { Separator } from "@/components/ui/separator";
 import ProductTitleEdit from "./ProductTitleEdit";
 import ProductDescriptionEdit from "./ProductDescriptionEdit";
@@ -7,19 +17,11 @@ import ProductCategoryEdit from "./ProductCategoryEdit";
 import ProductDiscountEdit from "./ProductDiscountEdit";
 import ProductPriceEdit from "./ProductPriceEdit";
 import ProductImagesEdit from "./ProductImagesEdit";
-import ProductAvailabiltyEdit from "./ProductAvailabiltyEdit";
+import ProductAvailabilityEdit from "./ProductAvailabilityEdit";
 import ProductSizesEdit from "./ProductSizesEdit";
 import Banner from "@/components/banner";
 import ProductDetailsEdit from "./ProductDetailsEdit";
 import ConfirmModel from "@/components/ConfirmModel";
-import { Button } from "@/components/ui/button";
-import axios from "axios";
-import { Products, Review } from "@prisma/client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { ArrowLeft, Minus, MinusCircle, Trash } from "lucide-react";
-import Link from "next/link";
 
 type ProductContainerProps = {
   vendorId: string;
@@ -33,6 +35,7 @@ type ProductContainerProps = {
     }[];
   };
 };
+
 const ProductContainer = ({
   vendorId,
   productId,
@@ -105,7 +108,7 @@ const ProductContainer = ({
           vendorId={vendorId}
         />
         <div className="flex flex-wrap items-center gap-4 w-full">
-          <ProductAvailabiltyEdit
+          <ProductAvailabilityEdit
             product={product}
             productId={productId}
             vendorId={vendorId}

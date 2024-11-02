@@ -16,6 +16,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ConfirmModel from "@/components/ConfirmModel";
+
 type ProfileDetailsProps = {
   profile: Profile & {
     Order: Order[] & {
@@ -25,6 +26,7 @@ type ProfileDetailsProps = {
     Review: Review[];
   };
 };
+
 const ProfileDetails = ({ profile }: ProfileDetailsProps) => {
   const [isLoading, setisLoading] = useState(false);
   const router = useRouter();

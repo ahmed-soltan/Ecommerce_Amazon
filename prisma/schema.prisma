@@ -53,7 +53,7 @@ model Profile {
 }
 
 model Vendor {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId // Use String as the type for MongoDB ObjectId
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @unique @db.ObjectId
 
   businessName              String

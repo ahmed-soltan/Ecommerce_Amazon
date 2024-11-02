@@ -9,7 +9,7 @@ type CheckoutButtonProps = {
   cartProducts: cartProductType[];
   cartProductLength: number;
   totalAmount: number;
-  panned:boolean
+  panned:boolean | undefined;
 };
 const CheckoutButton = ({
   cartProducts,

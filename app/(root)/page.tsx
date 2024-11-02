@@ -17,7 +17,7 @@ const Home = async () => {
   const newProducts = products?.slice(0, 9);
 
   return (
-    <div className="mb-10 px-2 md:px-10 lg:px-20">
+    <div className="mb-10 px-2 md:px-10 lg:px-20 py-6">
       <div className="relative">
         <Banner />
         <div className=" bg-white p-2 rounded-md">

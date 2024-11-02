@@ -1,7 +1,9 @@
 "use client";
+
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/useCart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
@@ -9,18 +11,12 @@ import { cartProductType } from "../../product/[productId]/_components/ProductCo
 import CartProductItem from "./CartProductItem";
 import SavedProductCard from "./SavedProductCard";
 import CheckoutButton from "./CheckoutButton";
-import { Order, Products } from "@prisma/client";
 import BuyAgainProducts from "../../buy-again/_components/BuyAgainProducts";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
-import Link from "next/link";
 
 const CartDetails = ({
-  orders,
   panned,
 }: {
-  orders: Order[];
-  panned: boolean;
+  panned: boolean | undefined;
 }) => {
   const { cartProducts, savedProduct } = useCart();
   const cartProductLength = cartProducts?.length ? cartProducts.length : 0;
@@ -40,6 +36,7 @@ const CartDetails = ({
   const ShippingFee = 100;
   const Taxes = (subTotal * 5) / 100;
   const totalAmount = subTotal + ShippingFee + Taxes;
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-6 gap-2 ">
       <div className=" col-span-12 md:col-span-4  flex flex-col gap-4">
@@ -87,9 +84,9 @@ const CartDetails = ({
               )}
             </div>
           </TabsContent>
-          <TabsContent value="buy-again">
-            <BuyAgainProducts orders={orders} />
-          </TabsContent>
+            <TabsContent value="buy-again">
+              <BuyAgainProducts />
+            </TabsContent>
         </Tabs>
       </div>
       <div className="flex flex-col gap-2 col-span-12 md:col-span-2 w-full">

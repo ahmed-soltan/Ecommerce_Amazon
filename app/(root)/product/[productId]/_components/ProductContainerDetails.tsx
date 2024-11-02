@@ -1,20 +1,22 @@
 "use client";
-import { Products, Profile, Review, User } from "@prisma/client";
+
 import { useEffect, useState } from "react";
-import ProductImage from "./ProductImage";
-import { Button } from "@/components/ui/button";
-import SetColor from "./SetColor";
-import SetSizes from "./SetSize";
-import SetQuantity from "./SetQuantity";
-import { formatPrice } from "@/lib/formatPrice";
 import { Rating } from "@mui/material";
+import toast from "react-hot-toast";
+import { Products, Profile, Review, User } from "@prisma/client";
+
+import { Button } from "@/components/ui/button";
+import { formatPrice } from "@/lib/formatPrice";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/preview";
 import { useCart } from "@/hooks/useCart";
-import toast from "react-hot-toast";
 import { useWishlist } from "@/hooks/useWishList";
 import { shortenTitle } from "@/Utils/stringCut";
 import { useBrowsingHistory } from "@/hooks/useBrowsingHistory";
+import SetColor from "./SetColor";
+import SetSizes from "./SetSize";
+import SetQuantity from "./SetQuantity";
+import ProductImage from "./ProductImage";
 
 type ProductContainerDetailsProps = {
   product: Products & {
@@ -24,9 +26,6 @@ type ProductContainerDetailsProps = {
       color: string;
       colorCode: string;
     }[];
-  };
-  user: User & {
-    profile: Profile[];
   };
 };
 
@@ -45,15 +44,11 @@ export type cartProductType = {
   sizes: string[];
 };
 
-const ProductContainerDetails = ({
-  product,
-  user,
-}: ProductContainerDetailsProps) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const {handleAddToCartProduct , cartProducts} = useCart()
-  const {handleAddToBrowsingHistory} = useBrowsingHistory()
-  const {handleAddToWishList} = useWishlist()
-  const [cartProduct, setcartProduct] = useState<cartProductType>({
+const ProductContainerDetails = ({ product }: ProductContainerDetailsProps) => {
+  const { handleAddToCartProduct } = useCart();
+  const { handleAddToBrowsingHistory } = useBrowsingHistory();
+  const { handleAddToWishList } = useWishlist();
+  const [cartProduct, setCartProduct] = useState<cartProductType>({
     productId: product.id,
     name: product.name,
     selectedImage: { ...product.images[0] },
@@ -65,11 +60,9 @@ const ProductContainerDetails = ({
     sizes: [],
   });
 
-  useEffect(()=>{
-    handleAddToBrowsingHistory(product)
-  },[product])
-
-
+  useEffect(() => {
+    handleAddToBrowsingHistory(product);
+  }, [product]);
 
   const productRating =
     product.reviews &&
@@ -81,14 +74,13 @@ const ProductContainerDetails = ({
     image: string;
     colorCode: string;
   }) => {
-    setcartProduct((prev) => {
+    setCartProduct((prev) => {
       return { ...prev, selectedImage: image };
     });
   };
 
-  
   const handleSelectSizes = (size: string) => {
-    setcartProduct((prev: cartProductType) => {
+    setCartProduct((prev: cartProductType) => {
       const index = prev?.sizes?.indexOf(size);
 
       if (index !== -1) {
@@ -101,14 +93,15 @@ const ProductContainerDetails = ({
     });
   };
 
-  const AddToCart = (product:cartProductType)=>{
+  const AddToCart = (product: cartProductType) => {
     handleAddToCartProduct(product);
-    toast.success(`${shortenTitle(product.name , 20)} Added To Cart`)
-  }
-  const AddToWishlist = (product:Products)=>{
+    toast.success(`${shortenTitle(product.name, 20)} Added To Cart`);
+  };
+  
+  const AddToWishlist = (product: Products) => {
     handleAddToWishList(product);
-    toast.success(`${shortenTitle(product.name , 20)} Added To WishList`)
-  }
+    toast.success(`${shortenTitle(product.name, 20)} Added To WishList`);
+  };
 
   return (
     <div className="flex flex-col gap-4 bg-white p-4 rounded-md">
@@ -119,7 +112,7 @@ const ProductContainerDetails = ({
           handleColorSelect={handleColor}
         />
         <div className="flex flex-col gap-3 items-start">
-          <h2 className="text-slate-700 text-3xl font-medium">
+          <h2 className="text-slate-900 text-3xl font-medium">
             {product?.name}
           </h2>
           <div className="gap-2 flex items-center">
@@ -159,7 +152,7 @@ const ProductContainerDetails = ({
                 </h1>
               </div>
             </div>
-          ):null}
+          ) : null}
           <div className="text-slate-700">
             <span className="font-medium text-lg text-slate-800">
               CATEGORY :{" "}
@@ -184,54 +177,49 @@ const ProductContainerDetails = ({
               sizes={product.sizes}
             />
           )}
-          {user.role === "VENDOR" ? null : (
-            <>
-              <SetQuantity
-                isLoading={isLoading}
-                cartCounter={cartProduct.quantity}
-                cartProduct={cartProduct}
-                handleQuantityIncrease={() => {
-                  if (cartProduct.quantity === 99) {
-                    return;
-                  }
-                  setcartProduct((prev) => {
-                    return {
-                      ...prev,
-                      quantity: prev.quantity + 1,
-                    };
-                  });
-                }}
-                handleQuantityDecrease={() => {
-                  if (cartProduct.quantity < 2) {
-                    return;
-                  }
-                  setcartProduct((prev) => {
-                    return {
-                      ...prev,
-                      quantity: prev.quantity - 1,
-                    };
-                  });
-                }}
-              />
-              <div className="max-w-[300px] flex gap-3 items-center">
-                <Button
-                  disabled={
-                    cartProduct.quantity === 0 ||
-                    isLoading ||
-                    (cartProduct?.category === "Clothes" &&
-                      cartProduct?.sizes?.length === 0)
-                      ||!user
-                  }
-                  variant={"amazonBtn"}
-                  onClick={() => AddToCart(cartProduct)}
-                >
-                  Add To Cart
-                </Button>
-                <Button disabled={isLoading} onClick={()=>AddToWishlist(product)}>Add To WishList</Button>
-                {!user && <p className="text-rose-400">Login First</p>}
-              </div>
-            </>
-          )}
+
+          <SetQuantity
+            cartCounter={cartProduct.quantity}
+            handleQuantityIncrease={() => {
+              if (cartProduct.quantity === 99) {
+                return;
+              }
+              setCartProduct((prev) => {
+                return {
+                  ...prev,
+                  quantity: prev.quantity + 1,
+                };
+              });
+            }}
+            handleQuantityDecrease={() => {
+              if (cartProduct.quantity < 2) {
+                return;
+              }
+              setCartProduct((prev) => {
+                return {
+                  ...prev,
+                  quantity: prev.quantity - 1,
+                };
+              });
+            }}
+          />
+          <div className="w-full flex gap-3 items-center flex-wrap sm:flex-nowrap">
+            <Button
+              className="w-full"
+              disabled={
+                cartProduct.quantity === 0 ||
+                (cartProduct?.category === "Clothes" &&
+                  cartProduct?.sizes?.length === 0)
+              }
+              variant={"amazonBtn"}
+              onClick={() => AddToCart(cartProduct)}
+            >
+              Add To Cart
+            </Button>
+            <Button className="w-full" onClick={() => AddToWishlist(product)}>
+              Add To WishList
+            </Button>
+          </div>
         </div>
       </div>
       <Separator className="h-[1px] bg-slate-600" />

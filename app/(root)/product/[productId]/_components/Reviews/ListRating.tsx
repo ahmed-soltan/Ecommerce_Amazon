@@ -4,8 +4,8 @@ import { Rating } from "@mui/material";
 import { Products, Profile, Review } from "@prisma/client";
 import moment from "moment";
 import Image from "next/image";
-import unknown from "../../../../../public/unknown.jpeg";
-import { useState } from "react";
+import unknown from "../../../../../../public/unknown.jpeg";
+
 type ProductType = {
   product: Products & {
     reviews: Review[];

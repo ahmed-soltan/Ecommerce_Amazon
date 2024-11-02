@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-type ProductAvailabiltyProps = {
+type ProductAvailabilityProps = {
   form: any;
 };
-const ProductAvailabilty = ({ form }: ProductAvailabiltyProps) => {
+const ProductAvailability = ({ form }: ProductAvailabilityProps) => {
   return (
     <FormField
       name="inStock"
@@ -33,4 +33,4 @@ const ProductAvailabilty = ({ form }: ProductAvailabiltyProps) => {
   );
 };
 
-export default ProductAvailabilty;
+export default ProductAvailability;

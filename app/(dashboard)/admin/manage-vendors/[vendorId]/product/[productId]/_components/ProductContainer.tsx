@@ -7,7 +7,6 @@ import ProductCategoryEdit from "./ProductCategoryEdit";
 import ProductDiscountEdit from "./ProductDiscountEdit";
 import ProductPriceEdit from "./ProductPriceEdit";
 import ProductImagesEdit from "./ProductImagesEdit";
-import ProductAvailabiltyEdit from "./ProductAvailabiltyEdit";
 import ProductSizesEdit from "./ProductSizesEdit";
 import Banner from "@/components/banner";
 import ProductDetailsEdit from "./ProductDetailsEdit";
@@ -18,7 +17,8 @@ import { Products, Review } from "@prisma/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { Minus, MinusCircle, Trash } from "lucide-react";
+import {  MinusCircle, Trash } from "lucide-react";
+import ProductAvailabilityEdit from "@/app/(dashboard)/vendor/[vendorId]/product/[productId]/_components/ProductAvailabilityEdit";
 
 type ProductContainerProps = {
   vendorId: string;
@@ -101,7 +101,7 @@ const ProductContainer = ({
           vendorId={vendorId}
         />
         <div className="flex flex-wrap items-center gap-4 w-full">
-          <ProductAvailabiltyEdit
+          <ProductAvailabilityEdit
             product={product}
             productId={productId}
             vendorId={vendorId}

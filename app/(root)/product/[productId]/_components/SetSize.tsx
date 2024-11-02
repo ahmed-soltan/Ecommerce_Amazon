@@ -8,7 +8,7 @@ type SizesProps = {
 };
 const SetSizes = ({ handleSelectSizes, cartProduct, sizes }: SizesProps) => {
   return (
-    <div className="flex items-center justify-start gap-3">
+    <div className="flex items-center justify-start gap-3 flex-wrap">
       
       <span className="font-semibold">Sizes : </span>
       {sizes && sizes.map((size: string) => (

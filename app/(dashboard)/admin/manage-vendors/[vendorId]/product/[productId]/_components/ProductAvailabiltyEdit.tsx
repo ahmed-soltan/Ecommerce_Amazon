@@ -12,9 +12,9 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import ProductAvailabilty from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/ProductAvailabilty";
+import ProductAvailability from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/ProductAvailabilty";
 
-type ProductAvailabiltyEditProps = {
+type ProductAvailabilityEditProps = {
   product: Products & {
     reviews: Review[] | null;
     images: {
@@ -27,11 +27,11 @@ type ProductAvailabiltyEditProps = {
   vendorId: string;
 };
 
-const ProductAvailabiltyEdit = ({
+const ProductAvailabilityEdit = ({
   product,
   vendorId,
   productId,
-}: ProductAvailabiltyEditProps) => {
+}: ProductAvailabilityEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const form = useForm({
@@ -81,7 +81,7 @@ const ProductAvailabiltyEdit = ({
       {isEditing ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ProductAvailabilty form={form} />
+            <ProductAvailability form={form} />
             <Button
               type="submit"
               className="my-2"
@@ -94,7 +94,7 @@ const ProductAvailabiltyEdit = ({
       ) : (
         <div className="flex items-start gap-2 my-2">
           <div>
-            Product Availabilty :
+            Product Availability :
           </div>
             <Badge
               className={cn(
@@ -110,4 +110,4 @@ const ProductAvailabiltyEdit = ({
   );
 };
 
-export default ProductAvailabiltyEdit;
+export default ProductAvailabilityEdit;
