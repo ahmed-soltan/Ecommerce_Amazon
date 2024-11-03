@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+
 import { cartProductType } from "../../product/[productId]/_components/ProductContainerDetails";
-import { useState } from "react";
-import SetQuantity from "../../product/[productId]/_components/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { formatPrice } from "@/lib/formatPrice";
 
 type SavedProductCardProps = {
@@ -15,7 +14,6 @@ type SavedProductCardProps = {
 };
 
 const SavedProductCard = ({ product , index }: SavedProductCardProps) => {
-  const [isLoading, setIsLoading] = useState(false);
   const { handleAddToCartProduct, handleRemoverProductFromSavedLater } =
     useCart();
 

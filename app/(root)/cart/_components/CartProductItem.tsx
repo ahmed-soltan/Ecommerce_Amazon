@@ -6,17 +6,21 @@ import { useState } from "react";
 import SetQuantity from "../../product/[productId]/_components/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
-import { Products } from "@prisma/client";
 import Link from "next/link";
 
 type CartProductItemProps = {
   product: cartProductType;
-  index:number
+  index: number;
 };
 
-const CartProductItem = ({ product , index }: CartProductItemProps) => {
+const CartProductItem = ({ product, index }: CartProductItemProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const {handleQuantityIncrease , handleQuantityDecrease , handleRemoverProductFromCart , handleSaveLater} = useCart()
+  const {
+    handleQuantityIncrease,
+    handleQuantityDecrease,
+    handleRemoverProductFromCart,
+    handleSaveLater,
+  } = useCart();
   return (
     <div className="flex gap-2 items-start justify-start flex-col flex-wrap">
       <div className="relative aspect-video">
@@ -39,30 +43,43 @@ const CartProductItem = ({ product , index }: CartProductItemProps) => {
             Size :{" "}
             {product.sizes.map((size) => (
               <span className="text-slate-700 text-sm px-2 " key={size}>
-                {size} {"  "}{"  "}
+                {size} {"  "}
+                {"  "}
               </span>
             ))}
           </p>
         )}
         <SetQuantity
-          isLoading={isLoading}
           cartCounter={product.quantity}
-          cartProduct={product}
           handleQuantityIncrease={() => {
-
-            handleQuantityIncrease(index)
-            
+            handleQuantityIncrease(index);
           }}
           handleQuantityDecrease={() => {
-            handleQuantityDecrease(index)
+            handleQuantityDecrease(index);
           }}
         />
         <div className="flex items-center justify-start flex-wrap gap-3">
-            <Button variant={"link"} onClick={()=>handleRemoverProductFromCart(index)} className="m-0 p-0 text-sm" size={"sm"}>Delete</Button>
-            <Button variant={"link"} className="m-0 p-0 text-sm" size={"sm"} onClick={()=>handleSaveLater(index)}>Save For Later</Button>
-            <Link href={`/cart/${product.productId}`}>
-            <Button variant={"link"} className="m-0 p-0 text-sm" size={"sm"}>Compare With Similar Products</Button>
-            </Link>
+          <Button
+            variant={"link"}
+            onClick={() => handleRemoverProductFromCart(index)}
+            className="m-0 p-0 text-sm"
+            size={"sm"}
+          >
+            Delete
+          </Button>
+          <Button
+            variant={"link"}
+            className="m-0 p-0 text-sm"
+            size={"sm"}
+            onClick={() => handleSaveLater(index)}
+          >
+            Save For Later
+          </Button>
+          <Link href={`/cart/${product.productId}`}>
+            <Button variant={"link"} className="m-0 p-0 text-sm" size={"sm"}>
+              Compare With Similar Products
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
