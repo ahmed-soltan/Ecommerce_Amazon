@@ -1,8 +1,9 @@
 "use client";
 
-import { categories } from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/AddProductsForm";
 import Image from "next/image";
 import Link from "next/link";
+
+import { categories } from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/AddProductsForm";
 
 const BannerProducts = ({ products }: { products: any }) => {
   return (
@@ -15,7 +16,7 @@ const BannerProducts = ({ products }: { products: any }) => {
           (product: any) => product.category === category.label
         );
         const filteredProduct = products?.filter(
-          (product: any) => product.category !== category.label
+          (product: any) => product.category === category.label
         );
 
         if (!product || category.label === "Clothes") {
@@ -35,13 +36,13 @@ const BannerProducts = ({ products }: { products: any }) => {
               className="
              flex flex-col items-center justify-between gap-2 rounded-full"
             >
-              <div className="relative mt-4 rounded-full w-[100px] h-[100px] md:w-[130px] md:h-[130px] bg-white border-[1px] border-orange-200 flex items-center justify-center hover:border-orange-700 transition-all">
+              <div className="relative mt-4 rounded-full w-[90px] h-[90px] md:w-[110px] md:h-[110px] bg-white border-[1px] border-orange-200 flex items-center justify-center hover:border-orange-700 transition-all">
                 <Image
                   src={ProductPhoto!}
                   alt={`Deals on ${category.label}`}
                   width={100}
                   height={100}
-                  className=" max-w-[60px] max-h-[60px] md:max-w-[80px] md:max-h-[80px]"
+                  className=" max-w-[50px] max-h-[50px] md:max-w-[70px] md:max-h-[70px]"
                   style={{ aspectRatio: "1/1" }}
                 />
               </div>
