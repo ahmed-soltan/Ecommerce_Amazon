@@ -1,13 +1,18 @@
 "use client";
 
-import { account } from "@/Utils/account";
 import Link from "next/link";
+
+import { account } from "@/Utils/account";
 import { Profile, User } from "@prisma/client";
 import { ManageProfiles } from "../components/ManageProfile";
 
-const AccountContainer = ({user}:{user:User & {
-  profile:Profile[]
-}}) => {
+const AccountContainer = ({
+  user,
+}: {
+  user: User & {
+    profile: Profile[];
+  };
+}) => {
   const currentProfile = user?.profile?.find(
     (profile: any) => profile.isSelected === true
   );
@@ -28,7 +33,9 @@ const AccountContainer = ({user}:{user:User & {
                   ? `${list.url}`
                   : !user
                   ? "/login"
-                  :  list.url === "/orders" ? `/profile/${currentProfile?.id}/orders`:`${list.url}/${user.id}`
+                  : list.url === "/orders"
+                  ? `/profile/${currentProfile?.id}/orders`
+                  : `${list.url}/${user.id}`
               }
               className="flex items-center gap-3 border-[2px] rounded-md px-3 py-6"
               key={list.title}

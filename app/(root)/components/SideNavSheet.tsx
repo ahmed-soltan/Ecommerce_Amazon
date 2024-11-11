@@ -1,7 +1,14 @@
-"use client"
+"use client";
+
+import { MenuIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+
+import { Profile, User, Vendor } from "@prisma/client";
+
 import { sideNavLinks } from "@/Utils/NavLinks";
 import { Button } from "@/components/ui/button";
-
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
@@ -9,20 +16,19 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
-import Link from "next/link";
 import GoogleTranslate from "./GoogleTranslation";
-import { useRouter } from "next/navigation";
 import { categories } from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/AddProductsForm";
-import { Profile, User, Vendor } from "@prisma/client";
 
-export const SideNavSheet = ({user , profile}:{
+export const SideNavSheet = ({
+  user,
+  profile,
+}: {
   user: User & {
-    vendor:Vendor | null
+    vendor: Vendor | null;
   };
   profile: Profile;
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const navLinks = [
     { label: "Today's Deals", url: "/products?&page=1" },
     {
@@ -34,6 +40,7 @@ export const SideNavSheet = ({user , profile}:{
     { label: "Browsing History", url: "/browsing-history" },
     { label: "Your WishList", url: "/wishlist" },
   ];
+
   const filterByCategory = (category: string) => {
     if (category === "All") {
       router.push(`/products?page=1`);
@@ -41,6 +48,12 @@ export const SideNavSheet = ({user , profile}:{
       router.push(`/products?key=${category}&page=1`);
     }
   };
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/");
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -113,7 +126,17 @@ export const SideNavSheet = ({user , profile}:{
               </div>
             );
           })}
-          {!user && <Link href={"/login"}>Login</Link>}
+          {!user ? (
+            <Link href={"/login"}>Login</Link>
+          ) : (
+            <Button
+              variant={"ghost"}
+              onClick={handleSignOut}
+              className="font-medium text-slate-600 p-0 text-md"
+            >
+              Sign out
+            </Button>
+          )}
           <GoogleTranslate />
         </div>
       </SheetContent>

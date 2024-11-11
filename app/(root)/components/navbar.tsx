@@ -1,13 +1,14 @@
 import Image from "next/image";
-import SearchBar from "./SearchBar";
 import Link from "next/link";
+
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import { getCurrentProfile } from "@/actions/getCurrentProfile";
+
+import CartTotal from "./CartTotal";
+import SearchBar from "./SearchBar";
 import { AccountLists } from "./AccountLists";
 
 import logo from "../../../public/amazonLogo.png";
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import CartTotal from "./CartTotal";
-import { getCurrentProfile } from "@/actions/getCurrentProfile";
-
 
 const Navbar = async () => {
   const user = await getCurrentUser();

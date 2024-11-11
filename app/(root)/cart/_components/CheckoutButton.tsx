@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { cartProductType } from "../../product/[productId]/_components/ProductContainerDetails";
+
 import { useCart } from "@/hooks/useCart";
+
+import { Button } from "@/components/ui/button";
+import { cartProductType } from "../../product/[productId]/_components/ProductContainerDetails";
 
 type CheckoutButtonProps = {
   cartProducts: cartProductType[];
@@ -11,6 +13,7 @@ type CheckoutButtonProps = {
   totalAmount: number;
   panned:boolean | undefined;
 };
+
 const CheckoutButton = ({
   cartProducts,
   cartProductLength,

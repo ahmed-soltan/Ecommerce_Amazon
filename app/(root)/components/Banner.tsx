@@ -58,6 +58,10 @@ export const Banner = () => {
             fill
             className="object-fit rounded-md hover:scale-110 overflow-hidden transition"
           />
+          <p className="absolute top-[30%] left-[5%] -translate-y-50 text-white font-bold text-2xl">
+            Top Offer <br />
+            <span className="text-yellow-400">Ipad Pro</span> 128GB
+          </p>
         </div>
         <div className="relative w-full h-[195px] overflow-hidden rounded-md">
           <Image
@@ -66,6 +70,10 @@ export const Banner = () => {
             fill
             className="object-fit rounded-md hover:scale-110 overflow-hidden transition"
           />
+          <p className="absolute top-[30%] left-[5%] -translate-y-50 text-white font-bold text-2xl">
+            Game Pad <br />
+            <span className="text-gray-800">Sport Edition</span> 2022
+          </p>
         </div>
       </div>
     </div>
