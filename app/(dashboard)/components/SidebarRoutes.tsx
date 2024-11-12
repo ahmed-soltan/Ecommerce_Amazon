@@ -67,6 +67,11 @@ const SidebarRoutes = ({ vendor }: SidebarRoutesProps) => {
       path: `/vendor/${vendor?.id}/manage-products`,
     },
     {
+      icon: PencilRuler,
+      label: "Manage Categories",
+      path: `/vendor/${vendor?.id}/manage-categories`,
+    },
+    {
       icon: PackageOpen,
       label: "Manage Orders",
       path: `/vendor/${vendor?.id}/manage-orders`,

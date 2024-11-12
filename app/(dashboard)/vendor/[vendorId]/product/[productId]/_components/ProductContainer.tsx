@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { Products, Review } from "@prisma/client";
+import { Category, Products, Review } from "@prisma/client";
 import { Separator } from "@/components/ui/separator";
 import ProductTitleEdit from "./ProductTitleEdit";
 import ProductDescriptionEdit from "./ProductDescriptionEdit";
@@ -26,13 +26,19 @@ import ConfirmModel from "@/components/ConfirmModel";
 type ProductContainerProps = {
   vendorId: string;
   productId: string;
-  product: Products & {
+  product: Omit<Products, "createdAt" | "updatedAt"> & {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
     reviews: Review[];
     images: {
       image: string;
       color: string;
       colorCode: string;
     }[];
+    category: {
+      name: string;
+    };
   };
 };
 
@@ -43,6 +49,7 @@ const ProductContainer = ({
 }: ProductContainerProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
   const onDelete = async () => {
     try {
       setIsLoading(true);
@@ -67,7 +74,10 @@ const ProductContainer = ({
       )}
       <div className="p-6 flex flex-wrap flex-col items-start gap-4">
         <Link href={`/vendor/${vendorId}/manage-products`}>
-          <Button variant={"link"} className="pl-0"> <ArrowLeft className="w-4 h-4 mr-2"/> View Other Products</Button>
+          <Button variant={"link"} className="pl-0">
+            {" "}
+            <ArrowLeft className="w-4 h-4 mr-2" /> View Other Products
+          </Button>
         </Link>
         <div className="flex items-start justify-between w-full flex-wrap gap-3">
           <h1 className="text-slate-800 font-medium text-3xl">
@@ -87,7 +97,7 @@ const ProductContainer = ({
         <Separator />
         <div className="flex flex-wrap items-center gap-4 w-full">
           <ProductTitleEdit
-            product={product}
+            name={product.name}
             productId={productId}
             vendorId={vendorId}
           />
@@ -98,7 +108,7 @@ const ProductContainer = ({
           />
         </div>
         <ProductDescriptionEdit
-          product={product}
+          description={product.description}
           productId={productId}
           vendorId={vendorId}
         />
@@ -129,8 +139,8 @@ const ProductContainer = ({
           productId={productId}
           vendorId={vendorId}
         />
-        {product.category !== "Clothes" &&
-        product.category !== "Shoes" ? null : (
+        {product.category.name !== "Clothes" &&
+        product.category.name !== "Shoes" ? null : (
           <ProductSizesEdit
             product={product}
             productId={productId}

@@ -3,6 +3,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Pencil } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,17 +15,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice } from "@/lib/formatPrice";
-import { Products } from "@prisma/client";
-import Image from "next/image";
+import { Category, Products } from "@prisma/client";
 import { shortenTitle } from "@/Utils/stringCut";
 
-export const columns: ColumnDef<Products>[] = [
+export const columns: ColumnDef<Category>[] = [
   {
-    accessorKey: "images",
+    accessorKey: "image",
     header: ({ column }) => {
       return (
         <Button variant="ghost">
@@ -33,15 +33,10 @@ export const columns: ColumnDef<Products>[] = [
       );
     },
     cell: ({ row }) => {
-      const images: {
-        color: string;
-        colorCode: string;
-        image: string;
-      }[] = row.getValue("images");
+      const image: string = row.getValue("image");
 
-      const firstImage = images.length > 0 ? images[0].image : null;
-      return firstImage ? (
-        <Image src={firstImage} alt="Product Image" width={40} height={40} />
+      return image ? (
+        <Image src={image} alt="Product Image" width={60} height={60} />
       ) : (
         <span>No Image</span>
       );
@@ -56,68 +51,39 @@ export const columns: ColumnDef<Products>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const title : string =row.getValue("name");
-      return shortenTitle(title , 40);
+      const name: string = row.getValue("name");
+      return shortenTitle(name, 40);
     },
   },
   {
-    accessorKey: "price",
+    accessorKey: "products",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Price
+          No. Products
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const price = parseFloat(row.getValue("price") || "0");
-      return formatPrice(price);
-    },
-  },
-  {
-    accessorKey: "inStock",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          in Stock
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const inStock = row.getValue("inStock") || false;
-      return (
-        <Badge
-          className={cn(inStock && "bg-slate-400", inStock && "bg-orange-500")}
-        >
-          {inStock ? `in Stock` : "out of Stock"}
-        </Badge>
-      );
+      const products: Products[] = row.getValue("products");
+      const number = products ? products.length : 0;
+      return number;
     },
   },
   {
     accessorKey: "vendorId",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-        >
-          Actions
-        </Button>
-      );
+      return <Button variant="ghost">Actions</Button>;
     },
     cell: ({ row }) => {
       const { id } = row.original;
@@ -134,7 +100,7 @@ export const columns: ColumnDef<Products>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-            <Link href={`/vendor/${vendorId}/product/${id}`}>
+            <Link href={`/vendor/${vendorId}/category/${id}`}>
               <DropdownMenuItem className="flex items-center">
                 <Pencil className="w-4 h-4 mr-2" />
                 Edit

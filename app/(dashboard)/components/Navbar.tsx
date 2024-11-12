@@ -1,13 +1,11 @@
+import { MenuIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
 import Sidebar from "./Sidebar";
 
 const Navbar = () => {

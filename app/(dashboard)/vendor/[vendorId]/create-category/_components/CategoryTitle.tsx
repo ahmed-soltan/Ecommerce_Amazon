@@ -7,20 +7,20 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-type ProductTitleProps = {
+type CategoryTitleProps = {
   form: any;
 };
 
-const ProductTitle = ({ form }: ProductTitleProps) => {
+const CategoryTitle = ({ form }: CategoryTitleProps) => {
   return (
     <FormField
       name="name"
       control={form.control}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Product Name</FormLabel>
+          <FormLabel>Category Name</FormLabel>
           <FormControl>
-            <Input placeholder="Enter Product Name" {...field} />
+            <Input placeholder="Enter Category Name" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -29,4 +29,4 @@ const ProductTitle = ({ form }: ProductTitleProps) => {
   );
 };
 
-export default ProductTitle;
+export default CategoryTitle;

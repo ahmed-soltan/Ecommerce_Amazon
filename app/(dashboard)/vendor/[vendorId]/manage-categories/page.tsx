@@ -6,12 +6,14 @@ import { getVendor } from "@/actions/getVendor";
 import { DataTable } from "./_components/DataTable";
 import { columns } from "./_components/columns";
 
-const ManageProductsPage = async () => {
+const ManageCategoriesPage = async () => {
   const user = await getCurrentUser();
   if (!user) {
     return redirect("/");
   }
+
   const vendor = await getVendor(user.id);
+
   if (!vendor) {
     return null;
   }
@@ -20,11 +22,11 @@ const ManageProductsPage = async () => {
     <div className="p-6">
       <DataTable
         columns={columns}
-        data={vendor.Products}
+        data={vendor.categories}
         vendorId={vendor.id}
       />
     </div>
   );
 };
 
-export default ManageProductsPage;
+export default ManageCategoriesPage;

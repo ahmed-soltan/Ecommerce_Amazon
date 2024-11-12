@@ -16,7 +16,7 @@ export const getProducts = async () => {
     });
     return products;
   } catch (error) {
-    console.log("GET_PRODCUTS", error);
+    console.log("GET_PRODUCTS", error);
     return null;
   }
 };

@@ -34,12 +34,12 @@ const Home = async () => {
             </Link>
           </h1>
 
-          <BannerProducts products={products!} />
+          {/* <BannerProducts products={products!} /> */}
         </div>
       </div>
       <div className="">
-        <NewProducts products={newProducts!} />
-        <TopDealsProducts products={topDealsProducts!} />
+        {/* <NewProducts products={newProducts!} /> */}
+        {/* <TopDealsProducts products={topDealsProducts!} /> */}
         <BrowsingHistoryHomePage />
       </div>
     </div>

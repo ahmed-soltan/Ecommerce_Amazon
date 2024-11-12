@@ -1,5 +1,6 @@
-import { getProductById } from "@/actions/getProductById";
 import { redirect } from "next/navigation";
+
+import { getProductById } from "@/actions/getProductById";
 
 import ProductContainer from "./_components/ProductContainer";
 
@@ -9,10 +10,12 @@ const page = async ({
   params: { vendorId: string; productId: string };
 }) => {
   const product = await getProductById(params.productId, params.vendorId);
+
   if (!product) {
     return redirect(`/vendor/${params.vendorId}/manage-products`);
   }
 
+  console.log(product);
   return (
     <ProductContainer
       product={product}

@@ -1,8 +1,7 @@
 import prisma from "../lib/prismadb";
 
-
-export const getProductById = async (productId:string , vendorId?:string) => {
-  if(!productId ){
+export const getProductById = async (productId: string, vendorId?: string) => {
+  if (!productId) {
     return null;
   }
   try {
@@ -13,14 +12,23 @@ export const getProductById = async (productId:string , vendorId?:string) => {
       },
       include: {
         reviews: {
-          orderBy:{
+          orderBy: {
             createdAt: "desc",
-          }
+          },
         },
-
       },
     });
-    return product;
+
+    const category = await prisma.category.findUnique({
+      where: {
+        id: product?.categoryId,
+      },
+      select:{
+        name:true
+      }
+    });
+
+    return { ...product, category: category };
   } catch (error) {
     console.log("GET_PRODUCT_BY_ID", error);
     return null;

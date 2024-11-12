@@ -1,5 +1,7 @@
-import prisma from "../../../../../lib/prismadb";
 import { NextResponse } from "next/server";
+
+import prisma from "../../../../../lib/prismadb";
+
 import { getCurrentUser } from "@/actions/getCurrentUser";
 
 export const POST = async (
@@ -23,20 +25,16 @@ export const POST = async (
 
     const body = await req.json();
 
-    console.log(body);
-
-    const product = await prisma.products.create({
+    const product = await prisma.category.create({
       data: {
         ...body,
-        price: parseFloat(body.price),
-        discount: body.discount ? parseFloat(body.discount) : null,
-        vendorId: body.vendorId,
+        vendorId: params.vendorId,
       },
     });
 
     return NextResponse.json(product);
   } catch (error) {
-    console.log("REGISTER : ", error);
+    console.log("ADD_CATEGORY : ", error);
     return NextResponse.json(error);
   }
 };

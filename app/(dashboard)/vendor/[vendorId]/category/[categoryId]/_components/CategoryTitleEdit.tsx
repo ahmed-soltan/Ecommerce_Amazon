@@ -1,43 +1,46 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import { Image, Products, Review, Vendor } from "@prisma/client";
 import { Pencil, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Separator } from "@/components/ui/separator";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import toast from "react-hot-toast";
-import ProductTitle from "../../../create-product/_components/ProductTitle";
-import ProductDescription from "../../../create-product/_components/ProductDescription";
-import { Preview } from "@/components/preview";
 
-type ProductDescriptionEditProps = {
-  description: string;
-  productId: string;
+import { Category } from "@prisma/client";
+
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import CategoryTitle from "../../../create-category/_components/CategoryTitle";
+
+type CategoryTitleEditProps = {
+  category: Category
+  categoryId: string;
   vendorId: string;
 };
 
-const ProductDescriptionEdit = ({
-  description,
+const CategoryTitleEdit = ({
+  category,
   vendorId,
-  productId,
-}: ProductDescriptionEditProps) => {
+  categoryId,
+}: CategoryTitleEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const form = useForm({
     defaultValues: {
-      description: description || "",
+      name: category.name || "",
     },
   });
 
-  const { isSubmitting, isValid, isDirty } = form.formState;
+  const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (data: any) => {
     try {
-      await axios.patch(`/api/vendors/${vendorId}/products/${productId}`, data);
-      toast.success("Product Description updated successfully");
+      await axios.patch(
+        `/api/vendors/${vendorId}/categories/${categoryId}`,
+        data
+      );
+      toast.success("category Title updated successfully");
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -50,9 +53,7 @@ const ProductDescriptionEdit = ({
   return (
     <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium text-slate-700">
-          Product Description
-        </h2>
+        <h2 className="text-xl font-medium text-slate-700">category Title</h2>
         <Button
           variant={"ghost"}
           className="flex items-center text-md"
@@ -73,11 +74,11 @@ const ProductDescriptionEdit = ({
       {isEditing ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ProductDescription form={form} />
+            <CategoryTitle form={form} />
             <Button
               type="submit"
               className="my-2"
-              disabled={!isDirty || isSubmitting || !isValid}
+              disabled={isSubmitting || !isValid}
             >
               Save
             </Button>
@@ -86,8 +87,8 @@ const ProductDescriptionEdit = ({
       ) : (
         <div className="flex flex-col items-start gap-4 my-2">
           <div>
-            Product Description :
-            <span className="text-slate-500"> {description}</span>
+            category Title :
+            <span className="text-slate-500"> {category.name}</span>
           </div>
         </div>
       )}
@@ -95,4 +96,4 @@ const ProductDescriptionEdit = ({
   );
 };
 
-export default ProductDescriptionEdit;
+export default CategoryTitleEdit;

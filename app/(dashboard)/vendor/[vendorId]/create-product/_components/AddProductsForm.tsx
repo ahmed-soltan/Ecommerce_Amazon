@@ -1,8 +1,13 @@
 "use client";
-import { Form, FormField } from "@/components/ui/form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 import ProductTitle from "./ProductTitle";
 import ProductDescription from "./ProductDescription";
 import ProductPrice from "./ProductPrice";
@@ -10,129 +15,23 @@ import Banner from "@/components/banner";
 import ProductBrand from "./ProductBrand";
 import ProductDiscount from "./ProductDiscount";
 import ProductAvailabilty from "./ProductAvailabilty";
-import { useEffect, useState } from "react";
-import ProductImage from "./ProductImage";
+import ProductColors from "./ProductColors";
+import ProductCategory from "./ProductCategory";
+import ProductSizes from "./ProductSizes";
+import ProductDetails from "./ProductDetails";
+
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import ProductColors from "./ProductColors";
-import { Image } from "@prisma/client";
-import ProductCategory from "./ProductCategory";
-import {
-  AccessibilityIcon,
-  BellElectric,
-  Book,
-  Camera,
-  Cpu,
-  Film,
-  Footprints,
-  ForkliftIcon,
-  Gamepad2Icon,
-  Headphones,
-  HeartPulseIcon,
-  HomeIcon,
-  LaptopIcon,
-  PcCaseIcon,
-  PhoneIcon,
-  Shirt,
-  Sofa,
-  StoreIcon,
-  ToyBrick,
-  Tv2Icon,
-  WatchIcon,
-} from "lucide-react";
+
+import { Category } from "@prisma/client";
+
 import { clothesSizes, shoesSizes } from "@/Utils/sizes";
-import ProductSizes from "./ProductSizes";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import ProductDetails from "./ProductDetails";
 
 type AddProductsFormProps = {
   vendorId: string;
+  categories: Category[];
 };
-
-export const categories = [
-  {
-    label: "All",
-    icon: StoreIcon,
-  },
-  {
-    label: "Phones",
-    icon: PhoneIcon,
-  },
-  {
-    label: "Labtops",
-    icon: LaptopIcon,
-  },
-  {
-    label: "Desktop",
-    icon: PcCaseIcon,
-  },
-  {
-    label: "Watchs",
-    icon: WatchIcon,
-  },
-  {
-    label: "TVs",
-    icon: Tv2Icon,
-  },
-  {
-    label: "Accessories",
-    icon: AccessibilityIcon,
-  },
-  {
-    label: "Clothes",
-    icon: Shirt,
-  },
-  {
-    label: "Furnitures",
-    icon: Sofa,
-  },
-  {
-    label: "Home",
-    icon: HomeIcon,
-  },
-  {
-    label: "Kitchen",
-    icon: ForkliftIcon,
-  },
-  {
-    label: "Personal Care",
-    icon: HeartPulseIcon,
-  },
-  {
-    label: "video Games",
-    icon: Gamepad2Icon,
-  },
-  {
-    label: "Shoes",
-    icon: Footprints,
-  },
-  {
-    label: "Movies",
-    icon: Film,
-  },
-  {
-    label: "Books",
-    icon: Book,
-  },
-  {
-    label: "Electronics",
-    icon: Cpu,
-  },
-  {
-    label: "Head Phones",
-    icon: Headphones,
-  },
-  {
-    label: "Camera",
-    icon: Camera,
-  },
-  {
-    label: "Toys",
-    icon: ToyBrick,
-  }
-];
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -148,13 +47,14 @@ const formSchema = z.object({
   brand: z.string().min(3, {
     message: "Product description must be at least 3 characters.",
   }),
-  details:z.string(),
+  details: z.string(),
   inStock: z.boolean(),
   discount: z.string(),
 });
-const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
-  
+
+const AddProductsForm = ({ vendorId, categories }: AddProductsFormProps) => {
   const [sizes, setSizes] = useState<string[]>([]);
+  const [categoryId, setCategoryId] = useState("");
   const [images, setImages] = useState<
     {
       color: string;
@@ -170,7 +70,7 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
       price: "",
       category: "",
       description: "",
-      details:"",
+      details: "",
       brand: "",
       inStock: false,
       discount: "",
@@ -192,7 +92,6 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-
   const category = form.watch("category");
 
   const requiredField = [
@@ -205,14 +104,11 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
   ];
   const onClick = (size: string) => {
     if (sizes.includes(size)) {
-      // If the size is already in the array, remove it
       setSizes((prev) => prev.filter((item) => item !== size));
     } else {
-      // If the size is not in the array, add it
       setSizes((prev) => [...prev, size]);
     }
   };
-
 
   const totalFields = requiredField.length;
   const completedFields = requiredField.filter(Boolean).length;
@@ -221,21 +117,23 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
   const isComplete = requiredField.every(Boolean);
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const productData = {
-      ...data,
-      sizes: sizes,
-      images: images,
-      vendorId: vendorId,
+    const { category, ...productData } = data;
+    const body = {
+      ...productData,
+      images,
+      sizes,
+      vendorId,
+      categoryId,
     };
+
     try {
-      await axios.post(`/api/vendors/${vendorId}/products`, productData);
+      await axios.post(`/api/vendors/${vendorId}/products`, body);
       toast.success("Product Created successfully");
       router.refresh();
+      // router.push(`/vendor/${vendorId}/manage-products`);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
-    } finally {
-      router.push(`/vendor/${vendorId}/manage-products`);
     }
   };
   return (
@@ -250,7 +148,7 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-medium">Product Creation</h1>
           <span className="text-sm text-slate-700">
-            Compelete All Fields {completionText}
+            Complete All Fields {completionText}
           </span>
           <Separator />
         </div>
@@ -266,19 +164,18 @@ const AddProductsForm = ({ vendorId }: AddProductsFormProps) => {
             <ProductBrand form={form} />
             <ProductDiscount form={form} />
             <div className="w-full font-medium ">
-              <div className="mb-2 font-medium text-md ">Select Categoy</div>
+              <div className="mb-2 font-medium text-md ">Select Category</div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-h-[50vh] overflow-y-auto">
                 {categories.map((item) => {
-                  if (item.label === "All") return null;
                   return (
-                    <div key={item.label}>
+                    <div key={item.id}>
                       <ProductCategory
-                        label={item.label}
-                        icon={item.icon}
-                        onClick={(category: string) =>
-                          form.setValue("category", category)
-                        }
-                        selected={category === item.label}
+                        name={item.name}
+                        onClick={(category: string) => {
+                          form.setValue("category", category);
+                          setCategoryId(item.id);
+                        }}
+                        selected={category === item.name}
                       />
                     </div>
                   );
