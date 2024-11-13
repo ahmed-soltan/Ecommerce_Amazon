@@ -5,6 +5,7 @@ import { getVendor } from "@/actions/getVendor";
 
 import { DataTable } from "./_components/DataTable";
 import { columns } from "./_components/columns";
+import { getCategoriesByVendorId } from "@/actions/getCategoryByVendorId";
 
 const ManageCategoriesPage = async () => {
   const user = await getCurrentUser();
@@ -18,11 +19,14 @@ const ManageCategoriesPage = async () => {
     return null;
   }
 
+  const vendorCategories = await getCategoriesByVendorId(vendor.id)
+
   return (
     <div className="p-6">
       <DataTable
         columns={columns}
-        data={vendor.categories}
+        /*@ts-ignore*/
+        data={vendorCategories!}
         vendorId={vendor.id}
       />
     </div>

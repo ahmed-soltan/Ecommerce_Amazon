@@ -1,10 +1,11 @@
+import { redirect } from "next/navigation";
+
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { getVendor } from "@/actions/getVendor";
-import { redirect } from "next/navigation";
-import AddProductsForm from "./_components/AddProductsForm";
-import { Separator } from "@/components/ui/separator";
 
-const page = async ({params}:{params:{vendorId:string}}) => {
+import AddProductsForm from "./_components/AddProductsForm";
+
+const page = async ({ params }: { params: { vendorId: string } }) => {
   const user = await getCurrentUser();
   if (!user) {
     return redirect("/");
@@ -15,7 +16,10 @@ const page = async ({params}:{params:{vendorId:string}}) => {
   }
   return (
     <div>
-        <AddProductsForm vendorId={params.vendorId} categories={vendor.categories}/>
+      <AddProductsForm
+        vendorId={params.vendorId}
+        categories={vendor.categories}
+      />
     </div>
   );
 };

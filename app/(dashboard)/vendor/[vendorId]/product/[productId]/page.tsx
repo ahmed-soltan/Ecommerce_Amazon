@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
 
-import { getProductById } from "@/actions/getProductById";
-
 import ProductContainer from "./_components/ProductContainer";
+
+import { getProductById } from "@/actions/getProductById";
+import { getCategoryById } from "@/actions/getCategoryById";
+import { getCategoriesByVendorId } from "@/actions/getCategoryByVendorId";
 
 const page = async ({
   params,
@@ -15,12 +17,18 @@ const page = async ({
     return redirect(`/vendor/${params.vendorId}/manage-products`);
   }
 
-  console.log(product);
+  const category = await getCategoryById(product.categoryId!);
+  const categories = await getCategoriesByVendorId(params.vendorId);
+
+  console.log(categories)
+
   return (
     <ProductContainer
       product={product}
       vendorId={params.vendorId}
       productId={params.productId}
+      category={category!}
+      categories={categories}
     />
   );
 };

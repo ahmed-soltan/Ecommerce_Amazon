@@ -7,8 +7,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { Category, Products, Review } from "@prisma/client";
+
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import ProductTitleEdit from "./ProductTitleEdit";
 import ProductDescriptionEdit from "./ProductDescriptionEdit";
@@ -26,7 +27,7 @@ import ConfirmModel from "@/components/ConfirmModel";
 type ProductContainerProps = {
   vendorId: string;
   productId: string;
-  product: Omit<Products, "createdAt" | "updatedAt"> & {
+  product: Products & {
     id: string;
     createdAt: Date;
     updatedAt: Date;
@@ -36,16 +37,17 @@ type ProductContainerProps = {
       color: string;
       colorCode: string;
     }[];
-    category: {
-      name: string;
-    };
   };
+  category: Category;
+  categories: Omit<Category, "productNumber">[] | null;
 };
 
 const ProductContainer = ({
   vendorId,
   productId,
   product,
+  category,
+  categories,
 }: ProductContainerProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -138,9 +140,10 @@ const ProductContainer = ({
           product={product}
           productId={productId}
           vendorId={vendorId}
+          category={category}
+          categories={categories}
         />
-        {product.category.name !== "Clothes" &&
-        product.category.name !== "Shoes" ? null : (
+        {category.name !== "Clothes" && category.name !== "Shoes" ? null : (
           <ProductSizesEdit
             product={product}
             productId={productId}

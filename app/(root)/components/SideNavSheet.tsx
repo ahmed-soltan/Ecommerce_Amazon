@@ -2,8 +2,8 @@
 
 import { MenuIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 import { Profile, User, Vendor } from "@prisma/client";
 
@@ -17,7 +17,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import GoogleTranslate from "./GoogleTranslation";
-import { categories } from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/AddProductsForm";
 
 export const SideNavSheet = ({
   user,
@@ -87,23 +86,22 @@ export const SideNavSheet = ({
             })}
             <Separator />
           </div>
-          <h1 className="font-medium text-lg text-slate-900">
+          {/* <h1 className="font-medium text-lg text-slate-900">
             Shop By Category
           </h1>
           <div className="flex items-start flex-col gap-4">
-            {categories.map((category) => {
-              const Icon = category.icon;
+            {data?.map((category:Category) => {
               return (
                 <p
-                  onClick={() => filterByCategory(category.label)}
-                  key={category.label}
+                  onClick={() => filterByCategory(category.name)}
+                  key={category.name}
                   className="cursor-pointer flex items-center text-sm"
                 >
-                  <Icon className="w-4 h-4 mr-1" /> {category.label}{" "}
+                  {category.name}
                 </p>
               );
             })}
-          </div>
+          </div> */}
           <Separator />
           {sideNavLinks.map((link) => {
             return (

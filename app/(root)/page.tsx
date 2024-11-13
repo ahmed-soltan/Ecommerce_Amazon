@@ -1,20 +1,24 @@
-import { getProducts } from "@/actions/getProducts";
-import { Banner } from "./components/Banner";
-import TopDealsProducts from "./components/TopDealsProducts";
-import BannerProducts from "./components/BannerProducts";
-import NewProducts from "./components/NewProducts";
-import BrowsingHistoryHomePage from "./components/BrowsingHistoryHomePage";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+
+import { Banner } from "./components/Banner";
+import TopDealsProducts from "./components/TopDealsProducts";
+import NewProducts from "./components/NewProducts";
+import BannerProducts from "./components/BannerProducts";
+import BrowsingHistoryHomePage from "./components/BrowsingHistoryHomePage";
 import { Button } from "@/components/ui/button";
 
-const Home = async () => {
-  const products = await getProducts();
-  const topDealsProducts = products
-    ?.filter((product) => product.discount && product.discount > 0)
-    .slice(0, 9);
+import { getProducts } from "@/actions/getProducts";
+import { getCategoriesWithProductCount } from "@/actions/getCategoriesWithProductCount";
 
-  const newProducts = products?.slice(0, 9);
+const Home = async () => {
+  const categories = await getCategoriesWithProductCount();  
+  const products = await getProducts();
+  // const topDealsProducts = products
+  //   ?.filter((product) => product.discount && product.discount > 0)
+  //   .slice(0, 9);
+
+  // const newProducts = products?.slice(0, 9);
 
   return (
     <div className="mb-10 px-2 md:px-10 lg:px-20 py-6">
@@ -34,7 +38,7 @@ const Home = async () => {
             </Link>
           </h1>
 
-          {/* <BannerProducts products={products!} /> */}
+          <BannerProducts categories={categories!} />
         </div>
       </div>
       <div className="">

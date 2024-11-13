@@ -15,13 +15,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
-import { formatPrice } from "@/lib/formatPrice";
 import { Category, Products } from "@prisma/client";
 import { shortenTitle } from "@/Utils/stringCut";
 
-export const columns: ColumnDef<Category>[] = [
+type CategoryWithProductCount = {
+  id: string;
+  name: string;
+  image: string;
+  vendorId: string;
+  productCount: number;
+};
+
+export const columns: ColumnDef<CategoryWithProductCount>[] = [
   {
     accessorKey: "image",
     header: ({ column }) => {
@@ -62,7 +67,7 @@ export const columns: ColumnDef<Category>[] = [
     },
   },
   {
-    accessorKey: "products",
+    accessorKey: "productCount",
     header: ({ column }) => {
       return (
         <Button
@@ -75,9 +80,8 @@ export const columns: ColumnDef<Category>[] = [
       );
     },
     cell: ({ row }) => {
-      const products: Products[] = row.getValue("products");
-      const number = products ? products.length : 0;
-      return number;
+      const productsCount: number = row.getValue("productCount");
+      return productsCount;
     },
   },
   {

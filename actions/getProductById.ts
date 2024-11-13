@@ -19,16 +19,7 @@ export const getProductById = async (productId: string, vendorId?: string) => {
       },
     });
 
-    const category = await prisma.category.findUnique({
-      where: {
-        id: product?.categoryId,
-      },
-      select:{
-        name:true
-      }
-    });
-
-    return { ...product, category: category };
+    return product
   } catch (error) {
     console.log("GET_PRODUCT_BY_ID", error);
     return null;

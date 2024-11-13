@@ -2,16 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Image, Products, Review, Vendor } from "@prisma/client";
+import { Category, Products, Review, Vendor } from "@prisma/client";
 import { Pencil, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import Step1 from "@/app/(root)/(auth)/vendor-register/_components/Step1";
 import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ProductCategory from "../../../create-product/_components/ProductCategory";
-import { categories } from "../../../create-product/_components/AddProductsForm";
 
 type ProductCategoryEditProps = {
   product: Products & {
@@ -24,27 +22,35 @@ type ProductCategoryEditProps = {
   };
   productId: string;
   vendorId: string;
+  categories: Category[] | null;
+  category: Category;
 };
 
 const ProductCategoryEdit = ({
   product,
   vendorId,
   productId,
+  categories,
+  category,
 }: ProductCategoryEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [categoryId, setCategoryId] = useState(product.categoryId);
+
   const router = useRouter();
   const form = useForm({
     defaultValues: {
-      category: product.category || "",
+      category: category.name || "",
     },
   });
 
-  const category = form.watch("category");
+  const categoryField = form.watch("category");
 
-  const { isSubmitting, isValid, isDirty } = form.formState;
-  const onSubmit = async (data: any) => {
+  const { isSubmitting, isValid } = form.formState;
+  const onSubmit = async () => {
     try {
-      await axios.patch(`/api/vendors/${vendorId}/products/${productId}`, data);
+      await axios.patch(`/api/vendors/${vendorId}/products/${productId}`, {
+        categoryId,
+      });
       toast.success("Product Category updated successfully");
       router.refresh();
     } catch (error) {
@@ -80,19 +86,18 @@ const ProductCategoryEdit = ({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="w-full font-medium ">
-              <div className="mb-2 font-medium text-md ">Select Categoy</div>
+              <div className="mb-2 font-medium text-md ">Select Category</div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-h-[50vh] overflow-y-auto">
-                {categories.map((item) => {
-                  if (item.label === "All") return null;
+                {categories?.map((item) => {
                   return (
-                    <div key={item.label}>
+                    <div key={item.id}>
                       <ProductCategory
-                        label={item.label}
-                        icon={item.icon}
-                        onClick={(category: string) =>
-                          form.setValue("category", category)
-                        }
-                        selected={category === item.label}
+                        name={item.name}
+                        onClick={(category: string) => {
+                          form.setValue("category", category);
+                          setCategoryId(item.id);
+                        }}
+                        selected={categoryField === item.name}
                       />
                     </div>
                   );
@@ -102,7 +107,9 @@ const ProductCategoryEdit = ({
             <Button
               type="submit"
               className="my-2"
-              disabled={ isSubmitting || !isValid || product.category===category}
+              disabled={
+                isSubmitting || !isValid || categoryField === category.name
+              }
             >
               Save
             </Button>
@@ -112,7 +119,7 @@ const ProductCategoryEdit = ({
         <div className="flex flex-col items-start gap-4 my-2">
           <div>
             Product Category :
-            <span className="text-slate-500"> {product.category}</span>
+            <span className="text-slate-500">{category.name}</span>
           </div>
         </div>
       )}

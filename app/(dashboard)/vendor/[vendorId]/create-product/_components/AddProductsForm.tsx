@@ -130,7 +130,7 @@ const AddProductsForm = ({ vendorId, categories }: AddProductsFormProps) => {
       await axios.post(`/api/vendors/${vendorId}/products`, body);
       toast.success("Product Created successfully");
       router.refresh();
-      // router.push(`/vendor/${vendorId}/manage-products`);
+      router.push(`/vendor/${vendorId}/manage-products`);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
