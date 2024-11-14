@@ -94,7 +94,7 @@ const ProductAvailabilityEdit = ({
       ) : (
         <div className="flex items-start gap-2 my-2">
           <div>
-            Product Availabilty :
+            Product Availability :
           </div>
             <Badge
               className={cn(

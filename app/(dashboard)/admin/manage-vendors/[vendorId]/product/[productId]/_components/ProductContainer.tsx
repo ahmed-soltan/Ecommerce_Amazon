@@ -1,28 +1,18 @@
 "use client";
+
+import Image from "next/image";
+
 import { Separator } from "@/components/ui/separator";
-import ProductTitleEdit from "./ProductTitleEdit";
-import ProductDescriptionEdit from "./ProductDescriptionEdit";
-import ProductBrandEdit from "./ProductBrandEdit";
-import ProductCategoryEdit from "./ProductCategoryEdit";
-import ProductDiscountEdit from "./ProductDiscountEdit";
-import ProductPriceEdit from "./ProductPriceEdit";
-import ProductImagesEdit from "./ProductImagesEdit";
-import ProductSizesEdit from "./ProductSizesEdit";
-import Banner from "@/components/banner";
-import ProductDetailsEdit from "./ProductDetailsEdit";
-import ConfirmModel from "@/components/ConfirmModel";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
-import { Products, Review } from "@prisma/client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import {  MinusCircle, Trash } from "lucide-react";
-import ProductAvailabilityEdit from "@/app/(dashboard)/vendor/[vendorId]/product/[productId]/_components/ProductAvailabilityEdit";
+
+import Banner from "@/components/banner";
+import { Preview } from "@/components/preview";
+import { Badge } from "@/components/ui/badge";
+
+import { Category, Products, Review } from "@prisma/client";
+import { cn } from "@/lib/utils";
 
 type ProductContainerProps = {
-  vendorId: string;
-  productId: string;
   product: Products & {
     reviews: Review[];
     images: {
@@ -31,30 +21,11 @@ type ProductContainerProps = {
       colorCode: string;
     }[];
   };
+  category: Category;
 };
-const ProductContainer = ({
-  vendorId,
-  productId,
-  product,
-}: ProductContainerProps) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const onDelete = async () => {
-    try {
-      setIsLoading(true);
-      await axios.delete(`/api/vendors/${vendorId}/products/${productId}`);
-      router.push(`/vendor/${vendorId}/manage-products`);
-      toast.success("Product Deleted Successfully");
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const ProductContainer = ({ product, category }: ProductContainerProps) => {
   return (
-    <>
+    <div className="bg-slate-100">
       {!product.inStock && (
         <Banner
           variant={"warning"}
@@ -66,78 +37,104 @@ const ProductContainer = ({
           <h1 className="text-slate-800 font-medium text-3xl">
             Product Details
           </h1>
-          <ConfirmModel onConfirm={onDelete}>
-            <Button variant={"destructive"} size={"sm"} disabled={isLoading}>
-              <p className="hidden sm:flex items-center">
-                {" "}
-                <MinusCircle className="w-4 h-4 mr-2" />
-                Delete Product
-              </p>
-              <Trash className="w-4 h-4 block sm:hidden" />
-            </Button>
-          </ConfirmModel>
         </div>
         <Separator />
         <div className="flex flex-wrap items-center gap-4 w-full">
-          <ProductTitleEdit
-            product={product}
-            productId={productId}
-            vendorId={vendorId}
-          />
-          <ProductPriceEdit
-            product={product}
-            productId={productId}
-            vendorId={vendorId}
-          />
+          <div className="bg-white rounded-md w-full p-5 flex flex-col gap-2">
+            <div className="font-semibold text-black">
+              Product Title:{" "}
+              <span className="text-slate-700 font-normal">{product.name}</span>
+            </div>
+          </div>
+          <div className="bg-white rounded-md w-full p-5 flex flex-col gap-2">
+            <div className="font-semibold text-black">
+              Product Price:{" "}
+              <span className="text-slate-700 font-normal">{product.price}</span>
+            </div>
+          </div>
+          <div className="bg-white rounded-md w-full p-5 flex flex-col gap-2">
+            <div className="font-semibold text-black">
+              Product Description:{" "}
+              <span className="text-slate-700 font-normal">{product.price}</span>
+            </div>
+          </div>
+          <div className="bg-white rounded-md w-full p-5 flex flex-col gap-2">
+            <div className="font-semibold text-black">
+              Product Details: <Preview value={product.details} />
+            </div>
+          </div>
         </div>
-        <ProductDescriptionEdit
-          product={product}
-          productId={productId}
-          vendorId={vendorId}
-        />
-        <ProductDetailsEdit
-          product={product}
-          productId={productId}
-          vendorId={vendorId}
-        />
-        <div className="flex flex-wrap items-center gap-4 w-full">
-          <ProductAvailabilityEdit
-            product={product}
-            productId={productId}
-            vendorId={vendorId}
-          />
-          <ProductBrandEdit
-            product={product}
-            productId={productId}
-            vendorId={vendorId}
-          />
-          <ProductDiscountEdit
-            product={product}
-            productId={productId}
-            vendorId={vendorId}
-          />
+        <div className="bg-white rounded-md p-5 flex flex-wrap items-center gap-4 w-full">
+          <div className="flex items-start gap-2 my-2 font-semibold text-black">
+            <div>Product Availability :</div>
+            <Badge
+              className={cn( 
+                product.inStock && "bg-slate-400",
+                product.inStock && "bg-orange-500"
+              )}
+            >
+              {product.inStock ? `in Stock` : "out of Stock"}
+            </Badge>
+          </div>
         </div>
-        <ProductCategoryEdit
-          product={product}
-          productId={productId}
-          vendorId={vendorId}
-        />
-        {product.category !== "Clothes" &&
-        product.category !== "Shoes" ? null : (
-          <ProductSizesEdit
-            product={product}
-            productId={productId}
-            vendorId={vendorId}
-          />
+        <div className="bg-white rounded-md w-full p-5 flex flex-col gap-2">
+          <div className="font-semibold text-black">
+            Product Brand:{" "}
+            <span className="text-slate-700 font-normal">{product.brand}</span>
+          </div>
+        </div>
+        <div className="bg-white rounded-md w-full p-5 flex flex-col gap-2">
+          <div className="font-semibold text-black">
+            Product discount:{" "}
+            <span className="text-slate-700 font-normal">
+              {product?.discount ? product.discount : 0}%
+            </span>
+          </div>
+        </div>
+        <div className="bg-white rounded-md w-full p-5 flex flex-col gap-2">
+          <div className="font-semibold text-black">
+            Product Category: {""}
+            <span className="text-slate-700 font-normal">{category.name}</span>
+          </div>
+        </div>
+        {category.name !== "Clothes" && category.name !== "Shoes" ? null : (
+          <div className="bg-white rounded-md w-full p-5 flex flex-col items-start gap-4 my-2">
+            <div>Product Sizes :</div>
+            <div className="flex items-center gap-4">
+              {product.sizes.map((size) => {
+                return (
+                  <div key={size}>
+                    <Button variant={"outline"}>{size}</Button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         )}
-
-        <ProductImagesEdit
-          product={product}
-          productId={productId}
-          vendorId={vendorId}
-        />
+        <div className="flex items-start gap-4 my-2 bg-white rounded-md w-full p-5 ">
+          {product.images.map((image) => {
+            return (
+              <div
+                key={image.colorCode}
+                className="flex flex-col items-center justify-center"
+              >
+                <span className="text-slate-700 font-normal" style={{ color: image.color }}>
+                  {image.color}
+                </span>
+                <div className="relative">
+                  <Image
+                    src={image.image!}
+                    alt={image.color}
+                    width={130}
+                    height={130}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

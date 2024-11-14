@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Image, Products, Review, Vendor } from "@prisma/client";
+import { Category, Image, Products, Review, Vendor } from "@prisma/client";
 import { Pencil, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import Step1 from "@/app/(root)/(auth)/vendor-register/_components/Step1";
@@ -26,12 +26,14 @@ type ProductSizesEditProps = {
   };
   productId: string;
   vendorId: string;
+  category:Category
 };
 
 const ProductSizesEdit = ({
   product,
   vendorId,
   productId,
+  category
 }: ProductSizesEditProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -97,10 +99,10 @@ const ProductSizesEdit = ({
         <Form {...form}>
           <form>
             <div className="flex-col flex items-start gap-4">
-              {product.category === "Clothes" && (
+              {category.name === "Clothes" && (
                 <div className="w-full font-medium ">
                   <div className="mb-2 font-medium ">
-                    Select a {product.category} Size
+                    Select a {category.name} Size
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-h-[50vh] overflow-y-auto">
                     {clothesSizes.map((size) => {
@@ -118,10 +120,10 @@ const ProductSizesEdit = ({
                   </div>
                 </div>
               )}
-              {product.category === "Shoes" && (
+              {category.name === "Shoes" && (
                 <div className="w-full font-medium ">
                   <div className="mb-2 font-medium ">
-                    Select a {product.category} Size
+                    Select a {category.name} Size
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-h-[50vh] overflow-y-auto">
                     {shoesSizes.map((size) => {

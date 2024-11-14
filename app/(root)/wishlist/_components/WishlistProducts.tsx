@@ -1,12 +1,15 @@
 "use client";
+
+import Link from "next/link";
+
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishList";
-import { Products, Review } from "@prisma/client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+
+import { Category, Products } from "@prisma/client";
 
 const WishlistProducts = () => {
   const { wishlistProducts, handleRemoveProductFromWishlist } = useWishlist();
@@ -19,14 +22,18 @@ const WishlistProducts = () => {
       </h1>
       <Separator />
       {wishlistProducts && wishlistProducts.length > 0 ? (
-        <div className={"flex flex-row flex-wrap items-center justify-center lg:justify-start gap-2 w-full"}>
+        <div
+          className={
+            "flex flex-row flex-wrap items-center justify-center lg:justify-start gap-2 w-full"
+          }
+        >
           {wishlistProducts.map((product: Products, index: number) => {
             const cartProduct = {
               productId: product.id,
               name: product.name,
               selectedImage: { ...product.images[0] },
               quantity: 1,
-              category: product.category,
+              category: "",
               vendorId: product.vendorId,
               priceAfterDiscount:
                 product.price -

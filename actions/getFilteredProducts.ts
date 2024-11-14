@@ -14,13 +14,16 @@ export const getFilteredProducts = async ({
   try {
     let products;
     if (key) {
+      const categoryIdFilter = key ? { categoryId: key } : undefined;
+
       products = await prisma.products.findMany({
         where: {
           OR: [
             { name: { contains: key, mode: "insensitive" } },
             { description: { contains: key, mode: "insensitive" } },
-            { category: { contains: key, mode: "insensitive" } },
             { brand: { contains: key, mode: "insensitive" } },
+            // Only include `categoryId` filter if `key` is valid
+            ...(categoryIdFilter ? [categoryIdFilter] : []),
           ],
         },
         include: {

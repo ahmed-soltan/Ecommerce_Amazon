@@ -1,8 +1,7 @@
 import Container from '@/components/Container'
 import WishlistProducts from './_components/WishlistProducts'
 
-const page = () => {
-
+const page = async() => {
   return (
     <div className='py-6'>
         <Container>

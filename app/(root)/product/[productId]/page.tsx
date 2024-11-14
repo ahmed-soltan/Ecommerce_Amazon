@@ -10,6 +10,7 @@ import prisma from "../../../../lib/prismadb";
 import RatingComponent from "./_components/Reviews/Rating";
 import Container from "@/components/Container";
 import ProductContainerDetails from "./_components/ProductContainerDetails";
+import { getCategoryById } from "@/actions/getCategoryById";
 
 const page = async ({ params }: { params: { productId: string } }) => {
   const profiles = await prisma.profile.findMany();
@@ -21,7 +22,9 @@ const page = async ({ params }: { params: { productId: string } }) => {
     return null;
   }
 
-  const products = await getProductByCategoryId(product?.category);
+  const products = await getProductByCategoryId(product?.categoryId);
+  const category = await getCategoryById(product?.categoryId);
+
   const relatedProducts = products
     ?.filter((product) => product.id === product.id)
     .slice(0, 12);
@@ -31,7 +34,7 @@ const page = async ({ params }: { params: { productId: string } }) => {
     <div className="py-6 bg-white">
       <Container>
         <div className="flex flex-col items-start gap-y-10">
-          <ProductContainerDetails product={product} />
+          <ProductContainerDetails product={product} category={category!} />
           {relatedProductsLength > 0 && (
             <div className="bg-white p-2 rounded-md w-full">
               <h2 className="text-2xl font-semibold text-slate-800 my-3 text-center md:text-left w-full">

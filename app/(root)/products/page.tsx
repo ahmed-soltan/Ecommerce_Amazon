@@ -1,6 +1,6 @@
 import { getFilteredProducts } from "@/actions/getFilteredProducts";
-import Container from "@/components/Container";
 import ProductsContainer from "./_components/ProductsContainer";
+import { getCategoriesWithProductCount } from "@/actions/getCategoriesWithProductCount";
 
 type SearchProps = {
   searchParams: {
@@ -12,10 +12,15 @@ type SearchProps = {
 
 const ProductsPage = async ({ searchParams }: SearchProps) => {
   const products = await getFilteredProducts({ ...searchParams });
+  const categories = await getCategoriesWithProductCount();
 
   return (
     <div className="py-6">
-      <ProductsContainer products={products!} searchParams={searchParams} />
+      <ProductsContainer
+        products={products!}
+        searchParams={searchParams}
+        categories={categories!}
+      />
     </div>
   );
 };

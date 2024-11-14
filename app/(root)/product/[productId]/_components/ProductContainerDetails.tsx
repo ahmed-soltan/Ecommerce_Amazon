@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Rating } from "@mui/material";
 import toast from "react-hot-toast";
-import { Products, Profile, Review, User } from "@prisma/client";
+import { Category, Products, Profile, Review, User } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
@@ -27,6 +27,7 @@ type ProductContainerDetailsProps = {
       colorCode: string;
     }[];
   };
+  category:Category
 };
 
 export type cartProductType = {
@@ -44,7 +45,7 @@ export type cartProductType = {
   sizes: string[];
 };
 
-const ProductContainerDetails = ({ product }: ProductContainerDetailsProps) => {
+const ProductContainerDetails = ({ product , category }: ProductContainerDetailsProps) => {
   const { handleAddToCartProduct } = useCart();
   const { handleAddToBrowsingHistory } = useBrowsingHistory();
   const { handleAddToWishList } = useWishlist();
@@ -53,7 +54,7 @@ const ProductContainerDetails = ({ product }: ProductContainerDetailsProps) => {
     name: product.name,
     selectedImage: { ...product.images[0] },
     quantity: 1,
-    category: product.category,
+    category: category.name,
     vendorId: product.vendorId,
     priceAfterDiscount:
       product.price - (product.price * (product?.discount || 0 * 100)) / 100,
@@ -157,7 +158,7 @@ const ProductContainerDetails = ({ product }: ProductContainerDetailsProps) => {
             <span className="font-medium text-lg text-slate-800">
               CATEGORY :{" "}
             </span>
-            {product.category}
+            {category.name}
           </div>
           <div className="text-slate-700">
             <span className="font-medium text-lg text-slate-800 ">
@@ -170,7 +171,7 @@ const ProductContainerDetails = ({ product }: ProductContainerDetailsProps) => {
             cartProduct={cartProduct}
             handleColorSelect={handleColor}
           />
-          {product.category === "Clothes" && (
+          {category.name === "Clothes" && (
             <SetSizes
               cartProduct={cartProduct}
               handleSelectSizes={handleSelectSizes}

@@ -1,20 +1,18 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import {
   BarChart,
-  Compass,
   Grid2X2,
   Handshake,
-  Layout,
-  List,
   PackageOpen,
   PencilRuler,
   User2Icon,
   Users,
 } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+
 import SidebarItem from "./SidebarItem";
+
 import { Products, Vendor } from "@prisma/client";
 
 const AdminRoutes = [
@@ -82,6 +80,8 @@ const SidebarRoutes = ({ vendor }: SidebarRoutesProps) => {
 
   const isVendor = pathname?.includes("/vendor");
   const routes = isVendor ? vendorRoutes : AdminRoutes;
+
+  console.log("hello world")
   return (
     <div className="flex flex-col items-start w-full">
       {routes.map((route) => {

@@ -5,6 +5,8 @@ import { getCurrentUser } from "@/actions/getCurrentUser"
 import { getAdminAnalytics } from "@/actions/getAdminAnalytics"
 import { LineAnalytics } from "./_components/Line"
 import prisma from '../../../../lib/prismadb'
+
+
 const AnalyticsPage = async() => {
   const user = await getCurrentUser()
   if(!user || user.role!=="ADMIN"){

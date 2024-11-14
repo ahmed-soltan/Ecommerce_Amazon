@@ -1,13 +1,15 @@
 "use client";
+
+import Link from "next/link";
+
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useBrowsingHistory } from "@/hooks/useBrowsingHistory";
+
 import { useCart } from "@/hooks/useCart";
-import { useWishlist } from "@/hooks/useWishList";
-import { Products, Review } from "@prisma/client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useBrowsingHistory } from "@/hooks/useBrowsingHistory";
+
+import { Products } from "@prisma/client";
 
 const BrowsingHistoryProducts = () => {
   const { BrowsingHistoryProducts, handleRemoveProductFromBrowsingHistory } =
@@ -29,7 +31,7 @@ const BrowsingHistoryProducts = () => {
               name: product.name,
               selectedImage: { ...product.images[0] },
               quantity: 1,
-              category: product.category,
+              category: product.categoryId,
               vendorId: product.vendorId,
               priceAfterDiscount:
                 product.price -

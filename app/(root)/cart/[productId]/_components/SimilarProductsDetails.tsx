@@ -1,14 +1,19 @@
 "use client";
 
-import { shortenTitle } from "@/Utils/stringCut";
-import { Button } from "@/components/ui/button";
-import { useCart } from "@/hooks/useCart";
-import { formatPrice } from "@/lib/formatPrice";
-import { Rating } from "@mui/material";
-import { Products, Review } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
+
+import { Button } from "@/components/ui/button";
+
+import { useCart } from "@/hooks/useCart";
+
+import { shortenTitle } from "@/Utils/stringCut";
+import { formatPrice } from "@/lib/formatPrice";
+
+import { Rating } from "@mui/material";
+
+import { Category, Products } from "@prisma/client";
 
 type SimilarProductsDetailsProps = {
   similarProducts: any[];
@@ -17,10 +22,12 @@ type SimilarProductsDetailsProps = {
       rating: number;
     }[];
   };
+  category:Category
 };
 const SimilarProductsDetails = ({
   similarProducts,
   product,
+  category
 }: SimilarProductsDetailsProps) => {
   const { cartProducts, handleAddToCartProduct } = useCart();
   const ScartProduct = cartProducts?.find(p => p.productId === product.id)
@@ -35,7 +42,7 @@ const SimilarProductsDetails = ({
       name: cartProduct.name,
       selectedImage: { ...cartProduct.images[0] },
       quantity: 1,
-      category: cartProduct.category,
+      category: category.name,
       vendorId: cartProduct.vendorId,
       priceAfterDiscount:
       cartProduct.price - (cartProduct.price * (cartProduct?.discount || 0 * 100)) / 100,
@@ -74,7 +81,7 @@ const SimilarProductsDetails = ({
               {product.reviews.length})
             </li>
             <li className="bg-slate-200 w-full p-1">{product.brand}</li>
-            <li className="bg-slate-100 w-full p-1">{product.category}</li>
+            <li className="bg-slate-100 w-full p-1">{category.name}</li>
             <Button variant={"ghost"} className="pl-0">
               in Your Cart
             </Button>

@@ -2,6 +2,7 @@ import { getProductById } from "@/actions/getProductById";
 import { redirect } from "next/navigation";
 
 import ProductContainer from "./_components/ProductContainer";
+import { getCategoryById } from "@/actions/getCategoryById";
 
 const page = async ({
   params,
@@ -13,11 +14,12 @@ const page = async ({
     return redirect(`/vendor/${params.vendorId}/manage-products`);
   }
 
+  const category = await getCategoryById(product.categoryId!);
+
   return (
     <ProductContainer
       product={product}
-      vendorId={params.vendorId}
-      productId={params.productId}
+      category={category!}
     />
   );
 };

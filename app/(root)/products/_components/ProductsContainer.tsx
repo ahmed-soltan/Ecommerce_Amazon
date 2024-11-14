@@ -1,7 +1,5 @@
 "use client";
 
-import { filterProducts } from "@/actions/filterByPrice";
-import { categories } from "@/app/(dashboard)/vendor/[vendorId]/create-product/_components/AddProductsForm";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,16 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Products, Review } from "@prisma/client";
-import {
-  ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  FilterIcon,
-  LucideIcon,
-  LucideMoveDown,
-  MoveDown,
-} from "lucide-react";
+import { Category, Products } from "@prisma/client";
+import { ArrowDown, ArrowLeft, ArrowRight, FilterIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -35,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
 
 interface ProductsContainerProps {
   products: any;
@@ -43,7 +34,9 @@ interface ProductsContainerProps {
     page: any;
     pageSize: any;
   };
+  categories: Category[];
 }
+
 const SORT_OPTIONS = [
   {
     name: "None",
@@ -58,9 +51,11 @@ const SORT_OPTIONS = [
     value: "price_dsc",
   },
 ];
+
 const ProductsContainer = ({
   products,
   searchParams,
+  categories,
 }: ProductsContainerProps) => {
   const [filters, setFilters] = useState({
     sort: "none",
@@ -124,11 +119,11 @@ const ProductsContainer = ({
     }
   };
 
-  const filterByCategory = (category: string) => {
-    if (category === "All") {
+  const filterByCategory = (categoryId: string) => {
+    if (!categoryId) {
       router.push(`/products?page=1`);
     } else {
-      router.push(`/products?key=${category}&page=1`);
+      router.push(`/products?key=${categoryId}&page=1`);
     }
   };
 
@@ -153,18 +148,23 @@ const ProductsContainer = ({
           <h1 className="text-lg font-medium text-slate-900">
             Select a Category
           </h1>
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start">
             {categories.map((category) => {
-              const Icon = category.icon;
               return (
-                <p
-                  onClick={() => filterByCategory(category.label)}
-                  key={category.label}
-                  className="cursor-pointer flex items-center text-sm"
-                >
-                  <Input type="radio" className="text-sm w-3 h-3 mr-2" name={"Category"} id={category.label} />
-                  <Icon className="w-4 h-4 mr-1" /> <Label htmlFor={category.label}>{category.label}{" "}</Label>
-                </p>
+                <div className="flex items-center gap-x-3" key={category.id}>
+                  <Image
+                    src={category.image}
+                    alt={category.name}
+                    width={40}
+                    height={40}
+                  />
+                  <p
+                    onClick={() => filterByCategory(category.id)}
+                    className="cursor-pointer flex items-center text-sm"
+                  >
+                    {category.name}
+                  </p>
+                </div>
               );
             })}
           </div>
@@ -174,7 +174,7 @@ const ProductsContainer = ({
           <h1 className="text-xl font-medium text-slate-900">
             Filter By price
           </h1>
-          <div className="flex flex-row items-center flex-wrap gap-3">
+          <div className="flex flex-row items-center flex-wrap">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -268,17 +268,26 @@ const ProductsContainer = ({
                   <h1 className="text-lg font-medium text-slate-900">
                     Select a Category
                   </h1>
-                  <div className="flex flex-col items-start gap-3">
+                  <div className="flex flex-col items-start">
                     {categories.map((category) => {
-                      const Icon = category.icon;
                       return (
-                        <p
-                          onClick={() => filterByCategory(category.label)}
-                          key={category.label}
-                          className="cursor-pointer flex items-center text-sm"
+                        <div
+                          className="flex items-center gap-x-3"
+                          key={category.id}
                         >
-                          <Icon className="w-4 h-4 mr-1" /> {category.label}{" "}
-                        </p>
+                          <Image
+                            src={category.image}
+                            alt={category.name}
+                            width={40}
+                            height={40}
+                          />
+                          <p
+                            onClick={() => filterByCategory(category.id)}
+                            className="cursor-pointer flex items-center text-sm"
+                          >
+                            {category.name}
+                          </p>
+                        </div>
                       );
                     })}
                   </div>
@@ -288,7 +297,7 @@ const ProductsContainer = ({
                   <h1 className="text-lg font-medium text-slate-900">
                     Filter By price
                   </h1>
-                  <div className="flex flex-row items-center flex-wrap gap-3">
+                  <div className="flex flex-row items-center flex-wrap">
                     <Form {...form}>
                       <form
                         onSubmit={form.handleSubmit(onSubmit)}
@@ -308,11 +317,11 @@ const ProductsContainer = ({
                                     className="max-w-[80px]"
                                     autoFocus={false}
                                     ref={minPriceRef}
-                                    />
+                                  />
                                 </FormControl>
                               </FormItem>
                             )}
-                            />
+                          />
                           <FormField
                             name="maxPrice"
                             control={form.control}
@@ -357,7 +366,7 @@ const ProductsContainer = ({
             <div>No Product Found</div>
           )}
         </div>
-        <div className="flex items-center justify-center gap-3 w-full">
+        <div className="flex items-center justify-center w-full">
           <Button
             size={"sm"}
             onClick={onDecrease}

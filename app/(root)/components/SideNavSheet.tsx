@@ -45,11 +45,11 @@ export const SideNavSheet = ({
     { label: "Your WishList", url: "/wishlist" },
   ];
 
-  const filterByCategory = (category: string) => {
-    if (category === "All") {
+  const filterByCategory = (categoryId: string) => {
+    if (!categoryId) {
       router.push(`/products?page=1`);
     } else {
-      router.push(`/products?key=${category}&page=1`);
+      router.push(`/products?key=${categoryId}&page=1`);
     }
   };
 
@@ -105,7 +105,7 @@ export const SideNavSheet = ({
                     height={40}
                   />
                   <p
-                    onClick={() => filterByCategory(category.name)}
+                    onClick={() => filterByCategory(category.id)}
                     className="cursor-pointer flex items-center text-sm"
                   >
                     {category.name}

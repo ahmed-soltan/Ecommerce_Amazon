@@ -148,6 +148,7 @@ const ProductContainer = ({
             product={product}
             productId={productId}
             vendorId={vendorId}
+            category={category}
           />
         )}
 

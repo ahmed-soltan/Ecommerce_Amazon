@@ -1,14 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Pencil, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Category, Products, Review, Vendor } from "@prisma/client";
-import { Pencil, XIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+
+import { Category, Products, Review } from "@prisma/client";
+
 import ProductCategory from "../../../create-product/_components/ProductCategory";
 
 type ProductCategoryEditProps = {

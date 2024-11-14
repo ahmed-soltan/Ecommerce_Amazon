@@ -1,12 +1,12 @@
 import prisma from "../lib/prismadb";
 
 
-export const getProductByCategoryId = async (category:string) => {
+export const getProductByCategoryId = async (categoryId:string) => {
 
   try {
     const product = await prisma.products.findMany({
       where: {
-        category:category,
+        categoryId,
         inStock: true
       },
       include: {

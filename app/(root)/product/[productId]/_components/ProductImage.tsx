@@ -37,7 +37,7 @@ const ProductImage = ({
                 <div className="relative h-[100px] w-full z-0">
                   <Image
                     src={image.image}
-                    alt={product.category || ""}
+                    alt={product.name || ""}
                     fill
                     className="object-fit z-0"
                     onClick={() => handleColorSelect(image)}
@@ -51,7 +51,7 @@ const ProductImage = ({
       <div className="col-span-1 md:col-span-5 border-2 relative min-h-[300px]">
         <Image
           src={cartProduct?.selectedImage.image}
-          alt={product.category || ""}
+          alt={product.name || ""}
           fill
           className="object-fit"
         />
