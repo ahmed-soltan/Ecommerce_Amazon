@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
-import { Profile, User, Vendor } from "@prisma/client";
+import { Category, Profile, User, Vendor } from "@prisma/client";
 
 import { sideNavLinks } from "@/Utils/NavLinks";
 import { Button } from "@/components/ui/button";
@@ -17,16 +17,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import GoogleTranslate from "./GoogleTranslation";
+import Image from "next/image";
 
-export const SideNavSheet = ({
-  user,
-  profile,
-}: {
+interface SideNavSheetProps {
   user: User & {
     vendor: Vendor | null;
   };
   profile: Profile;
-}) => {
+  categories: Category[];
+}
+
+export const SideNavSheet = ({
+  user,
+  profile,
+  categories,
+}: SideNavSheetProps) => {
   const router = useRouter();
   const navLinks = [
     { label: "Today's Deals", url: "/products?&page=1" },
@@ -86,22 +91,29 @@ export const SideNavSheet = ({
             })}
             <Separator />
           </div>
-          {/* <h1 className="font-medium text-lg text-slate-900">
+          <h1 className="font-medium text-lg text-slate-900">
             Shop By Category
           </h1>
           <div className="flex items-start flex-col gap-4">
-            {data?.map((category:Category) => {
+            {categories?.map((category: Category) => {
               return (
-                <p
-                  onClick={() => filterByCategory(category.name)}
-                  key={category.name}
-                  className="cursor-pointer flex items-center text-sm"
-                >
-                  {category.name}
-                </p>
+                <div className="flex items-center gap-x-3" key={category.id}>
+                  <Image
+                    src={category.image}
+                    alt={category.name}
+                    width={40}
+                    height={40}
+                  />
+                  <p
+                    onClick={() => filterByCategory(category.name)}
+                    className="cursor-pointer flex items-center text-sm"
+                  >
+                    {category.name}
+                  </p>
+                </div>
               );
             })}
-          </div> */}
+          </div>
           <Separator />
           {sideNavLinks.map((link) => {
             return (

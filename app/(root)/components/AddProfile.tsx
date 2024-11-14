@@ -1,4 +1,15 @@
 "use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { LucideIcon, Pencil, PlusCircle } from "lucide-react";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import axios from "axios";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,19 +23,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import {z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { LucideIcon, Pencil, PlusCircle } from "lucide-react";
-import { Profile } from "@prisma/client";
 import { Form, FormControl, FormField } from "@/components/ui/form";
 import FileUpload from "@/components/fileUpload";
-import { useState } from "react";
-import Image from "next/image";
+
 import unknown from "../../../public/unknown.jpeg";
+
+import { Profile } from "@prisma/client";
+
 const formSchema = z.object({
   name: z.string().min(3, {
     message: "Name must be at least 3 characters.",
@@ -35,13 +40,21 @@ type AddProfileProps = {
   icon?: boolean;
   title: string;
   profile?: Profile;
-  userId:string
+  userId: string;
 };
-export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) => {
-  const router = useRouter();
+export const AddProfile = ({
+  icon,
+  title,
+  profile,
+  userId,
+}: AddProfileProps) => {
+  const [open, setOpen] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [image, setImage] = useState<string | null>(
     profile?.profileImage || null
   );
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,34 +63,39 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
     },
   });
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-        const profileData ={
-            name: data.name,
-            profileImage: image,
-            userId: userId
-        } 
-        if(!profile){
-            await axios.post('/api/profiles' , profileData);
-            toast.success("profile Created successfully");
-            router.refresh();
-          }else{
-            await axios.patch(`/api/profiles/${profile.id}` , profileData);
-            toast.success("profile Updated successfully");
-            router.refresh();
-          }
+      const profileData = {
+        name: data.name,
+        profileImage: image,
+        userId: userId,
+      };
+      if (!profile) {
+        await axios.post("/api/profiles", profileData);
+        toast.success("profile Created successfully");
+        router.refresh();
+      } else {
+        await axios.patch(`/api/profiles/${profile.id}`, profileData);
+        toast.success("profile Updated successfully");
+        router.refresh();
+      }
+      handleClose();
     } catch (error) {
-        console.error(error);
-        toast.error("Something went wrong");
+      console.error(error);
+      toast.error("Something went wrong");
     }
-  }; 
+  };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={() => setOpen(true)}>
           {icon ? (
             <Pencil className={"w-5 h-5"} />
           ) : (
@@ -106,7 +124,6 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
               height={50}
               className="rounded-full"
               style={{ aspectRatio: "1/1" }}
-
             />
           </div>
         ) : (
@@ -118,7 +135,6 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
               height={50}
               className="rounded-full"
               style={{ aspectRatio: "1/1" }}
-
             />
           </div>
         )}
@@ -130,6 +146,7 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
                 setImage(url);
               }
             }}
+            setDisabled={setDisabled}
           />
         </div>
         <Form {...form}>
@@ -152,7 +169,7 @@ export const AddProfile = ({ icon, title, profile , userId }: AddProfileProps) =
               )}
             />
             <Button
-              disabled={isSubmitting || !isValid}
+              disabled={isSubmitting || !isValid || disabled}
               type="submit"
               className="rounded-md"
             >

@@ -43,15 +43,15 @@ const BusinessInformation = ({ vendor }: BusinessInformationProps) => {
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong");
-    }finally{
-        setIsEditing(false)
+    } finally {
+      setIsEditing(false);
     }
   };
 
   return (
-    <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
+    <div className="bg-white w-full p-5 flex flex-col gap-2 rounded-md">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-slate-700">
+        <h2 className="text-xl font-semibold text-black">
           Business Information
         </h2>
         <Button
@@ -85,29 +85,49 @@ const BusinessInformation = ({ vendor }: BusinessInformationProps) => {
           </form>
         </Form>
       ) : (
-        <div className="flex flex-col items-start gap-4 my-2">
-          <div>
-            Business Name :
-            <span className="text-slate-500"> {vendor.businessName}</span>
+        <div className="flex items-start justify-between gap-5 md:px-5 flex-wrap">
+          <div className="flex flex-col items-start gap-4 my-2">
+            <div className="font-semibold flex flex-col items-start gap-y-2">
+              Business Name
+              <span className="text-slate-700 font-normal">
+                {" "}
+                {vendor.businessName}
+              </span>
+            </div>
+            <div className="font-semibold flex flex-col items-start gap-y-2">
+              Company Registration Number
+              <span className="text-slate-700 font-normal">
+                {vendor.companyRegistrationNumber}
+              </span>
+            </div>
           </div>
-          <div>
-            Company Registeration Number :
-            <span className="text-slate-500">
-               {vendor.companyRegistrationNumber}
-            </span>
+          <div className="flex flex-col items-start gap-4 my-2">
+            <div className="font-semibold flex flex-col items-start gap-y-2">
+              Country
+              <span className="text-slate-700 font-normal">
+                {" "}
+                {vendor.country}
+              </span>
+            </div>
+            <div className="font-semibold flex flex-col items-start gap-y-2">
+              State
+              <span className="text-slate-700 font-normal">
+                {" "}
+                {vendor.state}
+              </span>
+            </div>
           </div>
-          <div>
-            Country :<span className="text-slate-500"> {vendor.country}</span>
-          </div>
-          <div>
-            State :<span className="text-slate-500"> {vendor.state}</span>
-          </div>
-          <div>
-            City :<span className="text-slate-500"> {vendor.city}</span>
-          </div>
-          <div>
-            Address Line 1 :
-            <span className="text-slate-500"> {vendor.addressLine1}</span>
+          <div className="flex flex-col items-start gap-4 my-2">
+            <div className="font-semibold flex flex-col items-start gap-y-2">
+              City
+              <span className="text-slate-700 font-normal">{vendor.city}</span>
+            </div>
+            <div className="font-semibold flex flex-col items-start gap-y-2">
+              Address Line 1
+              <span className="text-slate-700 font-normal">
+                {vendor.addressLine1}
+              </span>
+            </div>
           </div>
         </div>
       )}

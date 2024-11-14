@@ -1,11 +1,13 @@
-import { shortenTitle } from "@/Utils/stringCut";
-import { formatPrice } from "@/lib/formatPrice";
-import { Rating } from "@mui/material";
-import { Products, Review } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+
+import { shortenTitle } from "@/Utils/stringCut";
+import { formatPrice } from "@/lib/formatPrice";
+
+import { Products, Review } from "@prisma/client";
+
+import { Rating } from "@mui/material";
 import { Button } from "./ui/button";
-import { cartProductType } from "@/app/(root)/product/[productId]/_components/ProductContainerDetails";
 
 type TopDealsProductsCardProps = {
   product: Products & {
@@ -27,20 +29,10 @@ const TopDealsProductsCard = ({
     product.reviews &&
     product.reviews.reduce((acc: any, item: any) => acc + item.rating, 0) /
       product.reviews.length;
-  const cartProduct = {
-    productId: product.id,
-    name: product.name,
-    selectedImage: { ...product.images[0] },
-    quantity: 1,
-    category: product.category,
-    vendorId: product.vendorId,
-    priceAfterDiscount:
-      product.price - (product.price * (product?.discount || 0 * 100)) / 100,
-    sizes: [],
-  };
+
   return (
     <Link href={`/product/${product.id}`}>
-      <div className="flex flex-col w-[250px] md:w-[300px] p-2 items-start border-b gap-2">
+      <div className="flex flex-col w-full max-w-[250px] p-2 items-start border-b gap-2">
         <div className="relative h-[200px] md:h-[250px] w-full z-0">
           <Image
             src={product.images[0].image}

@@ -9,27 +9,24 @@ type CategoryWithProductCount = Category & {
   productCount: number;
 };
 
-interface BannerProductsProps {
+interface BannerCategoriesProps {
   categories: CategoryWithProductCount[];
 }
 
-const BannerProducts = ({ categories }: BannerProductsProps) => {
+const BannerCategories = ({ categories }: BannerCategoriesProps) => {
   return (
     <div
-      className="flex items-center gap-10 w-full my-2 overflow-x-auto"
+      className="flex items-center gap-5 w-full my-2 overflow-x-auto"
       style={{ overflowX: "auto", scrollbarWidth: "none" }}
     >
       {categories.map((category) => {
         return (
-          <Link
-            href={`/products?key=${category.id}&page=1`}
-            key={category.id}
-          >
+          <Link href={`/products?key=${category.id}&page=1`} key={category.id}>
             <div
               className="
-             flex flex-col items-center justify-between gap-2 rounded-full"
+             flex flex-col items-center justify-between gap-2 rounded-full "
             >
-              <div className="relative mt-4 rounded-full w-[70px] h-[70px] md:w-[90px] md:h-[90px] bg-white border-[1px] border-orange-200 flex items-center justify-center hover:border-orange-700 transition-all">
+              <div className="relative mt-4 rounded-full w-[70px] h-[70px] md:w-[90px] md:h-[90px] hover:bg-gray-50 border-[1px] border-orange-200 flex items-center justify-center hover:border-orange-700 transition-all">
                 <Image
                   src={category.image}
                   alt={`Deals on ${category.name}`}
@@ -40,11 +37,13 @@ const BannerProducts = ({ categories }: BannerProductsProps) => {
                 />
               </div>
               <div className="flex flex-col items-center">
-                <h1 className="text-md font-medium text-slate-900">
+                <h1 className="text-md font-medium text-slate-900 max-w-[200px]">
                   {category.name}
                 </h1>
                 <p className="text-sm font-medium text-slate-500">
-                  {category.productCount} Products
+                  {category.productCount == 1
+                    ? `${category.productCount} Product`
+                    : `${category.productCount} Products`}
                 </p>
               </div>
             </div>
@@ -55,4 +54,4 @@ const BannerProducts = ({ categories }: BannerProductsProps) => {
   );
 };
 
-export default BannerProducts;
+export default BannerCategories;

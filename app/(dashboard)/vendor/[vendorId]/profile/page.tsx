@@ -13,13 +13,13 @@ const page = async ({ params }: { params: { vendorId: string } }) => {
     return redirect(`/vendor/${params.vendorId}/manage-products`);
   }
   return (
-    <div className="flex flex-col items-start gap-4 mt-5 p-4">
-      <h1 className="text-3xl text-slate-800 font-medium">Vendor Profile</h1>
+    <div className="flex flex-col items-start gap-4 px-4 py-10 bg-slate-100">
+      <h1 className="text-3xl text-slate-800 font-medium">My Profile</h1>
       <Separator />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+      <div className="flex items-start gap-5 flex-col w-full">
+        <StoreInformation vendor={vendor} />
         <BusinessInformation vendor={vendor} />
         <SellerInformation vendor={vendor} />
-        <StoreInformation vendor={vendor} />
       </div>
     </div>
   );

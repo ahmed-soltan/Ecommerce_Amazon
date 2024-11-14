@@ -3,6 +3,7 @@
 import {
   BarChart,
   Compass,
+  Grid2X2,
   Handshake,
   Layout,
   List,
@@ -67,7 +68,7 @@ const SidebarRoutes = ({ vendor }: SidebarRoutesProps) => {
       path: `/vendor/${vendor?.id}/manage-products`,
     },
     {
-      icon: PencilRuler,
+      icon: Grid2X2,
       label: "Manage Categories",
       path: `/vendor/${vendor?.id}/manage-categories`,
     },

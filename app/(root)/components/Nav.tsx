@@ -1,18 +1,23 @@
-import { getCurrentUser } from "@/actions/getCurrentUser";
 import Link from "next/link";
+
 import { SideNavSheet } from "./SideNavSheet";
+
+import { getCurrentUser } from "@/actions/getCurrentUser";
 import { getCurrentProfile } from "@/actions/getCurrentProfile";
+import { getCategories } from "@/actions/getCategories";
 
 const Nav = async () => {
   const user = await getCurrentUser();
-  const profile = await getCurrentProfile()
+  const profile = await getCurrentProfile();
+  const categories = await getCategories()
+
   const vendor = user?.vendor;
 
   return (
     <div className="bg-gray-800 w-full text-white font-medium py-1">
       <div className="flex flex-row items-center justify-start text-[15px] gap-5 px-2">
         <div>
-          <SideNavSheet user={user!} profile={profile!}/>
+          <SideNavSheet user={user!} profile={profile!} categories={categories!}/>
         </div>
         <div>
           <Link href={"/products?&page=1"}>Today&apos;s Deals</Link>

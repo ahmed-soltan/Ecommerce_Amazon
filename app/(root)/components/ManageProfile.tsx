@@ -1,3 +1,11 @@
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
+import Image from "next/image";
+import Link from "next/link";
+import axios from "axios";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,20 +15,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import Image from "next/image";
-import unknown from "../../../public/unknown.jpeg";
-import Link from "next/link";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { ArrowRight, Loader2, PlusCircle } from "lucide-react";
-import { AccountListsProps } from "./AccountLists";
 import { Separator } from "@/components/ui/separator";
-import { AddProfile } from "./AddProfile";
-import toast from "react-hot-toast";
-import { useState } from "react";
+
 import { cn } from "@/lib/utils";
+
+import { AddProfile } from "./AddProfile";
 import { RemoveProfile } from "./RemoveProfile";
+import { AccountListsProps } from "./AccountLists";
+
+import unknown from "../../../public/unknown.jpeg";
 
 export const ManageProfiles = ({ user }: AccountListsProps) => {
   const [isLoading, setIsLoading] = useState(false);

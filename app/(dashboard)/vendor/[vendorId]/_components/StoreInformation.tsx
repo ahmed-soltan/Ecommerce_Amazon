@@ -37,11 +37,11 @@ const StoreInformation = ({ vendor }: StoreInformationProps) => {
   };
   const onSubmit = async (data: any) => {
     try {
-      const storeData ={
+      const storeData = {
         storeLogo: image,
         storeName: data.storeName,
         storeDescription: data.storeDescription,
-      }
+      };
       await axios.patch(`/api/vendors/${vendor.id}`, storeData);
       toast.success("Profile updated successfully");
       router.refresh();
@@ -54,14 +54,12 @@ const StoreInformation = ({ vendor }: StoreInformationProps) => {
   };
 
   return (
-    <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
+    <div className="bg-white w-full p-5 flex flex-col gap-5 rounded-md">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-slate-700">
-          Store Information
-        </h2>
+        <h2 className="text-xl font-semibold text-black">Store Information</h2>
         <Button
-          variant={"ghost"}
-          className="flex items-center text-md"
+          variant={"outline"}
+          className="flex items-center text-md ml-auto"
           onClick={() => setIsEditing(!isEditing)}
         >
           {isEditing ? (
@@ -79,7 +77,11 @@ const StoreInformation = ({ vendor }: StoreInformationProps) => {
       {isEditing ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <Step4 form={form} handleSetImage={handleSetImage} vendorImage={image}/>
+            <Step4
+              form={form}
+              handleSetImage={handleSetImage}
+              vendorImage={image}
+            />
             <Button
               type="submit"
               className="my-2"
@@ -90,25 +92,32 @@ const StoreInformation = ({ vendor }: StoreInformationProps) => {
           </form>
         </Form>
       ) : (
-        <div className="flex flex-col items-start gap-4 my-2">
-          <div className="flex items-start flex-col gap-2">
-            Store Logo
-            <div className="relative border border-orange-300 rounded-md p-2">
-              <Image
-                src={vendor.storeLogo}
-                alt="Store Logo"
-                width={130}
-                height={130}
-              />
+        <div className="flex items-start gap-4 my-2 flex-wrap">
+          <div className="relative border-2 border-orange-300 rounded-full p-[2px] w-[130px] height-[130px]">
+            <Image
+              src={vendor.storeLogo}
+              alt="Store Logo"
+              width={130}
+              height={130}
+              className="rounded-full"
+              style={{ aspectRatio: "1/1" }}
+            />
+          </div>
+          <div className="flex flex-col items-start gap-y-2 my-2">
+            <div className="font-semibold">
+              Store Name :
+              <span className="text-slate-700 font-normal">
+                {" "}
+                {vendor.storeName}
+              </span>
             </div>
-          </div>
-          <div>
-            Store Name :
-            <span className="text-slate-500"> {vendor.storeName}</span>
-          </div>
-          <div>
-            Store Description :
-            <span className="text-slate-500 truncate"> {vendor.storeDescription}</span>
+            <div className="font-semibold">
+              Store Description :
+              <span className="text-slate-700 font-normal truncate">
+                {" "}
+                {vendor.storeDescription}
+              </span>
+            </div>
           </div>
         </div>
       )}
