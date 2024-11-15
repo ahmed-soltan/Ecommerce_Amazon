@@ -23,7 +23,7 @@ const ConfirmModel = ({ children, onConfirm }: ConfirmModelProps) => {
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogTitle>Are you sure You Want to Delete This Product?</AlertDialogTitle>
           <AlertDialogDescription>
             This Action Can not be undone.
           </AlertDialogDescription>

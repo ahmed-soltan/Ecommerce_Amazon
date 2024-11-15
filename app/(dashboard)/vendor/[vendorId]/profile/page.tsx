@@ -14,7 +14,7 @@ const page = async ({ params }: { params: { vendorId: string } }) => {
   }
   return (
     <div className="flex flex-col items-start gap-4 px-4 py-10 bg-slate-100">
-      <h1 className="text-3xl text-slate-800 font-medium">My Profile</h1>
+      <h1 className="text-3xl text-black font-medium">My Profile</h1>
       <Separator />
       <div className="flex items-start gap-5 flex-col w-full">
         <StoreInformation vendor={vendor} />

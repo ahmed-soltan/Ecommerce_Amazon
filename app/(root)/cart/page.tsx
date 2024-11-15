@@ -1,5 +1,6 @@
 import Container from "@/components/Container";
 import CartDetails from "./_components/CartDetails";
+
 import { getCurrentProfile } from "@/actions/getCurrentProfile";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 

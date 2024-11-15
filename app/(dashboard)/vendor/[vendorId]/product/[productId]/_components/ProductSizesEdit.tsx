@@ -45,10 +45,8 @@ const ProductSizesEdit = ({
 
   const onClick = (size: string) => {
     if (sizes.includes(size)) {
-      // If the size is already in the array, remove it
       setSizes((prev) => prev.filter((item) => item !== size));
     } else {
-      // If the size is not in the array, add it
       setSizes((prev) => [...prev, size]);
     }
   };
@@ -75,9 +73,9 @@ const ProductSizesEdit = ({
   };
 
   return (
-    <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
+    <div className="bg-white w-full p-5 flex flex-col gap-2 rounded-md">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium text-slate-700">Product Sizes</h2>
+        <h2 className="text-xl font-semibold text-black">Product Sizes</h2>
         <Button
           variant={"ghost"}
           className="flex items-center text-md"
@@ -148,12 +146,12 @@ const ProductSizesEdit = ({
         </Form>
       ) : (
         <div className="flex flex-col items-start gap-4 my-2">
-          <div>Product Sizes :</div>
+          <div className="font-medium">Product Sizes :</div>
           <div className="flex items-center gap-4">
             {product.sizes.map((size) => {
               return (
                 <div key={size}>
-                  <Button variant={"outline"}>{size}</Button>
+                  <Button variant={"outline"} className="text-slate-700 font-normal">{size}</Button>
                 </div>
               );
             })}

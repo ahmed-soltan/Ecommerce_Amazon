@@ -20,16 +20,16 @@ const page = async ({
   const category = await getCategoryById(product.categoryId!);
   const categories = await getCategoriesByVendorId(params.vendorId);
 
-  console.log(categories)
-
   return (
-    <ProductContainer
-      product={product}
-      vendorId={params.vendorId}
-      productId={params.productId}
-      category={category!}
-      categories={categories}
-    />
+    <div className="bg-slate-100">
+      <ProductContainer
+        product={product}
+        vendorId={params.vendorId}
+        productId={params.productId}
+        category={category!}
+        categories={categories}
+      />
+    </div>
   );
 };
 

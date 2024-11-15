@@ -1,7 +1,9 @@
-import { getProductById } from "@/actions/getProductById";
 import prisma from "../../../../lib/prismadb";
+
 import Container from "@/components/Container";
 import SimilarProductsDetails from "./_components/SimilarProductsDetails";
+
+import { getProductById } from "@/actions/getProductById";
 import { getCategoryById } from "@/actions/getCategoryById";
 
 const page = async ({ params }: { params: { productId: string } }) => {

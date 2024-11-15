@@ -59,9 +59,9 @@ const ProductPriceEdit = ({
   };
 
   return (
-    <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
+    <div className="bg-white w-full p-5 flex flex-col gap-2 rounded-md">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium text-slate-700">Product Price</h2>
+        <h2 className="text-xl font-semibold text-black">Product Price</h2>
         <Button
           variant={"ghost"}
           className="flex items-center text-md"
@@ -93,14 +93,12 @@ const ProductPriceEdit = ({
           </form>
         </Form>
       ) : (
-        <div className="flex flex-col items-start gap-4 my-2">
-          <div>
+        <div className="font-medium">
             Product Price :
-            <span className="text-slate-500">
+            <span className="text-slate-700 font-normal">
               {" "}
               {formatPrice(product.price)}
             </span>
-          </div>
         </div>
       )}
     </div>

@@ -92,7 +92,7 @@ const StoreInformation = ({ vendor }: StoreInformationProps) => {
           </form>
         </Form>
       ) : (
-        <div className="flex items-start gap-4 my-2 flex-wrap">
+        <div className="flex items-center gap-4 my-2 flex-wrap">
           <div className="relative border-2 border-orange-300 rounded-full p-[2px] w-[130px] height-[130px]">
             <Image
               src={vendor.storeLogo}

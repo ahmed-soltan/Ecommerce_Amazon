@@ -48,9 +48,9 @@ const ProductDescriptionEdit = ({
   };
 
   return (
-    <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
+    <div className="bg-white w-full p-5 flex flex-col gap-2 rounded-md">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium text-slate-700">
+        <h2 className="text-xl font-semibold text-black">
           Product Description
         </h2>
         <Button
@@ -85,9 +85,9 @@ const ProductDescriptionEdit = ({
         </Form>
       ) : (
         <div className="flex flex-col items-start gap-4 my-2">
-          <div>
+          <div className="font-medium">
             Product Description :
-            <span className="text-slate-500"> {description}</span>
+            <span className="text-slate-700 font-normal"> {description}</span>
           </div>
         </div>
       )}

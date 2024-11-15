@@ -53,9 +53,9 @@ const ProductBrandEdit = ({
   };
 
   return (
-    <div className="bg-slate-100 w-full p-5 flex flex-col gap-2">
+    <div className="bg-white w-full p-5 flex flex-col gap-2 rounded-md">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium text-slate-700">
+        <h2 className="text-xl font-semibold text-black">
           Product Brand
         </h2>
         <Button
@@ -90,9 +90,9 @@ const ProductBrandEdit = ({
         </Form>
       ) : (
         <div className="flex flex-col items-start gap-4 my-2">
-          <div>
+          <div className="font-medium">
             Product Brand :
-            <span className="text-slate-500"> {product.brand}</span>
+            <span className="text-slate-700 font-normal"> {product.brand}</span>
           </div>
          
         </div>

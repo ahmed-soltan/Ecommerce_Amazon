@@ -18,13 +18,13 @@ const VendorOrderItem = ({
   const router = useRouter();
   return (
     <Link href={`/vendor/${vendorId}/product/${product.productId}`} className="flex gap-2 items-start justify-start flex-wrap">
-      <div className="relative aspect-video">
+      <div className="relative">
         <Image
           src={product.selectedImage.image}
           alt={product.name}
           width={100}
           height={100}
-          className="object-fit min-h-[150px]"
+          className="object-fit"
         />
       </div>
       <div className="flex flex-col items-start gap-2 justify-between h-full">
