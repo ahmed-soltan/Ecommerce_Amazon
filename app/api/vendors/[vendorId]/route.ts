@@ -1,7 +1,13 @@
-import prisma from "../../../../lib/prismadb";
 import { NextResponse } from "next/server";
+
+import prisma from "../../../../lib/prismadb";
+
 import { getCurrentUser } from "@/actions/getCurrentUser";
-export const PATCH = async (req: Request , {params}:{params:{vendorId:string}}) => {
+
+export const PATCH = async (
+  req: Request,
+  { params }: { params: { vendorId: string } }
+) => {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
@@ -11,12 +17,10 @@ export const PATCH = async (req: Request , {params}:{params:{vendorId:string}}) 
       });
     }
     const body = await req.json();
-    console.log(body)
-
 
     const vendor = await prisma.vendor.update({
-      where:{
-        id:params.vendorId,
+      where: {
+        id: params.vendorId,
       },
       data: {
         ...body,
@@ -29,4 +33,3 @@ export const PATCH = async (req: Request , {params}:{params:{vendorId:string}}) 
     return NextResponse.json(error);
   }
 };
-

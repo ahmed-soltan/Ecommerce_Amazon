@@ -1,5 +1,7 @@
-import prisma from "../../../../../lib/prismadb";
 import { NextResponse } from "next/server";
+
+import prisma from "../../../../../lib/prismadb";
+
 import { getCurrentUser } from "@/actions/getCurrentUser";
 
 export const POST = async (
@@ -22,8 +24,6 @@ export const POST = async (
     }
 
     const body = await req.json();
-
-    console.log(body);
 
     const product = await prisma.products.create({
       data: {
