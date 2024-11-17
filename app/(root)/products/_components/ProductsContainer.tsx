@@ -1,34 +1,19 @@
 "use client";
 
+import { ArrowLeft, ArrowRight, FilterIcon } from "lucide-react";
+
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import SortOptions from "./SortOptions";
+import Filters from "./Filters";
+
+import useProductsHandler from "../hooks/use-product-handler";
+
 import { Category, Products } from "@prisma/client";
-import { ArrowDown, ArrowLeft, ArrowRight, FilterIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Label } from "@/components/ui/label";
-import Image from "next/image";
 
 interface ProductsContainerProps {
-  products: any;
+  products: Products[];
   searchParams: {
     key: string;
     page: any;
@@ -37,225 +22,33 @@ interface ProductsContainerProps {
   categories: Category[];
 }
 
-const SORT_OPTIONS = [
-  {
-    name: "None",
-    value: "none",
-  },
-  {
-    name: "Price Low to High",
-    value: "price_asc",
-  },
-  {
-    name: "Price High to Low",
-    value: "price_dsc",
-  },
-];
-
 const ProductsContainer = ({
   products,
   searchParams,
   categories,
 }: ProductsContainerProps) => {
-  const [filters, setFilters] = useState({
-    sort: "none",
-  });
-  const [filteredProducts, setFilteredProducts] =
-    useState<Products[]>(products);
-  const router = useRouter();
-  const searchParamsLinks = useSearchParams();
-  const currentPage = searchParamsLinks?.get("page");
-  const form = useForm({
-    defaultValues: {
-      minPrice: 0,
-      maxPrice: 0,
-    },
-  });
-  const length = products ? Math.ceil(products.length) : 0;
-
-  useEffect(() => {
-    setFilteredProducts(products);
-  }, [products]);
-  useEffect(() => {
-    sortProducts();
-  }, [filters]);
-  const minPriceRef = useRef<HTMLInputElement>(null);
-  const maxPriceRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (minPriceRef.current) minPriceRef.current.blur();
-    if (maxPriceRef.current) maxPriceRef.current.blur();
-  }, []);
-
-  const sortProducts = () => {
-    let sortedProducts = [...filteredProducts];
-    if (filters.sort === "price_asc") {
-      sortedProducts.sort((a, b) => a.price - b.price);
-      setFilteredProducts(sortedProducts);
-    } else if (filters.sort === "price_dsc") {
-      sortedProducts.sort((a, b) => b.price - a.price);
-      setFilteredProducts(sortedProducts);
-    } else {
-      setFilteredProducts(products);
-    }
-  };
-
-  const onIncrease = () => {
-    if (!searchParams.key) {
-      router.push(`/products?&page=${parseInt(currentPage!) + 1}`);
-    } else {
-      router.push(
-        `/products?key=${searchParams.key}&page=${parseInt(currentPage!) + 1}`
-      );
-    }
-  };
-  const onDecrease = () => {
-    if (!searchParams.key) {
-      router.push(`/products?&page=${parseInt(currentPage!) - 1}`);
-    } else {
-      router.push(
-        `/products?key=${searchParams.key}&page=${parseInt(currentPage!) - 1}`
-      );
-    }
-  };
-
-  const filterByCategory = (categoryId: string) => {
-    if (!categoryId) {
-      router.push(`/products?page=1`);
-    } else {
-      router.push(`/products?key=${categoryId}&page=1`);
-    }
-  };
-
-  const onSubmit = (data: FieldValues) => {
-    const { minPrice, maxPrice } = data;
-
-    const filtered = products.filter((product: any) => {
-      const price = parseFloat(product.price);
-      return price >= minPrice && price <= maxPrice;
-    });
-
-    setFilteredProducts(filtered);
-  };
+  const {
+    filters,
+    setFilters,
+    filteredProducts,
+    currentPage,
+    length,
+    onPageChange,
+    onSubmit,
+  } = useProductsHandler({ initialProducts: products, searchParams });
 
   if (!products) {
-    return <div>Loading...</div>;
+    return <div className="w-full text-center italic text-slate-700">No Products Found</div>;
   }
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-7 gap-2">
       <div className="col-span-1 rounded-md p-3 hidden lg:block bg-white ">
-        <div className="flex flex-col items-start gap-4">
-          <h1 className="text-lg font-medium text-slate-900">
-            Select a Category
-          </h1>
-          <div className="flex flex-col items-start">
-            {categories.map((category) => {
-              return (
-                <div className="flex items-center gap-x-3" key={category.id}>
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    width={40}
-                    height={40}
-                  />
-                  <p
-                    onClick={() => filterByCategory(category.id)}
-                    className="cursor-pointer flex items-center text-sm"
-                  >
-                    {category.name}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <Separator className="my-5" />
-        <div className="flex flex-col items-start">
-          <h1 className="text-xl font-medium text-slate-900">
-            Filter By price
-          </h1>
-          <div className="flex flex-row items-center flex-wrap">
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-2"
-              >
-                <div className="flex flex-row items-center gap-1">
-                  <FormField
-                    name="minPrice"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel className=" p-0 m-0">min</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            className="max-w-[80px]"
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    name="maxPrice"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel className=" p-0 m-0">Max</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            className="max-w-[80px]"
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <Button
-                  size={"sm"}
-                  type="submit"
-                  className="w-full md:w-auto"
-                  variant={"amazonBtn"}
-                >
-                  Search
-                </Button>
-              </form>
-            </Form>
-          </div>
-        </div>
+        <Filters categories={categories} onSubmit={onSubmit} />
       </div>
       <div className="col-span-12 lg:col-span-6 rounded-md bg-white flex flex-col items-start gap-4 p-5 w-full">
         <div className="flex w-full items-center justify-between">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                Sort
-                <ArrowDown className="w-4 h-4 ml-2" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuGroup>
-                {SORT_OPTIONS.map((option) => (
-                  <DropdownMenuItem
-                    key={option.value}
-                    className={`my-1 ${
-                      filters.sort === option.value
-                        ? "bg-slate-100 text-slate-900"
-                        : "bg-transparent text-slate-700"
-                    }`}
-                    onClick={() =>
-                      setFilters({ ...filters, sort: option.value })
-                    }
-                  >
-                    {option.name}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <SortOptions setFilters={setFilters} filters={filters} />
           <div className="block lg:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -264,112 +57,24 @@ const ProductsContainer = ({
                 </Button>
               </SheetTrigger>
               <SheetContent side={"left"} className="overflow-y-auto">
-                <div className="flex flex-col items-start gap-4 overflow-y-auto">
-                  <h1 className="text-lg font-medium text-slate-900">
-                    Select a Category
-                  </h1>
-                  <div className="flex flex-col items-start">
-                    {categories.map((category) => {
-                      return (
-                        <div
-                          className="flex items-center gap-x-3"
-                          key={category.id}
-                        >
-                          <Image
-                            src={category.image}
-                            alt={category.name}
-                            width={40}
-                            height={40}
-                          />
-                          <p
-                            onClick={() => filterByCategory(category.id)}
-                            className="cursor-pointer flex items-center text-sm"
-                          >
-                            {category.name}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <Separator className="my-5" />
-                <div className="flex flex-col items-start gap-4">
-                  <h1 className="text-lg font-medium text-slate-900">
-                    Filter By price
-                  </h1>
-                  <div className="flex flex-row items-center flex-wrap">
-                    <Form {...form}>
-                      <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-2"
-                      >
-                        <div className="flex flex-row items-center gap-1">
-                          <FormField
-                            name="minPrice"
-                            control={form.control}
-                            render={({ field }) => (
-                              <FormItem className="w-full">
-                                <FormLabel className=" p-0 m-0">min</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    type="number"
-                                    {...field}
-                                    className="max-w-[80px]"
-                                    autoFocus={false}
-                                    ref={minPriceRef}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            name="maxPrice"
-                            control={form.control}
-                            render={({ field }) => (
-                              <FormItem className="w-full">
-                                <FormLabel className=" p-0 m-0">Max</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    type="number"
-                                    {...field}
-                                    className="max-w-[80px]"
-                                    autoFocus={false}
-                                    ref={maxPriceRef}
-                                  />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        <Button
-                          size={"sm"}
-                          type="submit"
-                          className="w-full md:w-auto"
-                          variant={"amazonBtn"}
-                        >
-                          Search
-                        </Button>
-                      </form>
-                    </Form>
-                  </div>
-                </div>
+                <Filters categories={categories} onSubmit={onSubmit} />
               </SheetContent>
             </Sheet>
           </div>
         </div>
         <div className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-2 w-full">
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((product: any) => (
+            filteredProducts.map((product) => (
               <ProductCard product={product} key={product.id} />
             ))
           ) : (
-            <div>No Product Found</div>
+            <div className="w-full text-center italic text-slate-500">No Products Found</div>
           )}
         </div>
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full gap-2">
           <Button
             size={"sm"}
-            onClick={onDecrease}
+            onClick={() => onPageChange(-1)}
             variant={"outline"}
             disabled={
               !currentPage || (!!currentPage && parseInt(currentPage) === 1)
@@ -380,7 +85,7 @@ const ProductsContainer = ({
           </Button>
           <Button
             size={"sm"}
-            onClick={onIncrease}
+            onClick={() => onPageChange(1)}
             disabled={length <= 9}
             variant={"outline"}
           >

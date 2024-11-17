@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
+
 import { cartProductType } from "../../product/[productId]/_components/ProductContainerDetails";
-import { useState } from "react";
-import SetQuantity from "../../product/[productId]/_components/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+
+import SetQuantity from "../../product/[productId]/_components/SetQuantity";
 
 type CartProductItemProps = {
   product: cartProductType;
@@ -14,7 +15,6 @@ type CartProductItemProps = {
 };
 
 const CartProductItem = ({ product, index }: CartProductItemProps) => {
-  const [isLoading, setIsLoading] = useState(false);
   const {
     handleQuantityIncrease,
     handleQuantityDecrease,
@@ -37,7 +37,6 @@ const CartProductItem = ({ product, index }: CartProductItemProps) => {
         <p className="text-slate-800 text-sm">
           Color : {product.selectedImage.color}
         </p>
-        <p className="text-slate-800 text-sm">Category : {product.category}</p>
         {product.sizes.length > 0 && (
           <p className="text-slate-800 flex items-center gap-2">
             Size :{" "}

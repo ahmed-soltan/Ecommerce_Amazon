@@ -3,19 +3,10 @@ import Link from "next/link";
 
 import { Rating } from "@mui/material";
 
-import { Products, Review } from "@prisma/client";
-
 import { formatPrice } from "@/lib/formatPrice";
 
 type ProductCardProps = {
-  product: Products & {
-    reviews: Review[] | null;
-    images: {
-      image: string;
-      color: string;
-      colorCode: string;
-    }[];
-  };
+  product: any
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {

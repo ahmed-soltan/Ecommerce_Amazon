@@ -1,5 +1,6 @@
-import { getFilteredProducts } from "@/actions/getFilteredProducts";
 import ProductsContainer from "./_components/ProductsContainer";
+
+import { getFilteredProducts } from "@/actions/getFilteredProducts";
 import { getCategoriesWithProductCount } from "@/actions/getCategoriesWithProductCount";
 
 type SearchProps = {
