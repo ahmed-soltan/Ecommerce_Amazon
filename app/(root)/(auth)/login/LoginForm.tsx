@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,12 +21,13 @@ import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(3 , {
+  password: z.string().min(3, {
     message: "Password must be at least 3 characters.",
   }),
 });
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,6 +41,7 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setIsLoading(true);
       signIn("credentials", {
         email: values.email,
         password: values.password,
@@ -59,6 +62,7 @@ const LoginForm = () => {
       toast.error("Something went wrong");
     } finally {
       router.refresh();
+      setIsLoading(false);
     }
   };
 
@@ -94,7 +98,11 @@ const LoginForm = () => {
                   <FormItem>
                     <FormLabel>password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter password" {...field} type="password"/>
+                      <Input
+                        placeholder="Enter password"
+                        {...field}
+                        type="password"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -105,7 +113,7 @@ const LoginForm = () => {
             <Button
               className="w-full md:w-auto"
               type="submit"
-              disabled={isSubmitting || !isValid}
+              disabled={isSubmitting || !isValid || isLoading}
             >
               Submit
             </Button>

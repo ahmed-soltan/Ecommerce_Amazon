@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import prisma from "../lib/prismadb";
 import { nextOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
@@ -9,21 +9,19 @@ export const getCurrentUser = async () => {
     return null;
   }
   try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session?.user?.email!,
+      },
+      include: {
+        profile: true,
+        vendor: true,
+      },
+    });
 
-
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session?.user?.email!,
-    },
-    include: {
-      profile: true,
-      vendor:true
-    },
-  });
-
-  return user
+    return user;
   } catch (error) {
-    console.log("GET_CURRENT_USER" , error) 
-    return null
+    console.log("GET_CURRENT_USER", error);
+    return null;
   }
 };

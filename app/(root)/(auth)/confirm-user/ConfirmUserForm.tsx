@@ -16,6 +16,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -23,6 +24,7 @@ const formSchema = z.object({
 });
 
 const ConfirmUserForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,6 +37,7 @@ const ConfirmUserForm = () => {
   const { isValid, isSubmitting } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
     try {
       signIn("credentials", {
         email: values.email,
@@ -43,7 +46,7 @@ const ConfirmUserForm = () => {
       }).then((callback) => {
         if (callback?.ok) {
           router.refresh();
-          router.push('/vendor-register')
+          router.push("/vendor-register");
         }
         if (callback?.error) {
           toast.error(callback.error);
@@ -52,7 +55,9 @@ const ConfirmUserForm = () => {
     } catch (error) {
       console.error("Error during Confirming User:", error);
       toast.error("Something went wrong");
-    } 
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -87,7 +92,11 @@ const ConfirmUserForm = () => {
                   <FormItem>
                     <FormLabel>password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter password" {...field} type="password"/>
+                      <Input
+                        placeholder="Enter password"
+                        {...field}
+                        type="password"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -98,7 +107,7 @@ const ConfirmUserForm = () => {
             <Button
               className="w-full md:w-auto"
               type="submit"
-              disabled={isSubmitting || !isValid}
+              disabled={isSubmitting || !isValid || isLoading}
             >
               Submit
             </Button>
