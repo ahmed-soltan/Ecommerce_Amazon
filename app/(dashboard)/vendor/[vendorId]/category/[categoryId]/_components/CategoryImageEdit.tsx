@@ -27,11 +27,7 @@ const CategoryImageEdit = ({
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState<string | null>(category.image);
   const router = useRouter();
-
-  const handleAddImage = (item: string) => {
-    setImage(item);
-  };
-
+  
   const handleRemoveImage = () => {
     setImage(null);
   };
@@ -39,10 +35,9 @@ const CategoryImageEdit = ({
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      await axios.patch(
-        `/api/vendors/${vendorId}/categories/${categoryId}`,
-        image
-      );
+      await axios.patch(`/api/vendors/${vendorId}/categories/${categoryId}`, {
+        image,
+      });
       toast.success("category image updated successfully");
       router.refresh();
     } catch (error) {
