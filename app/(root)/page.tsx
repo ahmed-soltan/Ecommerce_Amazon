@@ -2,14 +2,14 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { Banner } from "./components/Banner";
+import { Button } from "@/components/ui/button";
 import TopDealsProducts from "./components/TopDealsProducts";
 import NewProducts from "./components/NewProducts";
 import BrowsingHistoryHomePage from "./components/BrowsingHistoryHomePage";
-import { Button } from "@/components/ui/button";
+import BannerCategories from "./components/BannerCategories";
 
 import { getProducts } from "@/actions/getProducts";
 import { getCategoriesWithProductCount } from "@/actions/getCategoriesWithProductCount";
-import BannerCategories from "./components/BannerCategories";
 
 const Home = async () => {
   const categories = await getCategoriesWithProductCount();
@@ -17,7 +17,6 @@ const Home = async () => {
   const topDealsProducts = products
     ?.filter((product) => product.discount && product.discount > 0)
     .slice(0, 9);
-
   const newProducts = products?.slice(0, 9);
 
   return (
@@ -34,7 +33,7 @@ const Home = async () => {
                 size={"sm"}
               >
                 View All <ArrowRight className="w-4 h-4" />
-              </Button>
+              </Button>ٍ
             </Link>
           </h1>
 

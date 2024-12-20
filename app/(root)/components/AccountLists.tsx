@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 import {
   DropdownMenu,
@@ -8,36 +10,33 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
-import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Profile, User } from "@prisma/client";
 import { ManageProfiles } from "./ManageProfile";
 
+import { Profile, User } from "@prisma/client";
 
-export type AccountListsProps ={
-    user:User & {
-        profile:Profile[]
-    },
-    
-}
+export type AccountListsProps = {
+  user: User & {
+    profile: Profile[];
+  };
+};
 
-export const AccountLists = ({ user }:AccountListsProps) => {
-
-
-
+export const AccountLists = ({ user }: AccountListsProps) => {
   const currentProfile = user?.profile?.find(
     (profile: any) => profile.isSelected === true
   );
 
-
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} className="flex flex-col items-start hover:bg-transparent hover:text-white">
+        <Button
+          variant={"ghost"}
+          className="flex flex-col items-start hover:bg-transparent hover:text-white"
+        >
           {user ? (
-            <span className="text-sm text-slate-200">Hello, {currentProfile?.name ? currentProfile?.name : "Guest"}</span>
+            <span className="text-sm text-slate-200">
+              Hello, {currentProfile?.name ? currentProfile?.name : "Guest"}
+            </span>
           ) : (
             <Link href={"/login"} className="flex flex-col">
               <span className="text-sm">Hello, Sign in</span>
@@ -56,7 +55,9 @@ export const AccountLists = ({ user }:AccountListsProps) => {
             <>
               <Link href={"/login"} className="w-full">
                 <div>
-                  <Button variant={"amazonBtn"} className="text-sm w-full">Sign in</Button>
+                  <Button variant={"amazonBtn"} className="text-sm w-full">
+                    Sign in
+                  </Button>
                 </div>
               </Link>
               <p className="text-xs my-2">
@@ -100,10 +101,8 @@ export const AccountLists = ({ user }:AccountListsProps) => {
                 <Link href={"#"}>Subscribe</Link>
               </li>
               {user && (
-                <li  onClick={() => signOut()}>
-                  <Link href={"/"}>
-                    Logout
-                  </Link>
+                <li onClick={() => signOut()}>
+                  <Link href={"/"}>Logout</Link>
                 </li>
               )}
             </ul>
@@ -112,4 +111,4 @@ export const AccountLists = ({ user }:AccountListsProps) => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};

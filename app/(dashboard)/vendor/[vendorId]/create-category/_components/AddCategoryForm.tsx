@@ -70,6 +70,7 @@ const AddCategoryForm = ({ vendorId }: AddCategoryFormProps) => {
       toast.error("Something went wrong");
     }
   };
+  
   return (
     <>
       <div className="p-6">

@@ -35,7 +35,7 @@ const AccountContainer = ({
                   ? "/login"
                   : list.url === "/orders"
                   ? `/profile/${currentProfile?.id}/orders`
-                  : `${list.url}/${user.id}`
+                  : `#`
               }
               className="flex items-center gap-3 border-[2px] rounded-md px-3 py-6"
               key={list.title}
